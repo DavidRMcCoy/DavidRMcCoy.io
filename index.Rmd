@@ -1,8 +1,7 @@
 ---
-title: "Home"
+title: "About"
 ---
 
-# Something Here
+Welcome! I created this simple website to provide a few examples of my research and data analysis skills for my current job search for researcher/analyst positions based in Austin, TX (or remote). If you have arrived at this site, you likely already have access to [my resume (this version excludes my phone number)](https://github.com/DavidRMcCoy/DavidRMcCoy.io/raw/main/docs/McCoy_Resume_June_2022.pdf). I included these examples to demonstrate that my skill set generalizes beyond political science topics.
 
-Hello World
-
+[testing](https://davidrmccoy.github.io/DavidRMcCoy.io/another.html)

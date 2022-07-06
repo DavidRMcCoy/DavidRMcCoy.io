@@ -3,7 +3,7 @@ output_dir: "docs"
 navbar:
   title: "David McCoy: R Code Examples"
   left:
-    - text: "Home"
+    - text: "About"
       href: index.html
     - text: "Ex. 1 Texas Public Schools"
       href: TX_ed.html
