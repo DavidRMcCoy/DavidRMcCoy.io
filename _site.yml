@@ -1,0 +1,20 @@
+name: "David McCoy: R Code Examples"
+output_dir: "docs"
+navbar:
+  title: "David McCoy: R Code Examples"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Ex. 1 Texas Public Schools"
+      href: TX_ed.html
+    - text: "Ex. 2 Covid Visualizations"
+      href: covid_vis.html
+    - text: "Ex. 3 Gender Representation in Brazil"
+      href: gender_rep.html
+output:
+  html_document:
+    theme: cosmo
+    toc: true
+    highlight: pygments
+    css: styles.css
+    code_download: TRUE

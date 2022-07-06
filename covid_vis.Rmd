@@ -1,0 +1,5 @@
+---
+title: "Ex. 2 Covid Visualizations"
+---
+
+#yolo
