@@ -1,0 +1,78 @@
+---
+title: "All Regions and Campus Levels"
+---
+
+
+
+```{r, results = "asis", warning=F, message=F, class.source = 'fold-hide'}
+# Use this function to generate object names, then search and remove extra text.
+# for (i in 1:20){
+#   print(paste("gg_hs[[", i, "]], ", sep = ""))
+#   print(paste("gg_jhs[[", i, "]], ", sep = ""))
+#   print(paste("gg_es[[", i, "]], ", sep = ""))
+# }
+
+
+htmltools::tagList(list(gg_hs[[1]], 
+gg_jhs[[1]], 
+gg_es[[1]], 
+gg_hs[[2]], 
+gg_jhs[[2]], 
+gg_es[[2]], 
+gg_hs[[3]], 
+gg_jhs[[3]], 
+gg_es[[3]], 
+gg_hs[[4]], 
+gg_jhs[[4]], 
+gg_es[[4]], 
+gg_hs[[5]], 
+gg_jhs[[5]], 
+gg_es[[5]], 
+gg_hs[[6]], 
+gg_jhs[[6]], 
+gg_es[[6]], 
+gg_hs[[7]], 
+gg_jhs[[7]], 
+gg_es[[7]], 
+gg_hs[[8]], 
+gg_jhs[[8]], 
+gg_es[[8]], 
+gg_hs[[9]], 
+gg_jhs[[9]], 
+gg_es[[9]], 
+gg_hs[[10]], 
+gg_jhs[[10]], 
+gg_es[[10]], 
+gg_hs[[11]], 
+gg_jhs[[11]], 
+gg_es[[11]], 
+gg_hs[[12]], 
+gg_jhs[[12]], 
+gg_es[[12]], 
+gg_hs[[13]], 
+gg_jhs[[13]], 
+gg_es[[13]], 
+gg_hs[[14]], 
+gg_jhs[[14]], 
+gg_es[[14]], 
+gg_hs[[15]], 
+gg_jhs[[15]], 
+gg_es[[15]], 
+gg_hs[[16]], 
+gg_jhs[[16]], 
+gg_es[[16]], 
+gg_hs[[17]], 
+gg_jhs[[17]], 
+gg_es[[17]], 
+gg_hs[[18]], 
+gg_jhs[[18]], 
+gg_es[[18]], 
+gg_hs[[19]], 
+gg_jhs[[19]], 
+gg_es[[19]], 
+gg_hs[[20]], 
+gg_jhs[[20]], 
+gg_es[[20]]))
+
+```
+

@@ -11,11 +11,14 @@ This example highlights my data wrangling and visualization skills in an explora
 
 final example here using full code in echo = F chunk.
 
-### Load Packages
-```{r, message = FALSE, warning = FALSE}
+## Load Packages
+
+You can toggle the "code" button to the right to see this chunk.
+```{r, message = FALSE, warning = FALSE, class.source = 'fold-hide'}
 library(tidyverse)
 library(readxl)
 library(plotly)
+library(ggpubr)
 library(gapminder)
 library(kableExtra)
 library(summarytools)
@@ -124,36 +127,43 @@ codes <- codes %>%
 Taking the TAPR 2019 data as the base set, I match approximately 98.3% of campuses with the TEA school-level data by their campus id (`cid`). For parsimony, I exclude those %1.7% campuses that do not exist in both data sets. We can see that the masking and missing data results in approximately 10% of missing data from the TAPR 2019 data; however, due to the logic of how the masking is coded, those masked observations are likely to be smaller, relatively more homogeneous schools, otherwise, they would not have very small absolute numbers of students from any of the three racial/ethnic backgrounds.  
 
 ```{r, results = "asis"}
-#campus <- left_join(data, school, by = "cid") %>% left_join(codes, by = "cid")
+#campus <- left_join(data, school, by = "cid") %>% left_join(codes, by = "cid") # not as complete
 campus <- left_join(school, codes, by = "cid") %>% right_join(data, by = "cid") %>%
   filter(!is.na(Campus))
-dfSummary(campus,
+print(
+  dfSummary(campus,
           plain.ascii  = FALSE, 
           style        = "grid", 
           graph.magnif = 0.75, 
           valid.col    = FALSE,
           tmp.img.dir  = "/tmp",
-          silent = TRUE)
+          silent = TRUE),
+  method = "render")
 ```
 
 
-## Exploring the Relationship between Race/Ethnicity, Poverty, and Education Outcomes
+# Exploring the Relationship between Race/Ethnicity, Poverty, and Education Outcomes
 
-Here I write a function to build `plotly` interactive visualizations (hover over the image to get point-level data). School-level data is plotted on the x-axis based on poverty levels `Eco. Disadvanted (%)`. School-level data disaggregated by race/ethnicity on the y-axis to show each racial/ethnic groups's academic performance as `Meets Grade Level (%)`. I write a custom function that takes the data and two filtering parameters to slice the full data set: `campus %>% filter('Campus Type' == {{type}} & region == {{r}})`. I pass this function to `lapply()` to generate any or all combinations of `region` and `Campus Type` (up to )
+Here I write a function to build `plotly` interactive visualizations. Readers can hover over the image to get point-level data, as well as to zoom in to a plot region and toggle a `Student Group` on/off in the point/color legend. School-level data is plotted on the x-axis based on poverty levels `Eco. Disadvanted (%)`. School-level data disaggregated by race/ethnicity on the y-axis to show each racial/ethnic groups's academic performance as `Meets Grade Level (%)`. The three race/ethnicy groups are connected by vertical lines, showing the distance or spread (y-axis) in performance among the groups within each campus. The size of each point on the plot is mapped by the absolute number of students in each race/ethnicity category within that school. The lines are generated through Loess smoothing algorithms that display (non-linear) trends across the x-axis.
+
+## Create Functions for Interactive Plots
+
+I write a custom function that takes the data and two filtering parameters to slice the full data set: `campus %>% filter('Campus Type' == {{type}} & region == {{r}})`. I pass this function to `lapply()` to generate plots for each `region` and `Campus Type` (excluding K-12 schools for parsimony).
 
 ```{r, results = "asis", warning=F, message=F}
-
-
+# Regions 1 to 20
 r <- 1:20
-
+# Blank list for full sample objects
+fs <- list()
+# Create function to generate 20 plots
 plots <- function(data, r, type) {
 
 t <-  ggplot(data = campus %>% filter(`Campus Type` == {{type}} & region == {{r}}), 
          aes(label = `Campus`, label2 = `Size of Student Group at School`, x = `Eco. Disadvantaged (%)`, y = `Meets Grade Level (%)`)) +
   geom_line(alpha = .3, aes(group = cid)) +
   geom_point(alpha = .4, aes(size = `Size of Student Group at School`, color = `Student Group`)) +
-  geom_smooth(size = 2, method = loess, color = "black", se = FALSE, aes(group = `Student Group`)) +
-  geom_smooth(size = 1.8, method = loess, se = FALSE, aes(color = `Student Group`)) +
+  geom_smooth(size = 2, method = loess, color = "black", se = FALSE, aes(group = `Student Group`, weight = ln_meets_denom)) +
+  geom_smooth(size = 1.8, method = loess, se = FALSE, aes(color = `Student Group`, weight = ln_meets_denom)) +
   guides(size = FALSE) +
   theme(legend.position = "bottom") +
   xlim(c(0,100)) + ylim(c(0,100)) + 
@@ -165,37 +175,79 @@ t[[r]] <- ggplotly(t, tooltip = c("label", "label2", "x", "y"))
 #return(t[[r]])
 }
 
-# This works in R but not for markdown to html
-# for (i in 1:20){
-#   plots(campus, i)
-# }
-
+# Stores high school plots for 20 regions in indexed list
 gg_hs <- lapply(r, plots, data = campus, type = "High School")
 
+# Stores high school plots for 20 regions in indexed list
+gg_jhs <- lapply(r, plots, data = campus, type = "Middle & Jr. High School")
+
+# Stores elementary school plots for 20 regions in indexed list
 gg_es <- lapply(r, plots, data = campus, type = "Elementary School")
 
+# Full sample: High school
+t <-  ggplot(data = campus %>% filter(`Campus Type` == "High School"), 
+         aes(label = `Campus`, label2 = `Size of Student Group at School`, x = `Eco. Disadvantaged (%)`, y = `Meets Grade Level (%)`)) +
+  geom_line(alpha = .3, aes(group = cid)) +
+  geom_point(alpha = .4, aes(size = `Size of Student Group at School`, color = `Student Group`)) +
+  geom_smooth(size = 2, method = loess, color = "black", se = FALSE, aes(group = `Student Group`, weight = ln_meets_denom)) +
+  geom_smooth(size = 1.8, method = loess, se = FALSE, aes(color = `Student Group`, weight = ln_meets_denom)) +
+  guides(size = FALSE) +
+  theme(legend.position = "bottom") +
+  xlim(c(0,100)) + ylim(c(0,100)) + 
+    ggtitle("Full Sample of High Schools: Performance by Race/Ethnicity and Poverty")
+fs[[1]] <- ggplotly(t, tooltip = c("label", "label2", "x", "y"))
+
+# Full sample: Jr. High school
+t <-  ggplot(data = campus %>% filter(`Campus Type` == "Middle & Jr. High School"), 
+         aes(label = `Campus`, label2 = `Size of Student Group at School`, x = `Eco. Disadvantaged (%)`, y = `Meets Grade Level (%)`)) +
+  geom_line(alpha = .3, aes(group = cid)) +
+  geom_point(alpha = .4, aes(size = `Size of Student Group at School`, color = `Student Group`)) +
+  geom_smooth(size = 2, method = loess, color = "black", se = FALSE, aes(group = `Student Group`, weight = ln_meets_denom)) +
+  geom_smooth(size = 1.8, method = loess, se = FALSE, aes(color = `Student Group`, weight = ln_meets_denom)) +
+  guides(size = FALSE) +
+  theme(legend.position = "bottom") +
+  xlim(c(0,100)) + ylim(c(0,100)) + 
+    ggtitle("Full Sample of Middle Schools: Performance by Race/Ethnicity and Poverty")
+fs[[2]] <- ggplotly(t, tooltip = c("label", "label2", "x", "y"))
+
+# Full sample: Elementary school
+t <-  ggplot(data = campus %>% filter(`Campus Type` == "Elementary School"), 
+         aes(label = `Campus`, label2 = `Size of Student Group at School`, x = `Eco. Disadvantaged (%)`, y = `Meets Grade Level (%)`)) +
+  geom_line(alpha = .3, aes(group = cid)) +
+  geom_point(alpha = .4, aes(size = `Size of Student Group at School`, color = `Student Group`)) +
+  geom_smooth(size = 2, method = loess, color = "black", se = FALSE, aes(group = `Student Group`, weight = ln_meets_denom)) +
+  geom_smooth(size = 1.8, method = loess, se = FALSE, aes(color = `Student Group`, weight = ln_meets_denom)) +
+  guides(size = FALSE) +
+  theme(legend.position = "bottom") +
+  xlim(c(0,100)) + ylim(c(0,100)) + 
+    ggtitle("Full Sample of Elementary Schools: Performance by Race/Ethnicity and Poverty")
+fs[[3]] <- ggplotly(t, tooltip = c("label", "label2", "x", "y"))
 
 
 ```
 
+## Plots: Race/Ethnicity, Poverty, and Education Outcomes
 
+The functions have stored three sets of 20 plots within indexed lists - one plot for each Texas Education Service Center Region at each campus level. You can view [all 60 plots here](https://davidrmccoy.github.io/DavidRMcCoy.io/TX_ed_all.html). You can see a map of the [Texas ESC Regions here](https://rptsvr1.tea.texas.gov/perfreport/snapshot/2020/region.srch.html).   
+
+Below are the plots for the largest (Region 4: Houston area) and a mid-sized (Region 19: El Paso area) subset. These exploratory plots demonstrate the strong relationship between poverty, race/ethnicity, and educational outcomes. Between schools, and generally within schools, white students tend to have higher rates of meeting grade-level expectations. The full sample plots reveal that race has a persistent difference level (or growth intercept) regardless of the age group of the students. However the trend across poverty levels (or (negative) growth slope) is increasingly non-linear as students age into high school. This is evident in the increasingly steep Loess curves on the extremities of the x-axis for high school campuses, compared with other campuses, as well as junior high campuses compared with elementary campuses. This analysis is exploratory and does not make causal claims. It is important to remember that I have not made sufficient efforts at eliminating endogeneity to make causal claims. One clear takeaway, though, is that further work would need to recognize this non-linearity in any analysis using this data. Otherwise, relationships among these factors might be overlooked.
 ```{r, results = "asis", warning=F, message=F}
-
-gg_es
-
-gg_hs[[1]]
-
-subplot(gg_hs[[10]], gg_es[[10]], gg_hs[[20]], gg_es[[20]], nrows = 2)
-
-htmltools::tagList(list(gg_hs[[10]], gg_es[[10]], gg_hs[[20]], gg_es[[20]]))
-htmltools::tagList(list(gg_hs[[1]], gg_hs[[3]], gg_es[[1]], gg_es[[3]]))
+# Houston: Region 4
+htmltools::tagList(list(gg_hs[[4]], gg_jhs[[4]], gg_es[[4]]))
+# El Paso: Region 19
+htmltools::tagList(list(gg_hs[[19]], gg_jhs[[19]], gg_es[[19]]))
+# Full Samples
+htmltools::tagList(list(fs[[1]], fs[[2]], fs[[3]]))
 
 ```
 
 
 # Private Schools Data 2018 - 2019
 
+How does private school attendance moderate the relationship between race/ethnicity, poverty levels, and educational outcomes? I downloaded the 2019 private school enrollment data from the [Texas Private School Accreditation Commission site](http://www.tepsac.org/app/index.html#/search/archive). I grouped the data by region and combined it with the school-level data from the [Texas Education Agency's data](https://rptsvr1.tea.texas.gov/perfreport/account/va/va_correlate.html) used above. I want to explore whether different patterns emerge in these relationships when the data is subsetted to include small regions with low and high rates of private student attendance.
+
 ```{r}
+# Load 2019 private school data
 private <-  read_excel("docs/private schools 2018-2019.xlsx")
 private <-private %>%
   filter(!`Grade High` %in% c("Pre-K", "Early Education") & Closed == FALSE) %>%
@@ -224,31 +276,67 @@ region <- region %>%
     `Total Enrollment` = private_enrollment_region + public_enrollment_region,
     `Private Students in Region (%)` = 100 * ( private_enrollment_region / `Total Enrollment`),
     Region_lab = paste("Region", region, sep = " "),
-    Region = factor(region, ordered = TRUE, labels = Region_lab)) %>%
-  arrange(desc(`Private Students in Region (%)`)) %>%
+    Region = factor(region, ordered = TRUE, labels = Region_lab),
+    `Private School Rates` = ifelse(region %in% c(3, 18, 2, 19, 6), "High and Small Pop.",
+                                     ifelse(region %in% c(12, 15, 14, 8, 16), 
+                                            "Low and Small Pop.", "Middle or Large Pop."))) %>%
+  arrange(`Private Students in Region (%)`) %>%
   mutate(
     Region_lab = paste("Region", region, sep = " "),
-    `Region Ordered` = factor(region, levels = region, labels = paste("Region", region, sep = " ")))
+    `Region Ordered` = factor(region, levels = region, 
+                              labels = paste("Region", region, sep = " ")))
 
-#rm(private, private_region, public_region)
+s <- ggplot(region, 
+            aes(x = log(`Total Enrollment`), 
+                y = `Private Students in Region (%)`, 
+                label = region, 
+                color = `Private School Rates`)) +
+  geom_text(size = 5) +
+  guides(color = FALSE) 
 
-ggplotly(ggplot(region, aes(x = log(`Total Enrollment`), y = `Private Students in Region (%)`, label = region)) +
-  geom_smooth(alpha = .4, method = lm) +
-    geom_text(size = 5))
-ggplotly(ggplot(region %>% filter(!region %in% c(1, 3)), aes(x = log(`Total Enrollment`), y = `Private Students in Region (%)`, label = region)) +
-  geom_smooth(alpha = .4, method = lm) +
-    geom_text(size = 5))
+b <- ggplot(region, 
+            aes(x = `Private Students in Region (%)`, 
+                y = `Region Ordered`, 
+                fill = `Private School Rates`)) +
+  geom_col() +
+  theme(legend.position = "bottom")
 
-p1 <- ggplotly(ggplot(region, aes(x = `Private Students in Region (%)`, y = Region)) +
-  geom_col())
+ggarrange(s, b, nrow = 1, common.legend = TRUE, legend = "bottom")
 
-p2 <- ggplotly(ggplot(region, aes(x = `Private Students in Region (%)`, y = `Region Ordered`)) +
-  geom_col())
-
-subplot(p1, p2, margin = 0.07)
-
+rm(s, b)
 ```
 
+```{r}
+# Low and high private school attendance
+
+ps <- list()
+t <-  ggplot(data = campus %>% filter(`Campus Type` == "High School" & region %in% c(12, 15, 14, 8, 16)), 
+         aes(label = `Campus`, label2 = `Size of Student Group at School`, x = `Eco. Disadvantaged (%)`, y = `Meets Grade Level (%)`)) +
+  geom_line(alpha = .3, aes(group = cid)) +
+  geom_point(alpha = .4, aes(size = `Size of Student Group at School`, color = `Student Group`)) +
+  geom_smooth(size = 2, method = loess, color = "black", se = FALSE, aes(group = `Student Group`, weight = ln_meets_denom)) +
+  geom_smooth(size = 1.8, method = loess, se = FALSE, aes(color = `Student Group`, weight = ln_meets_denom)) +
+  guides(size = FALSE) +
+  theme(legend.position = "bottom") +
+  xlim(c(0,100)) + ylim(c(0,100)) + 
+    ggtitle("High Schools: Small Regions with Lower Rates of Private School Attendance")
+ps[[1]] <- ggplotly(t, tooltip = c("label", "label2", "x", "y"))
+
+t <-  ggplot(data = campus %>% filter(`Campus Type` == "High School" & region %in% c(3, 18, 2, 19, 6)), 
+         aes(label = `Campus`, label2 = `Size of Student Group at School`, x = `Eco. Disadvantaged (%)`, y = `Meets Grade Level (%)`)) +
+  geom_line(alpha = .3, aes(group = cid)) +
+  geom_point(alpha = .4, aes(size = `Size of Student Group at School`, color = `Student Group`)) +
+  geom_smooth(size = 2, method = loess, color = "black", se = FALSE, aes(group = `Student Group`, weight = ln_meets_denom)) +
+  geom_smooth(size = 1.8, method = loess, se = FALSE, aes(color = `Student Group`, weight = ln_meets_denom)) +
+  guides(size = FALSE) +
+  theme(legend.position = "bottom") +
+  xlim(c(0,100)) + ylim(c(0,100)) + 
+    ggtitle("High Schools: Small Regions with Higher Rates of Private School Attendance")
+ps[[2]] <- ggplotly(t, tooltip = c("label", "label2", "x", "y"))
+
+htmltools::tagList(list(ps[[1]], ps[[2]]))
+
+```
 
 
 
