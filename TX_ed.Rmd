@@ -1,5 +1,265 @@
 ---
 title: "Ex. 1 Texas Public Schools"
+
 ---
 
-#yolo
+Do: almost finished. Just make a couple of these. See how to hide code chunks for big ones of groups at end. See if there is a simple markdown solution to seeing dfsummary or remove the histograms.
+
+# Campus-Level Data for 2019: 
+
+This example highlights my data wrangling and visualization skills in an exploratory analysis of racial/ethnic inequity in public schools in Texas. This was a pet project that I created to satisfy my own curiosity on the topic and to get to know the publicly available data related to education in Texas. I clean, validate, and join several data sets with the end goal of exploring the relationship between race/ethnicity, economic disparity, and educational outcomes in Texas public schools. This page provides the steps required to go from several raw public data sets to produce the following interactive visualization, as well as several others, using the R packages listed below:
+
+final example here using full code in echo = F chunk.
+
+### Load Packages
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(readxl)
+library(plotly)
+library(gapminder)
+library(kableExtra)
+library(summarytools)
+```
+
+### Percent of Students Meeting Grade-Level by Race/Ethnic Categories
+
+For educational outcomes, I use the publicly available [Texas Academic Performance Report (TAPR) data](https://rptsvr1.tea.texas.gov/perfreport/tapr/2019/download/DownloadData.html) for the year 2019. This is a very large data set that that I have subsetted to focus on the percentage of students in three racial/ethnic categories (variable: `Student Group`) who meet the expectations of their respective grade levels (variable: `meets_level_pct`). I also include the numeric campus identifier `cid` and the respective denominators for each percentile value (variable: `meets_denom`), which informs the absolute number of students from each category at the school. I use this value to weight the observations in the Loess smoothing function and to inform the size parameter in the plots. For the original variable names, see the [TAPR Codebook](https://rptsvr1.tea.texas.gov/perfreport/tapr/2019/download/campstaar2b.html).  
+
+As described in the [codebook for the data set](https://rptsvr1.tea.texas.gov/perfreport/tapr/2019/download/campstaar2b.html), student groups' percentile values with very small denominators are masked (coded as negative placeholder values of "-1") in order to preclude the possibility of identification of individuals in the data. I exclude these masked values from the data set, as well as any school that reports missing data for all three student groups. Denominators of the second smallest student group for each school are also masked with a unique placeholder ("-3") when the smallest group requires masking. I replace this set of masked values with a reasonable proxy of half the size of the next largest group in the data.  
+
+This code does the following:  
+
+1. Read in subsetted TAPR Data
+2. Filter schools with all missing values
+3. Pivot the data to include (up to) three observations per school, corresponding to the three percentile scores `meets_level_pct` of students in each racial/ethnic category that meet the grade-level expectations.
+4. Create category names for student groups: `Student Group` and `group_denom`
+5. Remove masked data for percentiles and recode the masked denominator with the proxy.
+6. Create an additional variable `ln_meets_denom` of logged group size for use as weight and size in the plots.  
+
+The result is 
+
+```{r, message=FALSE, warning=FALSE}
+campus_2019 <- read.csv("docs/TAPR_2019_subset.csv") %>%
+  transmute(
+    cid = CAMPUS,
+    `African American` = CDB00A001219R,
+    `Hispanic` = CDH00A001219R,
+    `White` = CDW00A001219R,
+    aa_total = CDB00A001019D,
+    h_total = CDH00A001019D,
+    w_total = CDW00A001019D) %>%
+  # Filter out schools with no data (~ 10% of campuses)
+  filter(!is.na(`African American`) | !is.na(`Hispanic`) | !is.na(`White`))
+
+data <- cbind(
+  pivot_longer(campus_2019 %>% select(1:4), cols = 2:4, names_to = "Student Group", values_to = "Meets Grade Level (%)"),
+  pivot_longer(campus_2019 %>% select(5:7), cols = 1:3, names_to = "group_denom", values_to = "Size of Student Group at School")) %>%
+  group_by(cid) %>%
+  mutate(
+    `Meets Grade Level (%)` = ifelse(`Meets Grade Level (%)` == -1, NA, `Meets Grade Level (%)`), # rate = -1 is masked data and unusable
+    `Size of Student Group at School` = ifelse(`Size of Student Group at School` == -1, NA, # denominator = -1 is masked data and unusable
+                     `Size of Student Group at School`), 
+    `Size of Student Group at School` = ifelse(`Size of Student Group at School` == -3, # denominator = -3 is second smallest group
+                     nth(`Size of Student Group at School`, 2, order_by = `Size of Student Group at School`) / 2, 
+                     `Size of Student Group at School`), # recover with reasonable proxy of half largest group
+    ln_meets_denom = log(`Size of Student Group at School`)) %>% # log will be better for size parameter
+  ungroup()
+
+
+data[1:9,] %>%
+  kbl(caption = "Structure of the Data Set: Showing the First Three Schools") %>%
+  kable_paper("hover", full_width = F)
+
+               
+```
+
+## Campus-Level Poverty Data
+
+For campus-level poverty statistics, I use the public data available at the Texas Education Agency's (TEA) [school data visualizer](https://rptsvr1.tea.texas.gov/perfreport/account/va/va_correlate.html), which includes an extensive set of campus-level attributes. I am primarily interested in the percentage of students from economically disadvantaged backgrounds, measured as the percentage of students "...Students eligible for free or reduced-price lunch or other public assistance as reported on the PEIMS October snapshot" ([see definitions](https://rptsvr1.tea.texas.gov/perfreport/faqsite/glossary.html)). Unfortunately, the source does not reveal precisely which year this data comes from! School-level poverty is a relatively stable attribute, though, so this is not a huge concern.  
+
+The challenge is that this data does not include the campus ID as a stand-alone variable. I must first extract it from a longer string to create a comparable `cid` variable that can be used to join this data set to the first one. Because there is no universal pattern to parse this string, I have to split on three different patterns and extract the rightmost element in order to recover all the campus identifiers. This is because some schools have more than one set of the " (" pattern on the right-hand side of the "||" pattern. Each 
+
+
+```{r}
+school <- read_excel("docs/school.xlsx")
+school <- school %>%
+  transmute(
+    Campus = `Campus or District`, 
+    `Eco. Disadvantaged (%)` = `% Eco Disadvantaged`,
+    `Campus Type` = factor(`Entity Type`),
+    enrollment_public = Enrollment) %>%
+  mutate(
+    n = str_split(Campus, " \\|\\|", simplify = TRUE)[,2], # First split on "||"
+    nn = str_split(n, " \\(", simplify = TRUE)[,2], # Next splot on " ("
+    nnn = str_split(n, " \\(", simplify = TRUE)[,3], # A few have an additional " ("
+    cid = as.numeric(gsub("\\D+", "", nn)),
+    cid = ifelse(is.na(cid), as.numeric(gsub("\\D+", "", nnn)), cid)) %>%
+  select(-starts_with("n"))
+
+school[1:5,] %>%
+  kbl(caption = "Structure of the Poverty Data after Recovering the Campus Identifier") %>%
+  kable_paper("hover", full_width = F)
+
+```
+
+# Codes: School, District, Region, County
+
+This data set from TEA includes the codes that can be used for geographic identification in the plots.
+
+```{r, message = FALSE, warning = FALSE}
+codes <- read_csv("docs/school and district.csv")
+codes <- codes %>%
+  transmute(
+    cid = as.numeric(gsub("[^[:alnum:] ]", "", `School Number`)),
+    district = as.numeric(gsub("[^[:alnum:] ]", "", `District Number`)),
+    county = as.numeric(gsub("[^[:alnum:] ]", "", `County Number`)),
+    region = as.numeric(gsub("[^[:alnum:] ]", "", `ESC Region Served`)))
+
+```
+
+
+
+## Join Data and See Descriptive Statistics
+
+Taking the TAPR 2019 data as the base set, I match approximately 98.3% of campuses with the TEA school-level data by their campus id (`cid`). For parsimony, I exclude those %1.7% campuses that do not exist in both data sets. We can see that the masking and missing data results in approximately 10% of missing data from the TAPR 2019 data; however, due to the logic of how the masking is coded, those masked observations are likely to be smaller, relatively more homogeneous schools, otherwise, they would not have very small absolute numbers of students from any of the three racial/ethnic backgrounds.  
+
+```{r, results = "asis"}
+#campus <- left_join(data, school, by = "cid") %>% left_join(codes, by = "cid")
+campus <- left_join(school, codes, by = "cid") %>% right_join(data, by = "cid") %>%
+  filter(!is.na(Campus))
+dfSummary(campus,
+          plain.ascii  = FALSE, 
+          style        = "grid", 
+          graph.magnif = 0.75, 
+          valid.col    = FALSE,
+          tmp.img.dir  = "/tmp",
+          silent = TRUE)
+```
+
+
+## Exploring the Relationship between Race/Ethnicity, Poverty, and Education Outcomes
+
+Here I write a function to build `plotly` interactive visualizations (hover over the image to get point-level data). School-level data is plotted on the x-axis based on poverty levels `Eco. Disadvanted (%)`. School-level data disaggregated by race/ethnicity on the y-axis to show each racial/ethnic groups's academic performance as `Meets Grade Level (%)`. I write a custom function that takes the data and two filtering parameters to slice the full data set: `campus %>% filter('Campus Type' == {{type}} & region == {{r}})`. I pass this function to `lapply()` to generate any or all combinations of `region` and `Campus Type` (up to )
+
+```{r, results = "asis", warning=F, message=F}
+
+
+r <- 1:20
+
+plots <- function(data, r, type) {
+
+t <-  ggplot(data = campus %>% filter(`Campus Type` == {{type}} & region == {{r}}), 
+         aes(label = `Campus`, label2 = `Size of Student Group at School`, x = `Eco. Disadvantaged (%)`, y = `Meets Grade Level (%)`)) +
+  geom_line(alpha = .3, aes(group = cid)) +
+  geom_point(alpha = .4, aes(size = `Size of Student Group at School`, color = `Student Group`)) +
+  geom_smooth(size = 2, method = loess, color = "black", se = FALSE, aes(group = `Student Group`)) +
+  geom_smooth(size = 1.8, method = loess, se = FALSE, aes(color = `Student Group`)) +
+  guides(size = FALSE) +
+  theme(legend.position = "bottom") +
+  xlim(c(0,100)) + ylim(c(0,100)) + 
+    ggtitle(paste("Region", {{r}}, {{type}}, "Performance by Race/Ethnicity and Poverty", sep = " "))
+  
+t[[r]] <- ggplotly(t, tooltip = c("label", "label2", "x", "y"))
+
+#print(t[[r]])
+#return(t[[r]])
+}
+
+# This works in R but not for markdown to html
+# for (i in 1:20){
+#   plots(campus, i)
+# }
+
+gg_hs <- lapply(r, plots, data = campus, type = "High School")
+
+gg_es <- lapply(r, plots, data = campus, type = "Elementary School")
+
+
+
+```
+
+
+```{r, results = "asis", warning=F, message=F}
+
+gg_es
+
+gg_hs[[1]]
+
+subplot(gg_hs[[10]], gg_es[[10]], gg_hs[[20]], gg_es[[20]], nrows = 2)
+
+htmltools::tagList(list(gg_hs[[10]], gg_es[[10]], gg_hs[[20]], gg_es[[20]]))
+htmltools::tagList(list(gg_hs[[1]], gg_hs[[3]], gg_es[[1]], gg_es[[3]]))
+
+```
+
+
+# Private Schools Data 2018 - 2019
+
+```{r}
+private <-  read_excel("docs/private schools 2018-2019.xlsx")
+private <-private %>%
+  filter(!`Grade High` %in% c("Pre-K", "Early Education") & Closed == FALSE) %>%
+  transmute(
+    district = as.numeric(`District Number`),
+    county = as.numeric(`County Number`),
+    region = as.numeric(`Region Name`),
+    enrollment_private = as.numeric(Enrollment))
+
+private_region <- private %>%
+  group_by(region) %>%
+  summarise(
+    private_enrollment_region = sum(enrollment_private, na.rm = TRUE)) %>%
+  ungroup()
+
+public_region <- school %>%
+  left_join(codes, by = "cid") %>%
+  group_by(region) %>%
+  summarise(
+    public_enrollment_region = sum(enrollment_public, na.rm = TRUE)) %>%
+  ungroup()
+  
+region <- left_join(private_region, public_region, by = "region") 
+region <- region %>%
+  mutate(
+    `Total Enrollment` = private_enrollment_region + public_enrollment_region,
+    `Private Students in Region (%)` = 100 * ( private_enrollment_region / `Total Enrollment`),
+    Region_lab = paste("Region", region, sep = " "),
+    Region = factor(region, ordered = TRUE, labels = Region_lab)) %>%
+  arrange(desc(`Private Students in Region (%)`)) %>%
+  mutate(
+    Region_lab = paste("Region", region, sep = " "),
+    `Region Ordered` = factor(region, levels = region, labels = paste("Region", region, sep = " ")))
+
+#rm(private, private_region, public_region)
+
+ggplotly(ggplot(region, aes(x = log(`Total Enrollment`), y = `Private Students in Region (%)`, label = region)) +
+  geom_smooth(alpha = .4, method = lm) +
+    geom_text(size = 5))
+ggplotly(ggplot(region %>% filter(!region %in% c(1, 3)), aes(x = log(`Total Enrollment`), y = `Private Students in Region (%)`, label = region)) +
+  geom_smooth(alpha = .4, method = lm) +
+    geom_text(size = 5))
+
+p1 <- ggplotly(ggplot(region, aes(x = `Private Students in Region (%)`, y = Region)) +
+  geom_col())
+
+p2 <- ggplotly(ggplot(region, aes(x = `Private Students in Region (%)`, y = `Region Ordered`)) +
+  geom_col())
+
+subplot(p1, p2, margin = 0.07)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

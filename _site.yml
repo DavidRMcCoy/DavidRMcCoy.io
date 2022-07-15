@@ -18,3 +18,4 @@ output:
     highlight: pygments
     css: styles.css
     code_download: TRUE
+    code_folding: show
