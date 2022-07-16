@@ -15,6 +15,7 @@ output:
   html_document:
     theme: cosmo
     toc: true
+    toc_depth: 1
     highlight: pygments
     css: styles.css
     code_download: TRUE

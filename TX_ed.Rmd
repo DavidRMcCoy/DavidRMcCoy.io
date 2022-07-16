@@ -3,17 +3,14 @@ title: "Ex. 1 Texas Public Schools"
 
 ---
 
-Do: almost finished. Just make a couple of these. See how to hide code chunks for big ones of groups at end. See if there is a simple markdown solution to seeing dfsummary or remove the histograms.
+This example highlights my data wrangling and visualization skills in an exploratory analysis of racial/ethnic inequity in public schools in Texas. This was a pet project that I created to satisfy my own curiosity on the topic and to get to know the publicly available data related to education in Texas. This page provides the steps required to go from several raw, public data sets to produce a series of interactive data visualizations that explore relationships between race/ethnicity, poverty, and educational outcomes (like these]), as well as how those relationships are moderated by regional private school attendance.
+
 
 # Campus-Level Data for 2019: 
 
-This example highlights my data wrangling and visualization skills in an exploratory analysis of racial/ethnic inequity in public schools in Texas. This was a pet project that I created to satisfy my own curiosity on the topic and to get to know the publicly available data related to education in Texas. I clean, validate, and join several data sets with the end goal of exploring the relationship between race/ethnicity, economic disparity, and educational outcomes in Texas public schools. This page provides the steps required to go from several raw public data sets to produce the following interactive visualization, as well as several others, using the R packages listed below:
-
-final example here using full code in echo = F chunk.
 
 ## Load Packages
-
-You can toggle the "code" button to the right to see this chunk.
+You can toggle the "code" button to the right to see this chunk. You can hide long code chunks by toggling the same button.
 ```{r, message = FALSE, warning = FALSE, class.source = 'fold-hide'}
 library(tidyverse)
 library(readxl)
@@ -24,7 +21,7 @@ library(kableExtra)
 library(summarytools)
 ```
 
-### Percent of Students Meeting Grade-Level by Race/Ethnic Categories
+## Percent of Students Meeting Grade-Level by Race/Ethnic Categories
 
 For educational outcomes, I use the publicly available [Texas Academic Performance Report (TAPR) data](https://rptsvr1.tea.texas.gov/perfreport/tapr/2019/download/DownloadData.html) for the year 2019. This is a very large data set that that I have subsetted to focus on the percentage of students in three racial/ethnic categories (variable: `Student Group`) who meet the expectations of their respective grade levels (variable: `meets_level_pct`). I also include the numeric campus identifier `cid` and the respective denominators for each percentile value (variable: `meets_denom`), which informs the absolute number of students from each category at the school. I use this value to weight the observations in the Loess smoothing function and to inform the size parameter in the plots. For the original variable names, see the [TAPR Codebook](https://rptsvr1.tea.texas.gov/perfreport/tapr/2019/download/campstaar2b.html).  
 
@@ -32,16 +29,15 @@ As described in the [codebook for the data set](https://rptsvr1.tea.texas.gov/pe
 
 This code does the following:  
 
-1. Read in subsetted TAPR Data
+1. Read in subset of TAPR Data
 2. Filter schools with all missing values
 3. Pivot the data to include (up to) three observations per school, corresponding to the three percentile scores `meets_level_pct` of students in each racial/ethnic category that meet the grade-level expectations.
 4. Create category names for student groups: `Student Group` and `group_denom`
 5. Remove masked data for percentiles and recode the masked denominator with the proxy.
-6. Create an additional variable `ln_meets_denom` of logged group size for use as weight and size in the plots.  
-
-The result is 
+6. Create an additional variable `ln_meets_denom` of logged group size for use as weight in the Loess smoothing algorithm.  
 
 ```{r, message=FALSE, warning=FALSE}
+# Load TAPR data; rename vars
 campus_2019 <- read.csv("docs/TAPR_2019_subset.csv") %>%
   transmute(
     cid = CAMPUS,
@@ -53,7 +49,7 @@ campus_2019 <- read.csv("docs/TAPR_2019_subset.csv") %>%
     w_total = CDW00A001019D) %>%
   # Filter out schools with no data (~ 10% of campuses)
   filter(!is.na(`African American`) | !is.na(`Hispanic`) | !is.na(`White`))
-
+# Pivot values and descriptive categories
 data <- cbind(
   pivot_longer(campus_2019 %>% select(1:4), cols = 2:4, names_to = "Student Group", values_to = "Meets Grade Level (%)"),
   pivot_longer(campus_2019 %>% select(5:7), cols = 1:3, names_to = "group_denom", values_to = "Size of Student Group at School")) %>%
@@ -67,13 +63,10 @@ data <- cbind(
                      `Size of Student Group at School`), # recover with reasonable proxy of half largest group
     ln_meets_denom = log(`Size of Student Group at School`)) %>% # log will be better for size parameter
   ungroup()
-
-
+# Show Data
 data[1:9,] %>%
   kbl(caption = "Structure of the Data Set: Showing the First Three Schools") %>%
   kable_paper("hover", full_width = F)
-
-               
 ```
 
 ## Campus-Level Poverty Data
@@ -83,7 +76,7 @@ For campus-level poverty statistics, I use the public data available at the Texa
 The challenge is that this data does not include the campus ID as a stand-alone variable. I must first extract it from a longer string to create a comparable `cid` variable that can be used to join this data set to the first one. Because there is no universal pattern to parse this string, I have to split on three different patterns and extract the rightmost element in order to recover all the campus identifiers. This is because some schools have more than one set of the " (" pattern on the right-hand side of the "||" pattern. Each 
 
 
-```{r}
+```{r, warning = FALSE, message = FALSE}
 school <- read_excel("docs/school.xlsx")
 school <- school %>%
   transmute(
@@ -105,7 +98,7 @@ school[1:5,] %>%
 
 ```
 
-# Codes: School, District, Region, County
+## Codes: School, District, Region, County
 
 This data set from TEA includes the codes that can be used for geographic identification in the plots.
 
@@ -126,7 +119,7 @@ codes <- codes %>%
 
 Taking the TAPR 2019 data as the base set, I match approximately 98.3% of campuses with the TEA school-level data by their campus id (`cid`). For parsimony, I exclude those %1.7% campuses that do not exist in both data sets. We can see that the masking and missing data results in approximately 10% of missing data from the TAPR 2019 data; however, due to the logic of how the masking is coded, those masked observations are likely to be smaller, relatively more homogeneous schools, otherwise, they would not have very small absolute numbers of students from any of the three racial/ethnic backgrounds.  
 
-```{r, results = "asis"}
+```{r, results = "asis", warning = FALSE, message = FALSE}
 #campus <- left_join(data, school, by = "cid") %>% left_join(codes, by = "cid") # not as complete
 campus <- left_join(school, codes, by = "cid") %>% right_join(data, by = "cid") %>%
   filter(!is.na(Campus))
@@ -241,13 +234,14 @@ htmltools::tagList(list(fs[[1]], fs[[2]], fs[[3]]))
 
 ```
 
+# Moderation of Relationships by Private School Attendance Rates
 
-# Private Schools Data 2018 - 2019
+## Private Schools Data 2018 - 2019
 
-How does private school attendance moderate the relationship between race/ethnicity, poverty levels, and educational outcomes? I downloaded the 2019 private school enrollment data from the [Texas Private School Accreditation Commission site](http://www.tepsac.org/app/index.html#/search/archive). I grouped the data by region and combined it with the school-level data from the [Texas Education Agency's data](https://rptsvr1.tea.texas.gov/perfreport/account/va/va_correlate.html) used above. I want to explore whether different patterns emerge in these relationships when the data is subsetted to include small regions with low and high rates of private student attendance.
+How does private school attendance moderate the relationship between race/ethnicity, poverty levels, and educational outcomes? I downloaded the 2019 private school enrollment data from the [Texas Private School Accreditation Commission site](http://www.tepsac.org/app/index.html#/search/archive). I grouped the data by [region](https://rptsvr1.tea.texas.gov/perfreport/snapshot/2020/region.srch.html)) and combined it with the public school-level data from the [Texas Education Agency's data](https://rptsvr1.tea.texas.gov/perfreport/account/va/va_correlate.html) used above. I want to explore whether different patterns emerge in these relationships when the data is subset to include small regions with low and high rates of private student attendance.
 
-```{r}
-# Load 2019 private school data
+```{r, warning=F, message=F}
+# Load 2019 private school data and Filter out pre-K and closed schools
 private <-  read_excel("docs/private schools 2018-2019.xlsx")
 private <-private %>%
   filter(!`Grade High` %in% c("Pre-K", "Early Education") & Closed == FALSE) %>%
@@ -256,20 +250,20 @@ private <-private %>%
     county = as.numeric(`County Number`),
     region = as.numeric(`Region Name`),
     enrollment_private = as.numeric(Enrollment))
-
+# Aggregate enrollment by region
 private_region <- private %>%
   group_by(region) %>%
   summarise(
     private_enrollment_region = sum(enrollment_private, na.rm = TRUE)) %>%
   ungroup()
-
+# Aggregate public school enrollment by region
 public_region <- school %>%
   left_join(codes, by = "cid") %>%
   group_by(region) %>%
   summarise(
     public_enrollment_region = sum(enrollment_public, na.rm = TRUE)) %>%
   ungroup()
-  
+#Join and create variables and factor labels
 region <- left_join(private_region, public_region, by = "region") 
 region <- region %>%
   mutate(
@@ -277,15 +271,15 @@ region <- region %>%
     `Private Students in Region (%)` = 100 * ( private_enrollment_region / `Total Enrollment`),
     Region_lab = paste("Region", region, sep = " "),
     Region = factor(region, ordered = TRUE, labels = Region_lab),
-    `Private School Rates` = ifelse(region %in% c(3, 18, 2, 19, 6), "High and Small Pop.",
-                                     ifelse(region %in% c(12, 15, 14, 8, 16), 
-                                            "Low and Small Pop.", "Middle or Large Pop."))) %>%
+    `Private School Rates` = ifelse(
+      region %in% c(3, 18, 2, 19, 6), "High and Small Pop.", ifelse(
+        region %in% c(12, 15, 14, 8, 16), "Low and Small Pop.", "Middle or Large Pop."))) %>%
   arrange(`Private Students in Region (%)`) %>%
   mutate(
     Region_lab = paste("Region", region, sep = " "),
     `Region Ordered` = factor(region, levels = region, 
                               labels = paste("Region", region, sep = " ")))
-
+# Scatter and bar plots
 s <- ggplot(region, 
             aes(x = log(`Total Enrollment`), 
                 y = `Private Students in Region (%)`, 
@@ -293,20 +287,20 @@ s <- ggplot(region,
                 color = `Private School Rates`)) +
   geom_text(size = 5) +
   guides(color = FALSE) 
-
 b <- ggplot(region, 
             aes(x = `Private Students in Region (%)`, 
                 y = `Region Ordered`, 
                 fill = `Private School Rates`)) +
   geom_col() +
   theme(legend.position = "bottom")
-
 ggarrange(s, b, nrow = 1, common.legend = TRUE, legend = "bottom")
-
 rm(s, b)
 ```
 
-```{r}
+## Education Outcomes by High and Low Rates of Regional Private School Attendance
+The most notable difference here is that extremely privileged or disadvantaged schools have more extreme values in regions where there are high rates of private school attendance. We can further examine this by directly comparing racial/ethnic groups.
+
+```{r, results = "asis", warning=F, message=F}
 # Low and high private school attendance
 
 ps <- list()
@@ -340,6 +334,57 @@ htmltools::tagList(list(ps[[1]], ps[[2]]))
 
 
 
+## Racial/Ethnic Group Comparison by High and Low Rates of Regional Private School Attendance
+
+The final exploratory analysis takes the same data and slices it into the three racial/ethnic groups for the higher and lower rates of private school attendance in region. Schools in regions with lower private school attendance rates do not tend to have greater overall rates of meeting their grade levels. One interesting pattern in the data is that schools in regions with lower rates of private school attendance have lower within-region inequality among schools. That is to say that extremely privileged (disadvantaged) campuses in regions with many private schools perform far better (worse) than other campuses within their own regions. Privileged (disadvantaged) campuses in regions with lower rates of private schools still perform better (worse); however, these differences within those regions are less extreme.
+
+```{r, results = "asis", warning=F, message=F}
+campus <- campus %>%
+  mutate(
+    `Private School Rates` = ifelse(
+      region %in% c(3, 18, 2, 19, 6), "High and Small Pop.", ifelse(
+        region %in% c(12, 15, 14, 8, 16), "Low and Small Pop.", "Middle or Large Pop."))) 
+  
+
+t <-  ggplot(data = campus %>% filter(`Campus Type` == "High School" & region %in% c(12, 15, 14, 8, 16, 3, 18, 2, 19, 6) & `Student Group` == "African American"), 
+         aes(label = `Campus`, label2 = `Size of Student Group at School`, x = `Eco. Disadvantaged (%)`, y = `Meets Grade Level (%)`)) +
+  #geom_line(alpha = .3, aes(group = cid)) +
+  geom_point(alpha = .4, aes(size = `Size of Student Group at School`, color = `Private School Rates`)) +
+  geom_smooth(size = 2, method = loess, color = "black", se = FALSE, aes(group = `Private School Rates`, weight = ln_meets_denom)) +
+  geom_smooth(size = 1.8, method = loess, se = FALSE, aes(color = `Private School Rates`, weight = ln_meets_denom)) +
+  guides(size = FALSE) +
+  theme(legend.position = "bottom") +
+  xlim(c(0,100)) + ylim(c(0,100)) + 
+    ggtitle("African American Students: High Schools in Small Regions with Lower Rates of Private School Attendance")
+ps[[3]] <- ggplotly(t, tooltip = c("label", "label2", "x", "y"))
+
+t <-  ggplot(data = campus %>% filter(`Campus Type` == "High School" & region %in% c(12, 15, 14, 8, 16, 3, 18, 2, 19, 6) & `Student Group` == "Hispanic"), 
+         aes(label = `Campus`, label2 = `Size of Student Group at School`, x = `Eco. Disadvantaged (%)`, y = `Meets Grade Level (%)`)) +
+  #geom_line(alpha = .3, aes(group = cid)) +
+  geom_point(alpha = .4, aes(size = `Size of Student Group at School`, color = `Private School Rates`)) +
+  geom_smooth(size = 2, method = loess, color = "black", se = FALSE, aes(group = `Private School Rates`, weight = ln_meets_denom)) +
+  geom_smooth(size = 1.8, method = loess, se = FALSE, aes(color = `Private School Rates`, weight = ln_meets_denom)) +
+  guides(size = FALSE) +
+  theme(legend.position = "bottom") +
+  xlim(c(0,100)) + ylim(c(0,100)) + 
+    ggtitle("Hispanic Students: High Schools in Small Regions with Lower Rates of Private School Attendance")
+ps[[4]] <- ggplotly(t, tooltip = c("label", "label2", "x", "y"))
+
+t <-  ggplot(data = campus %>% filter(`Campus Type` == "High School" & region %in% c(12, 15, 14, 8, 16, 3, 18, 2, 19, 6) & `Student Group` == "White"), 
+         aes(label = `Campus`, label2 = `Size of Student Group at School`, x = `Eco. Disadvantaged (%)`, y = `Meets Grade Level (%)`)) +
+  #geom_line(alpha = .3, aes(group = cid)) +
+  geom_point(alpha = .4, aes(size = `Size of Student Group at School`, color = `Private School Rates`)) +
+  geom_smooth(size = 2, method = loess, color = "black", se = FALSE, aes(group = `Private School Rates`, weight = ln_meets_denom)) +
+  geom_smooth(size = 1.8, method = loess, se = FALSE, aes(color = `Private School Rates`, weight = ln_meets_denom)) +
+  guides(size = FALSE) +
+  theme(legend.position = "bottom") +
+  xlim(c(0,100)) + ylim(c(0,100)) + 
+    ggtitle("White Students: High Schools in Small Regions with Lower Rates of Private School Attendance")
+ps[[5]] <- ggplotly(t, tooltip = c("label", "label2", "x", "y"))
+
+htmltools::tagList(list(ps[[3]], ps[[4]], ps[[5]]))
+
+```
 
 
 

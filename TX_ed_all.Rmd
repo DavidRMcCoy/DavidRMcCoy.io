@@ -2,8 +2,105 @@
 title: "All Regions and Campus Levels"
 ---
 
+You can see a map of the [Texas ESC Regions here](https://rptsvr1.tea.texas.gov/perfreport/snapshot/2020/region.srch.html)
+
+```{r, message = FALSE, warning = FALSE, class.source = 'fold-hide'}
+library(tidyverse)
+library(readxl)
+library(plotly)
+library(ggpubr)
+library(gapminder)
+library(kableExtra)
+library(summarytools)
+
+# Load TAPR data; rename vars
+campus_2019 <- read.csv("docs/TAPR_2019_subset.csv") %>%
+  transmute(
+    cid = CAMPUS,
+    `African American` = CDB00A001219R,
+    `Hispanic` = CDH00A001219R,
+    `White` = CDW00A001219R,
+    aa_total = CDB00A001019D,
+    h_total = CDH00A001019D,
+    w_total = CDW00A001019D) %>%
+  # Filter out schools with no data (~ 10% of campuses)
+  filter(!is.na(`African American`) | !is.na(`Hispanic`) | !is.na(`White`))
+# Pivot values and descriptive categories
+data <- cbind(
+  pivot_longer(campus_2019 %>% select(1:4), cols = 2:4, names_to = "Student Group", values_to = "Meets Grade Level (%)"),
+  pivot_longer(campus_2019 %>% select(5:7), cols = 1:3, names_to = "group_denom", values_to = "Size of Student Group at School")) %>%
+  group_by(cid) %>%
+  mutate(
+    `Meets Grade Level (%)` = ifelse(`Meets Grade Level (%)` == -1, NA, `Meets Grade Level (%)`), # rate = -1 is masked data and unusable
+    `Size of Student Group at School` = ifelse(`Size of Student Group at School` == -1, NA, # denominator = -1 is masked data and unusable
+                     `Size of Student Group at School`), 
+    `Size of Student Group at School` = ifelse(`Size of Student Group at School` == -3, # denominator = -3 is second smallest group
+                     nth(`Size of Student Group at School`, 2, order_by = `Size of Student Group at School`) / 2, 
+                     `Size of Student Group at School`), # recover with reasonable proxy of half largest group
+    ln_meets_denom = log(`Size of Student Group at School`)) %>% # log will be better for size parameter
+  ungroup()
+
+school <- read_excel("docs/school.xlsx")
+school <- school %>%
+  transmute(
+    Campus = `Campus or District`, 
+    `Eco. Disadvantaged (%)` = `% Eco Disadvantaged`,
+    `Campus Type` = factor(`Entity Type`),
+    enrollment_public = Enrollment) %>%
+  mutate(
+    n = str_split(Campus, " \\|\\|", simplify = TRUE)[,2], # First split on "||"
+    nn = str_split(n, " \\(", simplify = TRUE)[,2], # Next splot on " ("
+    nnn = str_split(n, " \\(", simplify = TRUE)[,3], # A few have an additional " ("
+    cid = as.numeric(gsub("\\D+", "", nn)),
+    cid = ifelse(is.na(cid), as.numeric(gsub("\\D+", "", nnn)), cid)) %>%
+  select(-starts_with("n"))
+
+codes <- read_csv("docs/school and district.csv")
+codes <- codes %>%
+  transmute(
+    cid = as.numeric(gsub("[^[:alnum:] ]", "", `School Number`)),
+    district = as.numeric(gsub("[^[:alnum:] ]", "", `District Number`)),
+    county = as.numeric(gsub("[^[:alnum:] ]", "", `County Number`)),
+    region = as.numeric(gsub("[^[:alnum:] ]", "", `ESC Region Served`)))
+
+campus <- left_join(school, codes, by = "cid") %>% right_join(data, by = "cid") %>%
+  filter(!is.na(Campus))
+
+r <- 1:20
+# Blank list for full sample objects
+fs <- list()
+# Create function to generate 20 plots
+plots <- function(data, r, type) {
+
+t <-  ggplot(data = campus %>% filter(`Campus Type` == {{type}} & region == {{r}}), 
+         aes(label = `Campus`, label2 = `Size of Student Group at School`, x = `Eco. Disadvantaged (%)`, y = `Meets Grade Level (%)`)) +
+  geom_line(alpha = .3, aes(group = cid)) +
+  geom_point(alpha = .4, aes(size = `Size of Student Group at School`, color = `Student Group`)) +
+  geom_smooth(size = 2, method = loess, color = "black", se = FALSE, aes(group = `Student Group`, weight = ln_meets_denom)) +
+  geom_smooth(size = 1.8, method = loess, se = FALSE, aes(color = `Student Group`, weight = ln_meets_denom)) +
+  guides(size = FALSE) +
+  theme(legend.position = "bottom") +
+  xlim(c(0,100)) + ylim(c(0,100)) + 
+    ggtitle(paste("Region", {{r}}, {{type}}, "Performance by Race/Ethnicity and Poverty", sep = " "))
+  
+t[[r]] <- ggplotly(t, tooltip = c("label", "label2", "x", "y"))
+
+#print(t[[r]])
+#return(t[[r]])
+}
+
+# Stores high school plots for 20 regions in indexed list
+gg_hs <- lapply(r, plots, data = campus, type = "High School")
+
+# Stores high school plots for 20 regions in indexed list
+gg_jhs <- lapply(r, plots, data = campus, type = "Middle & Jr. High School")
+
+# Stores elementary school plots for 20 regions in indexed list
+gg_es <- lapply(r, plots, data = campus, type = "Elementary School")
 
 
+
+```
 ```{r, results = "asis", warning=F, message=F, class.source = 'fold-hide'}
 # Use this function to generate object names, then search and remove extra text.
 # for (i in 1:20){
