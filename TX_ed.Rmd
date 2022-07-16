@@ -3,7 +3,7 @@ title: "Ex. 1 Texas Public Schools"
 
 ---
 
-This example highlights my data wrangling and visualization skills in an exploratory analysis of racial/ethnic inequity in public schools in Texas. This was a pet project that I created to satisfy my own curiosity on the topic and to get to know the publicly available data related to education in Texas. This page provides the steps required to go from several raw, public data sets to produce a series of interactive data visualizations that explore relationships between race/ethnicity, poverty, and educational outcomes (like these]), as well as how those relationships are moderated by regional private school attendance.
+This example highlights my data wrangling and visualization skills in an exploratory analysis of racial/ethnic inequity in public schools in Texas. This was a pet project that I created to satisfy my own curiosity on the topic and to get to know the publicly available data related to education in Texas. This page provides the steps required to go from several raw, public data sets to produce a series of interactive data visualizations that explore relationships between race/ethnicity, poverty, and educational outcomes ([like these](https://davidrmccoy.github.io/DavidRMcCoy.io/TX_ed_all.html)), as well as how those relationships are moderated by regional private school attendance.
 
 
 # Campus-Level Data for 2019: 

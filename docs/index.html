@@ -269,6 +269,9 @@ $(document).ready(function () {
 <div class="btn-group pull-right float-right">
 <button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
 <li><a id="rmd-download-source" href="#">Download Rmd</a></li>
 </ul>
 </div>
@@ -281,17 +284,16 @@ $(document).ready(function () {
 
 
 <p>Welcome! I created this simple website to provide a few examples of
-my research and data analysis skills for my current job search for
+my skills that are relevant for my current job search. I’m applying to
 researcher/analyst positions based in Austin, TX (or remote). If you
 have arrived at this site, you likely already have access to <a
 href="https://github.com/DavidRMcCoy/DavidRMcCoy.io/raw/main/docs/McCoy_Resume_June_2022.pdf">my
-resume (this version excludes my phone number)</a>. I included these
-examples to demonstrate that my skill set generalizes beyond political
-science topics.</p>
-<p><a
-href="https://davidrmccoy.github.io/DavidRMcCoy.io/another.html">testing</a></p>
+resume</a> (note: this version excludes my phone number).</p>
+<p>I included these examples to demonstrate that my skill set
+generalizes beyond political science topics. To learn more, invite me
+for an interview.</p>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkFib3V0Ig0KLS0tDQoNCldlbGNvbWUhIEkgY3JlYXRlZCB0aGlzIHNpbXBsZSB3ZWJzaXRlIHRvIHByb3ZpZGUgYSBmZXcgZXhhbXBsZXMgb2YgbXkgcmVzZWFyY2ggYW5kIGRhdGEgYW5hbHlzaXMgc2tpbGxzIGZvciBteSBjdXJyZW50IGpvYiBzZWFyY2ggZm9yIHJlc2VhcmNoZXIvYW5hbHlzdCBwb3NpdGlvbnMgYmFzZWQgaW4gQXVzdGluLCBUWCAob3IgcmVtb3RlKS4gSWYgeW91IGhhdmUgYXJyaXZlZCBhdCB0aGlzIHNpdGUsIHlvdSBsaWtlbHkgYWxyZWFkeSBoYXZlIGFjY2VzcyB0byBbbXkgcmVzdW1lICh0aGlzIHZlcnNpb24gZXhjbHVkZXMgbXkgcGhvbmUgbnVtYmVyKV0oaHR0cHM6Ly9naXRodWIuY29tL0RhdmlkUk1jQ295L0RhdmlkUk1jQ295LmlvL3Jhdy9tYWluL2RvY3MvTWNDb3lfUmVzdW1lX0p1bmVfMjAyMi5wZGYpLiBJIGluY2x1ZGVkIHRoZXNlIGV4YW1wbGVzIHRvIGRlbW9uc3RyYXRlIHRoYXQgbXkgc2tpbGwgc2V0IGdlbmVyYWxpemVzIGJleW9uZCBwb2xpdGljYWwgc2NpZW5jZSB0b3BpY3MuDQoNClt0ZXN0aW5nXShodHRwczovL2Rhdmlkcm1jY295LmdpdGh1Yi5pby9EYXZpZFJNY0NveS5pby9hbm90aGVyLmh0bWwp</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkFib3V0Ig0KLS0tDQoNCldlbGNvbWUhIEkgY3JlYXRlZCB0aGlzIHNpbXBsZSB3ZWJzaXRlIHRvIHByb3ZpZGUgYSBmZXcgZXhhbXBsZXMgb2YgbXkgc2tpbGxzIHRoYXQgYXJlIHJlbGV2YW50IGZvciBteSBjdXJyZW50IGpvYiBzZWFyY2guIEknbSBhcHBseWluZyB0byByZXNlYXJjaGVyL2FuYWx5c3QgcG9zaXRpb25zIGJhc2VkIGluIEF1c3RpbiwgVFggKG9yIHJlbW90ZSkuIElmIHlvdSBoYXZlIGFycml2ZWQgYXQgdGhpcyBzaXRlLCB5b3UgbGlrZWx5IGFscmVhZHkgaGF2ZSBhY2Nlc3MgdG8gW215IHJlc3VtZV0oaHR0cHM6Ly9naXRodWIuY29tL0RhdmlkUk1jQ295L0RhdmlkUk1jQ295LmlvL3Jhdy9tYWluL2RvY3MvTWNDb3lfUmVzdW1lX0p1bmVfMjAyMi5wZGYpIChub3RlOiB0aGlzIHZlcnNpb24gZXhjbHVkZXMgbXkgcGhvbmUgbnVtYmVyKS4NCg0KSSBpbmNsdWRlZCB0aGVzZSBleGFtcGxlcyB0byBkZW1vbnN0cmF0ZSB0aGF0IG15IHNraWxsIHNldCBnZW5lcmFsaXplcyBiZXlvbmQgcG9saXRpY2FsIHNjaWVuY2UgdG9waWNzLiBUbyBsZWFybiBtb3JlLCBpbnZpdGUgbWUgZm9yIGFuIGludGVydmlldy4=</div>
 
 
 
@@ -328,6 +330,7 @@ $(document).ready(function () {
 <script>
 $(document).ready(function () {
   window.initializeSourceEmbed("index.Rmd");
+  window.initializeCodeFolding("show" === "show");
 });
 </script>
 
