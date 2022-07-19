@@ -1,5 +1,5 @@
 ---
-title: "Ex. 2 Covid Visualizations"
+title: "Ex. 3 Covid Visualizations"
 ---
 
 #yolo

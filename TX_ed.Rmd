@@ -1,5 +1,5 @@
 ---
-title: "Ex. 1 Texas Public Schools"
+title: "Ex. 1 Race, Ethnicity, Poverty, and Educational Outcomes in Texas Public Schools"
 
 ---
 

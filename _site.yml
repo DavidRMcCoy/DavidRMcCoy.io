@@ -7,10 +7,10 @@ navbar:
       href: index.html
     - text: "Ex. 1 Texas Public Schools"
       href: TX_ed.html
-    - text: "Ex. 2 Covid Visualizations"
-      href: covid_vis.html
-    - text: "Ex. 3 Gender Representation in Brazil"
+    - text: "Ex. 2 Equity in Gender Representation in Brazil"
       href: gender_rep.html
+    - text: "Ex. 3 Covid Visualizations"
+      href: covid_vis.html
 output:
   html_document:
     theme: cosmo

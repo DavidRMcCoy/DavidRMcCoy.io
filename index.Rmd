@@ -2,6 +2,21 @@
 title: "About"
 ---
 
-Welcome! I created this simple website to provide a few examples of my skills that are relevant for my current job search. I'm applying to researcher/analyst positions based in Austin, TX (or remote). If you have arrived at this site, you likely already have access to [my resume](https://github.com/DavidRMcCoy/DavidRMcCoy.io/raw/main/docs/McCoy_Resume_June_2022.pdf) (note: this version excludes my phone number).
+Welcome! I created this simple website to provide a few examples of my skills that are relevant for my current job search. I'm applying to researcher/analyst positions based in Austin, TX (or remote). If you have arrived at this site, you likely already have access to [my resume](https://github.com/DavidRMcCoy/DavidRMcCoy.io/raw/main/docs/McCoy_Resume_June_2022.pdf) (note: this version excludes my phone number). 
 
-I included these examples to demonstrate that my skill set generalizes beyond political science topics. To learn more, invite me for an interview.
+I included these examples to demonstrate that my skill set generalizes beyond political science topics. To learn more, feel free to reach out to me by email or invite me for an interview.
+
+## 
+```{r, results = "asis", warning = FALSE, message = FALSE, echo = FALSE}
+image_link <- function(image,url,...){
+  htmltools::a(
+    href=url,
+    htmltools::img(src=image,...)
+    )
+}
+
+image_link("ed.png", "https://davidrmccoy.github.io/DavidRMcCoy.io/TX_ed.html", width="300px")
+image_link("gen.png", "https://davidrmccoy.github.io/DavidRMcCoy.io/gender_rep.html", width="200px")
+
+```
+

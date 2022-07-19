@@ -11,7 +11,7 @@
 
 
 
-<title>Ex. 3 Gender Representation in Brazil</title>
+<title>Gender Representation in Brazil</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -30,6 +30,8 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -42,8 +44,117 @@
 
 
 
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
 
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -208,6 +319,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -235,7 +349,7 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Home</a>
+  <a href="index.html">About</a>
 </li>
 <li>
   <a href="TX_ed.html">Ex. 1 Texas Public Schools</a>
@@ -256,15 +370,1661 @@ $(document).ready(function () {
 
 <div id="header">
 
-
-
-<h1 class="title toc-ignore">Ex. 3 Gender Representation in Brazil</h1>
-
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
 </div>
 
 
-<p>#yolo</p>
 
+<h1 class="title toc-ignore">Gender Representation in Brazil</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a
+href="#section-1-descriptive-representation-for-brazilian-women-in-local-elections">Section
+1: Descriptive Representation for Brazilian Women in Local
+Elections</a></li>
+<li><a
+href="#section-2-changes-in-federal-legislators-positions-on-abortion-rights-from-2014-to-2018">Section
+2: Changes in Federal Legislators’ Positions on Abortion Rights from
+2014 to 2018</a></li>
+<li><a
+href="#section-3-trend-analysis-of-descriptive-representation-for-brazilian-women">Section
+3: Trend Analysis of Descriptive Representation for Brazilian
+Women</a></li>
+</ul>
+</div>
+
+<p>This page reviews my contributions to a <a
+href="https://www.taylorfrancis.com/chapters/edit/10.4324/9781003021001-13/de-democratization-brazil-new-puzzle-women-political-representation-patricia-rangel-eneida-vinhaes-dultra-david-mccoy">co-authored
+book chapter</a> analyzing how political representation for women in
+Brazil changed after Brazil’s first female president, Dilma Rousseff,
+was impeached. This impeachment involved public displays of misogynistic
+posturing from opponents; political backlash against Rousseff’s Workers
+Party (PT); and was followed by several years of right-wing rule during
+which many institutions promoting gender equity were dismantled.</p>
+<p>This page contains three broad components. One research question was
+whether voters, who rejected the PT for legislative representation at
+the polls in 2016, changed their attitudes toward women as political
+representatives. Second, we use elite survey responses from <a
+href="https://oir.org.es/pela/en/">Latin American Elites project of the
+University of Salamanca</a> (PELA-USAL) to test whether the conservative
+legislature of 2018 had statistically significant changes in views on
+abortion rights compared with the 2014 legislure.Third, I created a
+series of visualizations that show how descriptive representation for
+women changed for various national and local offices over time.</p>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(see)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtools)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MuMIn)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#clear data</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span></code></pre></div>
+</div>
+<div
+id="section-1-descriptive-representation-for-brazilian-women-in-local-elections"
+class="section level1">
+<h1>Section 1: Descriptive Representation for Brazilian Women in Local
+Elections</h1>
+<p>Two competing theories might explain changes in descriptive
+representation for women in Brazil after Dilma Rousseff’s impeachment.
+Voters might internalize the misogynistic public narratives surrounding
+Rousseff’s impeachment, as well as the association between female
+candidates and leftist parties, which would lead one to expect voters to
+punish female candidates at the polls. A competing theory focuses on the
+“anti-system” sentiment accompanying Rousseff’s impeachment. Anti-system
+sentiment has been shown to favor female candidates, especially in
+male-dominated political systems like Brazil’s, because female
+candidates are likely to be associated with voting out the status quo
+and starting fresh with new representatives.</p>
+<p>Brazil’s party system is shaped by its open list proportional
+representation. Any candidate can join a party’s list. Legislative seats
+are distributed by votes gained by parties, and the seats are occupied
+by the first <span class="math inline">\(n\)</span> candidates on that
+party list, where <span class="math inline">\(n\)</span> is the number
+of seats won by that party. I downloaded candidate-level data for city
+council elections in Brazil’s 5,570 municipalities. For each party, in
+each city, for four election years, I calculated the proportion of votes
+that were won by women.</p>
+<p>For the elections in 2004, 2008, 2012, and 2016, I use a proxy for
+anti-system voting that is “activated” during Rousseff’s impeachment,
+prior to the 2016 elections. The proxy is the future support for
+far-right, anti-system candidate Jair Bolsonaro in 2018. I control for
+party list-level variables like size of the list and wether they are in
+a coalition. I control for several municipality-level factors like GINI,
+population, and whether there is a female mayor.</p>
+<p>The data set (too large to share on GitHub) includes 55,000 to 75,000
+party lists per election year. The dependent variable is a percentage,
+which poses a challenge in terms of modeling. I treat each election as
+cross-sectional data. For each election, I run a generalized linear
+model that treats each single vote cast as a Bernoulli trial with
+“successful” trial being a vote cast for a female candidate. This is
+achieved by weighting each proportion value (observation outcome in the
+model) by the total number of votes gained by that party list. The
+quasi-binomial link function is similar to a logistic regression but
+includes an additional parameter that helps account for overdispersion.
+Below I run the four GLM models. The main effects of interest are the
+interaction between party groups and municipality-level Bolsonaro
+support (the anti-system proxy). The interactions include polynomial
+terms in order to relax strict linearity assumptions, which makes
+interpretation of coefficients difficult. To enable interpretation, I
+visualize these interactions in the following chunk.</p>
+<div id="weighted-glm-models" class="section level2">
+<h2>Weighted GLM Models</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Polynomial, weighted GLM with controls</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>ver <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;data/gender_democracy.rds&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(mayor.female) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(pct_bolsonaro) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(lnPOP)) <span class="sc">%&gt;%</span>  <span class="co"># This removes 2000 observations but makes models comparable for GOF tests</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent.female =</span> Female <span class="sc">/</span> Party.Total) <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(observation, ibge7, SIGLA_PARTIDO, percent.female)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>m2004p <span class="ot">&lt;-</span> <span class="fu">glm</span>(percent.female <span class="sc">~</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>              no_coalition <span class="sc">*</span> list.size <span class="sc">+</span> mayor.female <span class="sc">+</span> GINI <span class="sc">+</span> lnPOP <span class="sc">+</span> NorthNortheast <span class="sc">+</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>              impeachment2 <span class="sc">*</span> <span class="fu">poly</span>(pct_bolsonaro, <span class="dv">2</span>),</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> quasibinomial, <span class="at">weights=</span>Party.Total, <span class="at">data=</span>ver <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="st">&quot;2004&quot;</span>))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>m2008p <span class="ot">&lt;-</span> <span class="fu">glm</span>(percent.female <span class="sc">~</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>              no_coalition <span class="sc">*</span> list.size <span class="sc">+</span> mayor.female <span class="sc">+</span> lag.mayor.female <span class="sc">+</span> GINI <span class="sc">+</span> lnPOP <span class="sc">+</span> NorthNortheast <span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>              impeachment2 <span class="sc">*</span> <span class="fu">poly</span>(pct_bolsonaro, <span class="dv">2</span>),</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> quasibinomial, <span class="at">weights=</span>Party.Total, <span class="at">data=</span>ver <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="st">&quot;2008&quot;</span>))</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>m2012p <span class="ot">&lt;-</span> <span class="fu">glm</span>(percent.female <span class="sc">~</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>              no_coalition <span class="sc">*</span> list.size <span class="sc">+</span> mayor.female <span class="sc">+</span> lag.mayor.female <span class="sc">+</span> GINI <span class="sc">+</span> lnPOP <span class="sc">+</span> NorthNortheast <span class="sc">+</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>              impeachment2 <span class="sc">*</span> <span class="fu">poly</span>(pct_bolsonaro, <span class="dv">2</span>),</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> quasibinomial, <span class="at">weights=</span>Party.Total, <span class="at">data=</span>ver <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="st">&quot;2012&quot;</span>))</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>m2016p <span class="ot">&lt;-</span> <span class="fu">glm</span>(percent.female <span class="sc">~</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>              no_coalition <span class="sc">*</span> list.size <span class="sc">+</span> mayor.female <span class="sc">+</span> lag.mayor.female <span class="sc">+</span> GINI <span class="sc">+</span> lnPOP <span class="sc">+</span> NorthNortheast <span class="sc">+</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>              impeachment2 <span class="sc">*</span> <span class="fu">poly</span>(pct_bolsonaro, <span class="dv">2</span>),</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> quasibinomial, <span class="at">weights=</span>Party.Total, <span class="at">data=</span>ver <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="st">&quot;2016&quot;</span>))</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>null2004 <span class="ot">&lt;-</span> <span class="fu">glm</span>(percent.female <span class="sc">~</span> <span class="dv">1</span>, <span class="at">family =</span> quasibinomial, <span class="at">weights=</span>Party.Total, <span class="at">data=</span>ver <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="st">&quot;2004&quot;</span>))</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>null2008 <span class="ot">&lt;-</span> <span class="fu">glm</span>(percent.female <span class="sc">~</span> <span class="dv">1</span>, <span class="at">family =</span> quasibinomial, <span class="at">weights=</span>Party.Total, <span class="at">data=</span>ver <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="st">&quot;2008&quot;</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(lag.mayor.female)))</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>null2012 <span class="ot">&lt;-</span> <span class="fu">glm</span>(percent.female <span class="sc">~</span> <span class="dv">1</span>, <span class="at">family =</span> quasibinomial, <span class="at">weights=</span>Party.Total, <span class="at">data=</span>ver <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="st">&quot;2012&quot;</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(lag.mayor.female)))</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>null2016 <span class="ot">&lt;-</span> <span class="fu">glm</span>(percent.female <span class="sc">~</span> <span class="dv">1</span>, <span class="at">family =</span> quasibinomial, <span class="at">weights=</span>Party.Total, <span class="at">data=</span>ver <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="st">&quot;2016&quot;</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(lag.mayor.female)))</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Model output</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(m2004p, m2008p, m2012p, m2016p,</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Table 1. Party List Voting for Female City Council Candidates, 2004 - 2016&quot;</span>,</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.caption =</span> <span class="st">&quot;Percentage of Votes for Women&quot;</span>,</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="co">#covariate.labels=c(&quot;&quot;),</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="st">&quot;html&quot;</span>,</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">intercept.bottom =</span> T,</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">digits=</span><span class="dv">2</span>,</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">column.labels =</span> <span class="fu">c</span>(<span class="st">&quot;2004&quot;</span>, <span class="st">&quot;2008&quot;</span>, <span class="st">&quot;2012&quot;</span>, <span class="st">&quot;2016&quot;</span>))</span></code></pre></div>
+<table style="text-align:center">
+<caption>
+<strong>Table 1. Party List Voting for Female City Council Candidates,
+2004 - 2016</strong>
+</caption>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="4">
+Percentage of Votes for Women
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="4">
+percent.female
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+2004
+</td>
+<td>
+2008
+</td>
+<td>
+2012
+</td>
+<td>
+2016
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+<td>
+(4)
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+no_coalition
+</td>
+<td>
+-0.66<sup>***</sup>
+</td>
+<td>
+-0.13<sup>**</sup>
+</td>
+<td>
+0.18<sup>***</sup>
+</td>
+<td>
+0.69<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.06)
+</td>
+<td>
+(0.06)
+</td>
+<td>
+(0.04)
+</td>
+<td>
+(0.05)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+list.size
+</td>
+<td>
+0.27<sup>***</sup>
+</td>
+<td>
+0.31<sup>***</sup>
+</td>
+<td>
+0.13<sup>***</sup>
+</td>
+<td>
+0.12<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.02)
+</td>
+<td>
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+mayor.female
+</td>
+<td>
+0.13<sup>***</sup>
+</td>
+<td>
+-0.02
+</td>
+<td>
+0.05<sup>***</sup>
+</td>
+<td>
+-0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.02)
+</td>
+<td>
+(0.02)
+</td>
+<td>
+(0.02)
+</td>
+<td>
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+lag.mayor.female
+</td>
+<td>
+</td>
+<td>
+0.08<sup>***</sup>
+</td>
+<td>
+0.02
+</td>
+<td>
+0.07<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.02)
+</td>
+<td>
+(0.02)
+</td>
+<td>
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+GINI
+</td>
+<td>
+0.43<sup>***</sup>
+</td>
+<td>
+0.84<sup>***</sup>
+</td>
+<td>
+0.74<sup>***</sup>
+</td>
+<td>
+0.66<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.11)
+</td>
+<td>
+(0.12)
+</td>
+<td>
+(0.10)
+</td>
+<td>
+(0.10)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+lnPOP
+</td>
+<td>
+-0.04<sup>***</sup>
+</td>
+<td>
+-0.04<sup>***</sup>
+</td>
+<td>
+-0.07<sup>***</sup>
+</td>
+<td>
+-0.05<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.003)
+</td>
+<td>
+(0.003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+NorthNortheast
+</td>
+<td>
+0.06<sup>***</sup>
+</td>
+<td>
+0.10<sup>***</sup>
+</td>
+<td>
+0.08<sup>***</sup>
+</td>
+<td>
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.02)
+</td>
+<td>
+(0.02)
+</td>
+<td>
+(0.01)
+</td>
+<td>
+(0.01)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+impeachment2Against Impeachment
+</td>
+<td>
+0.04<sup>*</sup>
+</td>
+<td>
+0.19<sup>***</sup>
+</td>
+<td>
+0.05<sup>**</sup>
+</td>
+<td>
+0.09<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.02)
+</td>
+<td>
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+impeachment2PSDB
+</td>
+<td>
+0.01
+</td>
+<td>
+0.22<sup>***</sup>
+</td>
+<td>
+0.03
+</td>
+<td>
+0.08<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.02)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+impeachment2PT
+</td>
+<td>
+0.30<sup>***</sup>
+</td>
+<td>
+0.31<sup>***</sup>
+</td>
+<td>
+0.17<sup>***</sup>
+</td>
+<td>
+0.22<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.02)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.02)
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+impeachment2Voted to Impeach
+</td>
+<td>
+0.06<sup>***</sup>
+</td>
+<td>
+0.13<sup>***</sup>
+</td>
+<td>
+-0.01
+</td>
+<td>
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.02)
+</td>
+<td>
+(0.02)
+</td>
+<td>
+(0.02)
+</td>
+<td>
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+poly(pct_bolsonaro, 2)1
+</td>
+<td>
+-1.13
+</td>
+<td>
+-21.20<sup>***</sup>
+</td>
+<td>
+-6.35
+</td>
+<td>
+-19.88<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.85)
+</td>
+<td>
+(5.96)
+</td>
+<td>
+(5.34)
+</td>
+<td>
+(5.46)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+poly(pct_bolsonaro, 2)2
+</td>
+<td>
+9.33<sup>***</sup>
+</td>
+<td>
+20.75<sup>***</sup>
+</td>
+<td>
+-13.81<sup>***</sup>
+</td>
+<td>
+-17.39<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.56)
+</td>
+<td>
+(5.94)
+</td>
+<td>
+(5.27)
+</td>
+<td>
+(5.37)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+no_coalition:list.size
+</td>
+<td>
+1.18<sup>***</sup>
+</td>
+<td>
+0.40<sup>***</sup>
+</td>
+<td>
+-0.27<sup>***</sup>
+</td>
+<td>
+-1.07<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.09)
+</td>
+<td>
+(0.11)
+</td>
+<td>
+(0.07)
+</td>
+<td>
+(0.07)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+impeachment2Against Impeachment:poly(pct_bolsonaro, 2)1
+</td>
+<td>
+-16.88<sup>***</sup>
+</td>
+<td>
+10.23
+</td>
+<td>
+16.80<sup>**</sup>
+</td>
+<td>
+35.76<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(6.42)
+</td>
+<td>
+(7.45)
+</td>
+<td>
+(6.75)
+</td>
+<td>
+(6.48)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+impeachment2PSDB:poly(pct_bolsonaro, 2)1
+</td>
+<td>
+-2.41
+</td>
+<td>
+53.35<sup>***</sup>
+</td>
+<td>
+21.67<sup>***</sup>
+</td>
+<td>
+41.23<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(5.19)
+</td>
+<td>
+(7.20)
+</td>
+<td>
+(7.23)
+</td>
+<td>
+(7.48)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+impeachment2PT:poly(pct_bolsonaro, 2)1
+</td>
+<td>
+28.60<sup>***</sup>
+</td>
+<td>
+49.53<sup>***</sup>
+</td>
+<td>
+43.61<sup>***</sup>
+</td>
+<td>
+74.25<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(6.01)
+</td>
+<td>
+(7.51)
+</td>
+<td>
+(6.71)
+</td>
+<td>
+(7.84)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+impeachment2Voted to Impeach:poly(pct_bolsonaro, 2)1
+</td>
+<td>
+-5.00
+</td>
+<td>
+17.82<sup>***</sup>
+</td>
+<td>
+11.00<sup>**</sup>
+</td>
+<td>
+21.87<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.91)
+</td>
+<td>
+(5.96)
+</td>
+<td>
+(5.34)
+</td>
+<td>
+(5.42)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+impeachment2Against Impeachment:poly(pct_bolsonaro, 2)2
+</td>
+<td>
+-9.73
+</td>
+<td>
+-31.25<sup>***</sup>
+</td>
+<td>
+-11.76<sup>*</sup>
+</td>
+<td>
+8.51
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(6.14)
+</td>
+<td>
+(7.54)
+</td>
+<td>
+(6.82)
+</td>
+<td>
+(6.62)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+impeachment2PSDB:poly(pct_bolsonaro, 2)2
+</td>
+<td>
+16.78<sup>***</sup>
+</td>
+<td>
+-15.01<sup>**</sup>
+</td>
+<td>
+33.19<sup>***</sup>
+</td>
+<td>
+11.71<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(5.05)
+</td>
+<td>
+(7.21)
+</td>
+<td>
+(6.85)
+</td>
+<td>
+(7.12)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+impeachment2PT:poly(pct_bolsonaro, 2)2
+</td>
+<td>
+-19.46<sup>***</sup>
+</td>
+<td>
+-32.12<sup>***</sup>
+</td>
+<td>
+7.67
+</td>
+<td>
+27.74<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(5.33)
+</td>
+<td>
+(7.40)
+</td>
+<td>
+(6.56)
+</td>
+<td>
+(7.59)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+impeachment2Voted to Impeach:poly(pct_bolsonaro, 2)2
+</td>
+<td>
+-8.40<sup>**</sup>
+</td>
+<td>
+-15.87<sup>**</sup>
+</td>
+<td>
+15.43<sup>***</sup>
+</td>
+<td>
+17.63<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.92)
+</td>
+<td>
+(6.18)
+</td>
+<td>
+(5.50)
+</td>
+<td>
+(5.60)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-1.81<sup>***</sup>
+</td>
+<td>
+-2.12<sup>***</sup>
+</td>
+<td>
+-1.44<sup>***</sup>
+</td>
+<td>
+-1.55<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.05)
+</td>
+<td>
+(0.05)
+</td>
+<td>
+(0.05)
+</td>
+<td>
+(0.05)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+55,467
+</td>
+<td>
+58,711
+</td>
+<td>
+69,302
+</td>
+<td>
+75,898
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="4" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05;
+<sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># These goodness of fit tests against the null are fine but uninteresting for this demonstration.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># anova(null2004, m2004p, test = &quot;F&quot;)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># anova(null2008, m2008p, test = &quot;F&quot;)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># anova(null2012, m2012p, test = &quot;F&quot;)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># anova(null2016, m2016p, test = &quot;F&quot;)</span></span></code></pre></div>
+</div>
+<div
+id="visualizing-glm-interactions-of-party-list-votes-that-are-cast-for-women-in-parties-allied-and-opposed-to-impeachment-in-weakly-and-strongly-anti-system-municipalities"
+class="section level2">
+<h2>Visualizing GLM Interactions: % of party list votes that are cast
+for women in parties allied and opposed to impeachment in weakly and
+strongly anti-system municipalities</h2>
+<p>The interesting finding here is that female candidates from the PT
+and their allied parties “Against Impeachment” perform uniquely well in
+2016 (compared with male co-partisans on their list in that year). In
+fact, female candidates perform well precisely in those districts marked
+by “anti-system” voting preferences: the right extremity of the x-axis
+of each subplot. For the PSDB and other parties that “Voted to Impeach”,
+women also perform well in 2016; however, this relative success is not
+strongly related to the level of anti-system sentiment in the
+municipality where the election is held. This provides support for the
+theory theory that female candidates tend to perform better when voters
+are seeking to punish political elites associated with the status quo,
+even in the face of recent misogynistic rhetoric and posturing.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict and store interaction terms from GLM models</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pp04 <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(m2004p, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">&quot;pct_bolsonaro[all]&quot;</span>, <span class="st">&quot;impeachment2&quot;</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>pp08 <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(m2008p, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">&quot;pct_bolsonaro[all]&quot;</span>, <span class="st">&quot;impeachment2&quot;</span>))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>pp12 <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(m2012p, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">&quot;pct_bolsonaro[all]&quot;</span>, <span class="st">&quot;impeachment2&quot;</span>))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>pp16 <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(m2016p, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">&quot;pct_bolsonaro[all]&quot;</span>, <span class="st">&quot;impeachment2&quot;</span>))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>pp04<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="st">&quot;2004&quot;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>pp08<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="st">&quot;2008&quot;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>pp12<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="st">&quot;2012&quot;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>pp16<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="st">&quot;2016&quot;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">rbind</span>(pp04, pp08, pp12, pp16)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Two and Three - polynomial</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>propt_interaction <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> pp <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group<span class="sc">==</span><span class="st">&quot;PT&quot;</span> <span class="sc">|</span> group<span class="sc">==</span><span class="st">&quot;Against Impeachment&quot;</span>), <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>predicted, <span class="at">fill =</span> year)) <span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">alpha =</span> .<span class="dv">5</span>, <span class="at">linetype=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">scale_fill_grey</span>(<span class="at">start =</span> <span class="fl">0.9</span>, <span class="at">end =</span> <span class="fl">0.1</span>) <span class="sc">+</span> <span class="fu">ylim</span>(.<span class="dv">10</span>, <span class="fl">0.31</span>) <span class="sc">+</span> <span class="fu">xlim</span>(.<span class="dv">1</span>, .<span class="dv">75</span>) <span class="sc">+</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(), <span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>,  <span class="at">family=</span><span class="st">&quot;serif&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group) <span class="sc">+</span> </span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Party List Votes for Women (%): Anti-Impeachment (2004 - 2016)&quot;</span>, </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle=</span> <span class="st">&quot;By Munipality First Round Votes for Bolsonaro&quot;</span>, </span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">x=</span><span class="st">&quot;1st Round Bolsonaro Vote&quot;</span>, </span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span><span class="st">&quot;Votes for Women by Party List&quot;</span>) </span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>propt_interaction</span></code></pre></div>
+<p><img src="gender_rep_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>impeachment_interaction <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> pp <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group<span class="sc">==</span><span class="st">&quot;PSDB&quot;</span> <span class="sc">|</span> group<span class="sc">==</span><span class="st">&quot;Voted to Impeach&quot;</span>), <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>predicted, <span class="at">fill =</span> year)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">alpha =</span> .<span class="dv">5</span>, <span class="at">linetype=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">scale_fill_grey</span>(<span class="at">start =</span> <span class="fl">0.9</span>, <span class="at">end =</span> <span class="fl">0.1</span>) <span class="sc">+</span> <span class="fu">ylim</span>(.<span class="dv">10</span>, <span class="fl">0.21</span>) <span class="sc">+</span> <span class="fu">xlim</span>(.<span class="dv">1</span>, .<span class="dv">75</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(), <span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>,  <span class="at">family=</span><span class="st">&quot;serif&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group) <span class="sc">+</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Party List Votes for Women (%): Pro-Impeachment (2004 - 2016)&quot;</span>, </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle=</span> <span class="st">&quot;By Munipality First Round Votes for Bolsonaro&quot;</span>, </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x=</span><span class="st">&quot;1st Round Bolsonaro Vote&quot;</span>, </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span><span class="st">&quot;Votes for Women by Party List&quot;</span>) </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>impeachment_interaction</span></code></pre></div>
+<p><img src="gender_rep_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+</div>
+</div>
+<div
+id="section-2-changes-in-federal-legislators-positions-on-abortion-rights-from-2014-to-2018"
+class="section level1">
+<h1>Section 2: Changes in Federal Legislators’ Positions on Abortion
+Rights from 2014 to 2018</h1>
+<p>I have shown how descriptive representation (whether elites share
+congruent identities with the population) changed in response to the
+left’s political crisis. In this chapter we were also interested in
+whether substantive representation of women’s issues shifted during this
+period. We use the data from the <a
+href="https://oir.org.es/pela/en/">Latin American Elites project of the
+University of Salamanca</a> (PELA-USAL) to test for changes in average
+positions regarding support for abortion rights. I performed a one-way
+anova to test if the average position changed (it did) and a two-way
+anova to test whether this change is driven by a shift in male elites’
+positions or a shift in female elites’ positions from 2014 to 2018
+(females did not change more than men in a significant level).</p>
+<div id="visualizing-support-and-opposition-for-abortion-rights"
+class="section level2">
+<h2>Visualizing Support and Opposition for Abortion Rights</h2>
+<p>This plot was included in the chapter, and the results of the
+analysis of variance models were reported in the text, which is why
+there is not a pretty table. Clearly we can see that opposition to
+abortion has increased from 2014 to 2018.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ANOVA and Figure on Abortion from Pela Data:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="do">###Pelas: Elite Surveys on Preferences</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># I don&#39;t have permission to share this, so I made a reduced version</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>pela <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/pela.csv&quot;</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_classic</span>())</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#library(cowplot)</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram on a Continuous (Numeric) Variable</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(pela <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2014</span>), <span class="fu">aes</span>(Aborto)) <span class="sc">+</span> <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Greys&quot;</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>,  <span class="at">family=</span><span class="st">&quot;serif&quot;</span>))</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>p14 <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">fill=</span>Sex), </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bins=</span><span class="dv">5</span>, </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">col=</span><span class="st">&quot;black&quot;</span>, </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">size=</span>.<span class="dv">05</span>) <span class="sc">+</span>   <span class="co"># change number of bins</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;2011-2014 Lower Chamber Opposition for Legalization of Abortion&quot;</span>, </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span><span class="st">&quot;Source: PELA-USAL 2014&quot;</span>, <span class="at">x=</span><span class="fu">element_blank</span>(), <span class="at">y=</span><span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>), <span class="at">label=</span><span class="fu">c</span>(<span class="st">&quot;Support for Legalization&quot;</span>, <span class="st">&quot;Opposition for Legalization&quot;</span>))</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_classic</span>())</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram on a Continuous (Numeric) Variable</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(pela <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2018</span>), <span class="fu">aes</span>(Aborto)) <span class="sc">+</span> <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Greys&quot;</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>,  <span class="at">family=</span><span class="st">&quot;serif&quot;</span>))</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>p18 <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">fill=</span>Sex), </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bins=</span><span class="dv">5</span>, </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>                   <span class="at">col=</span><span class="st">&quot;black&quot;</span>, </span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>                   <span class="at">size=</span>.<span class="dv">1</span>) <span class="sc">+</span>   <span class="co"># change number of bins</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;2015-2018 Lower Chamber Opposition for Legalization of Abortion&quot;</span>, </span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span><span class="st">&quot;Source: PELA-USAL 2018&quot;</span>, <span class="at">x=</span><span class="fu">element_blank</span>(), <span class="at">y=</span><span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>), <span class="at">label=</span><span class="fu">c</span>(<span class="st">&quot;Support for Legalization&quot;</span>, <span class="st">&quot;Opposition for Legalization&quot;</span>))</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co">#Another option</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>abortion_hist <span class="ot">&lt;-</span> cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p14, p18, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>abortion_hist</span></code></pre></div>
+<p><img src="gender_rep_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div
+id="one--and-two-way-anova-models-for-levels-of-opposition-to-abortion-rights-2014-and-2018"
+class="section level2">
+<h2>One- and Two-way Anova Models for Levels of Opposition to Abortion
+Rights: 2014 and 2018</h2>
+<p>These analysis of variance models show that increases in opposition
+to abortion rights are statistically significant from 2014 to 2018.
+However, the two-way model fails to reject the null that men in the
+legislature increased in opposition to abortion rights more than men.
+Both groups increased in their opposition similarly from 2014 to 2018.
+We discuss this in much more detail in the book chapter.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-way ANOVA</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>res.aov1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Aborto <span class="sc">~</span> <span class="fu">as.factor</span>(year) , <span class="at">data =</span> pela)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(res.aov1)</span></code></pre></div>
+<p>Analysis of Variance Table</p>
+<p>Response: Aborto Df Sum Sq Mean Sq F value Pr(&gt;F)<br />
+as.factor(year) 1 452.95 452.95 47.736 5.091e-11 *** Residuals 222
+2106.48 9.49<br />
+— Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05
+‘.’ 0.1 ’ ’ 1</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Two-way ANOVA</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>res.aov2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Aborto <span class="sc">~</span> <span class="fu">as.factor</span>(year) <span class="sc">*</span> <span class="fu">as.factor</span>(Sex), <span class="at">data =</span> pela)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(res.aov2)</span></code></pre></div>
+<p>Analysis of Variance Table</p>
+<p>Response: Aborto Df Sum Sq Mean Sq F value Pr(&gt;F)<br />
+as.factor(year) 1 452.95 452.95 47.6336 5.413e-11 *** as.factor(Sex) 1
+12.90 12.90 1.3571 0.2453<br />
+as.factor(year):as.factor(Sex) 1 1.60 1.60 0.1687 0.6817<br />
+Residuals 220 2091.97 9.51<br />
+— Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05
+‘.’ 0.1 ’ ’ 1</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ggpubr&quot;</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggline</span>(pela, <span class="at">x =</span> <span class="st">&quot;year&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Aborto&quot;</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">add =</span> <span class="fu">c</span>(<span class="st">&quot;mean_se&quot;</span>, <span class="st">&quot;dotplot&quot;</span>),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;#00AFBB&quot;</span>, <span class="st">&quot;#E7B800&quot;</span>))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggline</span>(pela, <span class="at">x =</span> <span class="st">&quot;year&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Aborto&quot;</span>, <span class="at">color =</span> <span class="st">&quot;Sex&quot;</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">add =</span> <span class="fu">c</span>(<span class="st">&quot;mean_se&quot;</span>, <span class="st">&quot;dotplot&quot;</span>),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;#00AFBB&quot;</span>, <span class="st">&quot;#E7B800&quot;</span>))</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p1, p2, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="gender_rep_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Side-by-side histogram of abortion by gender.</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(p1, p2, pela, p14, p18, g, abortion_hist)</span></code></pre></div>
+</div>
+</div>
+<div
+id="section-3-trend-analysis-of-descriptive-representation-for-brazilian-women"
+class="section level1">
+<h1>Section 3: Trend Analysis of Descriptive Representation for
+Brazilian Women</h1>
+<p>In the chapter, we review the literature highlighting the importance
+of equity in gender representation in politics. These visualizations
+structure our discussion of trends in descriptive representation in
+Brazil over time. Descriptive representation in Brazil is far below the
+approximately descriptive benchmark of 50%. This section shows where the
+deficits are in descriptive representation and provides some descriptive
+analysis of how gender representation changed in the 2016 elections, in
+the context of anti-system sentiment directed toward the left and their
+allies.</p>
+<div
+id="city-council-and-mayoral-trends-in-descriptive-gender-representation"
+class="section level2">
+<h2>City Council and Mayoral Trends in Descriptive Gender
+Representation</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(p.values04, p.values08, p.values12, p.values16, pp04, pp08, pp12, pp16, null2004, null2008, null2012, null2016, m2004p, m2008p, m2012p, m2016p, m2016b)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># These are very large and will not be on my GitHub</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>ver <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;data/ver_inclusive.rds&quot;</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>pref <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;data/pref_inclusive.rds&quot;</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape data and generate percentiles</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>ver.cand <span class="ot">&lt;-</span> ver <span class="sc">%&gt;%</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sex) <span class="sc">&amp;</span> elected<span class="sc">==</span><span class="st">&quot;Elected&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, sex) <span class="sc">%&gt;%</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">value =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>sex, <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">total =</span> Male <span class="sc">+</span> Female,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct =</span> Female <span class="sc">/</span> total) <span class="sc">%&gt;%</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, pct)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>pref.cand <span class="ot">&lt;-</span> pref <span class="sc">%&gt;%</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sex) <span class="sc">&amp;</span> elected<span class="sc">==</span><span class="st">&quot;Elected&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, sex) <span class="sc">%&gt;%</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">value =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>sex, <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">total =</span> Male <span class="sc">+</span> Female,</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct =</span> Female <span class="sc">/</span> total) <span class="sc">%&gt;%</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, pct)</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>ver.cand<span class="sc">$</span>office <span class="ot">&lt;-</span> <span class="st">&quot;City Council&quot;</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>pref.cand<span class="sc">$</span>office <span class="ot">&lt;-</span> <span class="st">&quot;Mayor&quot;</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>pref.ver <span class="ot">&lt;-</span> <span class="fu">rbind</span>(pref.cand, ver.cand)</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing mayors and city councilors</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>pct_fem_mayor_cs <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(pref.ver , <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> pct)) <span class="sc">+</span> </span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype=</span>office), <span class="at">size =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_text(aes(label=value),hjust=0, vjust=1) +</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">2004</span>,<span class="dv">2008</span>,<span class="dv">2012</span>, <span class="dv">2016</span>)) <span class="sc">+</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;dotted&quot;</span>, <span class="st">&quot;solid&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>           <span class="co">#legend.justification=c(1,0), </span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;white&quot;</span>),</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.grid.major  =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">&quot;gray&quot;</span>),</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>),</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.key =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>           <span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span></span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>                             ,  <span class="at">family=</span><span class="st">&quot;serif&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Female Councilors and Mayors Elected (2004 - 2016)&quot;</span>, <span class="at">subtitle=</span> <span class="st">&quot;Percentage of Total Elected&quot;</span>, <span class="at">x=</span><span class="st">&quot;Year&quot;</span>, <span class="at">y=</span><span class="st">&quot;Percent&quot;</span>) </span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>pct_fem_mayor_cs</span></code></pre></div>
+<p><img src="gender_rep_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(pref, pref.cand, pref.ver, ver.cand)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This data comes from an external source and is entered manually</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2002</span>, <span class="dv">2006</span>, <span class="dv">2010</span>, <span class="dv">2014</span>, <span class="dv">2018</span>, <span class="dv">2002</span>, <span class="dv">2006</span>, <span class="dv">2010</span>, <span class="dv">2014</span>, <span class="dv">2018</span>, <span class="dv">2002</span>, <span class="dv">2006</span>, <span class="dv">2010</span>, <span class="dv">2014</span>, <span class="dv">2018</span>, <span class="dv">2002</span>, <span class="dv">2006</span>, <span class="dv">2010</span>, <span class="dv">2014</span>, <span class="dv">2018</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>office <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Governors&quot;</span>, <span class="st">&quot;Governors&quot;</span>, <span class="st">&quot;Governors&quot;</span>, <span class="st">&quot;Governors&quot;</span>,<span class="st">&quot;Governors&quot;</span>, </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;Senators&quot;</span>,<span class="st">&quot;Senators&quot;</span>,<span class="st">&quot;Senators&quot;</span>,<span class="st">&quot;Senators&quot;</span>,<span class="st">&quot;Senators&quot;</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;Federal Deputy&quot;</span>,<span class="st">&quot;Federal Deputy&quot;</span>,<span class="st">&quot;Federal Deputy&quot;</span>,<span class="st">&quot;Federal Deputy&quot;</span>,<span class="st">&quot;Federal Deputy&quot;</span>, </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;State Deputy&quot;</span>,<span class="st">&quot;State Deputy&quot;</span>,<span class="st">&quot;State Deputy&quot;</span>,<span class="st">&quot;State Deputy&quot;</span>,<span class="st">&quot;State Deputy&quot;</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>pct <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">7.4</span>, <span class="fl">11.1</span>, <span class="fl">7.4</span>, <span class="fl">3.7</span>, <span class="fl">3.7</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="fl">14.8</span>, <span class="fl">14.8</span>, <span class="fl">14.8</span>, <span class="fl">18.5</span>, <span class="fl">12.9</span>,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        <span class="fl">8.6</span>, <span class="fl">8.8</span>, <span class="fl">8.8</span>, <span class="fl">9.9</span>, <span class="dv">15</span>,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        <span class="fl">12.6</span>, <span class="fl">11.6</span>, <span class="fl">12.9</span>, <span class="fl">11.4</span>, <span class="fl">15.3</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>off <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(office, year, pct)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing federal and state offices</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(off , <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> pct)) <span class="sc">+</span> </span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_line(aes(linetype=office), size = 1.1) +</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(), <span class="at">size =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_text(aes(label=value),hjust=0, vjust=1) +</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">2002</span>,<span class="dv">2006</span>,<span class="dv">2010</span>, <span class="dv">2014</span>, <span class="dv">2018</span>)) <span class="sc">+</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">#scale_linetype_manual(values=c(&quot;dotted&quot;, &quot;solid&quot;)) +</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>           <span class="co">#legend.justification=c(1,0), </span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>           <span class="co">#legend.position=&quot;bottom&quot;,</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;white&quot;</span>),</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.grid.major  =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">&quot;gray&quot;</span>),</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>),</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.key =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>           <span class="at">strip.background =</span> <span class="fu">element_rect</span>(</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>           <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">fill=</span><span class="st">&quot;white&quot;</span>, <span class="at">size=</span><span class="fl">1.5</span>, <span class="at">linetype=</span><span class="st">&quot;solid&quot;</span>),</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>           <span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>,  <span class="at">family=</span><span class="st">&quot;serif&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Female Candidates Elected (2002 - 2018)&quot;</span>, <span class="at">subtitle=</span> <span class="st">&quot;Percentage of Total Elected&quot;</span>, <span class="at">x=</span><span class="st">&quot;Year&quot;</span>, <span class="at">y=</span><span class="st">&quot;Percent&quot;</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>office)</span></code></pre></div>
+<p><img src="gender_rep_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(off)</span></code></pre></div>
+</div>
+<div id="gains-and-losses-in-descriptive-representation-by-party-group"
+class="section level2">
+<h2>Gains and Losses in Descriptive Representation by Party Group</h2>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reshape data and summarise party group statistics</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ver.impeachment.gender <span class="ot">&lt;-</span> ver <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sex)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, terciles, impeachment2, elected, sex) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group_by(year, impeachment, elected, sex) %&gt;%</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">value =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, impeachment2, sex) <span class="sc">%&gt;%</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">ifelse</span>(elected<span class="sc">==</span><span class="st">&quot;Not Elected&quot;</span>, <span class="fu">sum</span>(value), value),</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">elected =</span> <span class="fu">recode_factor</span>(elected, <span class="st">&quot;Not Elected&quot;</span> <span class="ot">=</span> <span class="st">&quot;Elected And Unelected&quot;</span>),</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">imp =</span> <span class="fu">ifelse</span>(impeachment2<span class="sc">==</span><span class="st">&quot;Voted to Impeach&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ver.impeachment.gender <span class="sc">%&gt;%</span> <span class="fu">filter</span>(imp<span class="sc">==</span><span class="dv">0</span>, impeachment2<span class="sc">!=</span><span class="st">&quot;No Federal Deputies&quot;</span> <span class="sc">&amp;</span> elected<span class="sc">==</span><span class="st">&quot;Elected&quot;</span> <span class="sc">&amp;</span> sex<span class="sc">==</span><span class="st">&quot;Female&quot;</span> ), <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> value)) <span class="sc">+</span> </span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype=</span>impeachment2), <span class="at">size =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_text(aes(label=value),hjust=0, vjust=1) +</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">2004</span>,<span class="dv">2008</span>,<span class="dv">2012</span>, <span class="dv">2016</span>)) <span class="sc">+</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;dotted&quot;</span>, <span class="st">&quot;solid&quot;</span>, <span class="st">&quot;twodash&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">&quot;lines&quot;</span>),</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>           <span class="co">#legend.justification=c(1,0), </span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;white&quot;</span>),</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.grid.major  =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">&quot;gray&quot;</span>),</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>),</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.key =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>           <span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>,  <span class="at">family=</span><span class="st">&quot;serif&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Female City Councilors Elected (2004 - 2016)&quot;</span>, <span class="at">subtitle=</span> <span class="st">&quot;By Municipality Terciles of First Round Votes for Bolsonaro&quot;</span>, <span class="at">x=</span><span class="st">&quot;Year&quot;</span>, <span class="at">y=</span><span class="st">&quot;Councilors&quot;</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>terciles)</span></code></pre></div>
+<p><img src="gender_rep_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ver.impeachment.gender <span class="sc">%&gt;%</span> <span class="fu">filter</span>(imp<span class="sc">==</span><span class="dv">0</span>, impeachment2<span class="sc">!=</span><span class="st">&quot;No Federal Deputies&quot;</span> <span class="sc">&amp;</span> elected<span class="sc">==</span><span class="st">&quot;Elected&quot;</span> <span class="sc">&amp;</span> sex<span class="sc">==</span><span class="st">&quot;Male&quot;</span> ), <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> value)) <span class="sc">+</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype=</span>impeachment2), <span class="at">size =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_text(aes(label=value),hjust=0, vjust=1) +</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">2004</span>,<span class="dv">2008</span>,<span class="dv">2012</span>, <span class="dv">2016</span>)) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;dotted&quot;</span>, <span class="st">&quot;solid&quot;</span>, <span class="st">&quot;twodash&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">&quot;lines&quot;</span>),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>           <span class="co">#legend.justification=c(1,0), </span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;white&quot;</span>),</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.grid.major  =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">&quot;gray&quot;</span>),</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>),</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.key =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>,  <span class="at">family=</span><span class="st">&quot;serif&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Male City Councilors Elected (2004 - 2016)&quot;</span>, <span class="at">subtitle=</span> <span class="st">&quot;By Municipality Terciles of First Round Votes for Bolsonaro&quot;</span>, <span class="at">x=</span><span class="st">&quot;Year&quot;</span>, <span class="at">y=</span><span class="st">&quot;Councilors&quot;</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>terciles)</span></code></pre></div>
+<p><img src="gender_rep_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ver.impeachment.gender <span class="sc">%&gt;%</span> <span class="fu">filter</span>(imp<span class="sc">==</span><span class="dv">1</span>, impeachment2<span class="sc">!=</span><span class="st">&quot;No Federal Deputies&quot;</span> <span class="sc">&amp;</span> elected<span class="sc">==</span><span class="st">&quot;Elected&quot;</span> <span class="sc">&amp;</span> sex<span class="sc">==</span><span class="st">&quot;Female&quot;</span> ), <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> value)) <span class="sc">+</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype=</span>impeachment2), <span class="at">size =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_text(aes(label=value),hjust=0, vjust=1) +</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">2004</span>,<span class="dv">2008</span>,<span class="dv">2012</span>, <span class="dv">2016</span>)) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">&quot;lines&quot;</span>),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>           <span class="co">#legend.justification=c(1,0), </span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;white&quot;</span>),</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.grid.major  =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">&quot;gray&quot;</span>),</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>),</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.key =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>,  <span class="at">family=</span><span class="st">&quot;serif&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Female City Councilors Elected (2004 - 2016)&quot;</span>, <span class="at">subtitle=</span> <span class="st">&quot;By Municipality Terciles of First Round Votes for Bolsonaro&quot;</span>, <span class="at">x=</span><span class="st">&quot;Year&quot;</span>, <span class="at">y=</span><span class="st">&quot;Councilors&quot;</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>terciles)</span></code></pre></div>
+<p><img src="gender_rep_files/figure-html/unnamed-chunk-7-3.png" width="672" /></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ver.impeachment.gender <span class="sc">%&gt;%</span> <span class="fu">filter</span>(imp<span class="sc">==</span><span class="dv">1</span>, impeachment2<span class="sc">!=</span><span class="st">&quot;No Federal Deputies&quot;</span> <span class="sc">&amp;</span> elected<span class="sc">==</span><span class="st">&quot;Elected&quot;</span> <span class="sc">&amp;</span> sex<span class="sc">==</span><span class="st">&quot;Male&quot;</span> ), <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> value)) <span class="sc">+</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype=</span>impeachment2), <span class="at">size =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_text(aes(label=value),hjust=0, vjust=1) +</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">2004</span>,<span class="dv">2008</span>,<span class="dv">2012</span>, <span class="dv">2016</span>)) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">&quot;lines&quot;</span>),</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>           <span class="co">#legend.justification=c(1,0), </span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;white&quot;</span>),</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.grid.major  =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">&quot;gray&quot;</span>),</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>),</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.key =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>,  <span class="at">family=</span><span class="st">&quot;serif&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Male City Councilors Elected (2004 - 2016)&quot;</span>, <span class="at">subtitle=</span> <span class="st">&quot;By Municipality Terciles of First Round Votes for Bolsonaro&quot;</span>, <span class="at">x=</span><span class="st">&quot;Year&quot;</span>, <span class="at">y=</span><span class="st">&quot;Councilors&quot;</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>terciles)</span></code></pre></div>
+<p><img src="gender_rep_files/figure-html/unnamed-chunk-7-4.png" width="672" /></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(ver.impeachment.gender, ver)</span></code></pre></div>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkdlbmRlciBSZXByZXNlbnRhdGlvbiBpbiBCcmF6aWwiDQotLS0NCg0KVGhpcyBwYWdlIHJldmlld3MgbXkgY29udHJpYnV0aW9ucyB0byBhIFtjby1hdXRob3JlZCBib29rIGNoYXB0ZXJdKGh0dHBzOi8vd3d3LnRheWxvcmZyYW5jaXMuY29tL2NoYXB0ZXJzL2VkaXQvMTAuNDMyNC85NzgxMDAzMDIxMDAxLTEzL2RlLWRlbW9jcmF0aXphdGlvbi1icmF6aWwtbmV3LXB1enpsZS13b21lbi1wb2xpdGljYWwtcmVwcmVzZW50YXRpb24tcGF0cmljaWEtcmFuZ2VsLWVuZWlkYS12aW5oYWVzLWR1bHRyYS1kYXZpZC1tY2NveSkgYW5hbHl6aW5nIGhvdyBwb2xpdGljYWwgcmVwcmVzZW50YXRpb24gZm9yIHdvbWVuIGluIEJyYXppbCBjaGFuZ2VkIGFmdGVyIEJyYXppbCdzIGZpcnN0IGZlbWFsZSBwcmVzaWRlbnQsIERpbG1hIFJvdXNzZWZmLCB3YXMgaW1wZWFjaGVkLiBUaGlzIGltcGVhY2htZW50IGludm9sdmVkIHB1YmxpYyBkaXNwbGF5cyBvZiBtaXNvZ3luaXN0aWMgcG9zdHVyaW5nIGZyb20gb3Bwb25lbnRzOyBwb2xpdGljYWwgYmFja2xhc2ggYWdhaW5zdCBSb3Vzc2VmZidzIFdvcmtlcnMgUGFydHkgKFBUKTsgYW5kIHdhcyBmb2xsb3dlZCBieSBzZXZlcmFsIHllYXJzIG9mIHJpZ2h0LXdpbmcgcnVsZSBkdXJpbmcgd2hpY2ggbWFueSBpbnN0aXR1dGlvbnMgcHJvbW90aW5nIGdlbmRlciBlcXVpdHkgd2VyZSBkaXNtYW50bGVkLiAgDQoNClRoaXMgcGFnZSBjb250YWlucyB0aHJlZSBicm9hZCBjb21wb25lbnRzLiBPbmUgcmVzZWFyY2ggcXVlc3Rpb24gd2FzIHdoZXRoZXIgdm90ZXJzLCB3aG8gcmVqZWN0ZWQgdGhlIFBUIGZvciBsZWdpc2xhdGl2ZSByZXByZXNlbnRhdGlvbiBhdCB0aGUgcG9sbHMgaW4gMjAxNiwgY2hhbmdlZCB0aGVpciBhdHRpdHVkZXMgdG93YXJkIHdvbWVuIGFzIHBvbGl0aWNhbCByZXByZXNlbnRhdGl2ZXMuIFNlY29uZCwgd2UgdXNlIGVsaXRlIHN1cnZleSByZXNwb25zZXMgZnJvbSBbTGF0aW4gQW1lcmljYW4gRWxpdGVzIHByb2plY3Qgb2YgdGhlIFVuaXZlcnNpdHkgb2YgU2FsYW1hbmNhXShodHRwczovL29pci5vcmcuZXMvcGVsYS9lbi8pIChQRUxBLVVTQUwpIHRvIHRlc3Qgd2hldGhlciB0aGUgY29uc2VydmF0aXZlIGxlZ2lzbGF0dXJlIG9mIDIwMTggaGFkIHN0YXRpc3RpY2FsbHkgc2lnbmlmaWNhbnQgY2hhbmdlcyBpbiB2aWV3cyBvbiBhYm9ydGlvbiByaWdodHMgY29tcGFyZWQgd2l0aCB0aGUgMjAxNCBsZWdpc2x1cmUuVGhpcmQsIEkgY3JlYXRlZCBhIHNlcmllcyBvZiB2aXN1YWxpemF0aW9ucyB0aGF0IHNob3cgaG93IGRlc2NyaXB0aXZlIHJlcHJlc2VudGF0aW9uIGZvciB3b21lbiBjaGFuZ2VkIGZvciB2YXJpb3VzIG5hdGlvbmFsIGFuZCBsb2NhbCBvZmZpY2VzIG92ZXIgdGltZS4gDQoNCiMjIFBhY2thZ2VzDQoNCmBgYHtyLCB3YXJuaW5nID0gRkFMU0UsIG1lc3NhZ2UgPSBGQUxTRSwgY2xhc3Muc291cmNlID0gJ2ZvbGQtaGlkZSd9DQpsaWJyYXJ5KHJlYWRyKQ0KbGlicmFyeShkcGx5cikNCmxpYnJhcnkodGlkeXIpDQpsaWJyYXJ5KGdncGxvdDIpDQpsaWJyYXJ5KGxtZTQpDQpsaWJyYXJ5KHN0YXJnYXplcikNCmxpYnJhcnkoc2NhbGVzKQ0KbGlicmFyeShnZ2VmZmVjdHMpDQpsaWJyYXJ5KHNlZSkNCmxpYnJhcnkoZ3Rvb2xzKQ0KbGlicmFyeShNdU1JbikNCg0KI2NsZWFyIGRhdGENCnJtKGxpc3QgPSBscygpKQ0KDQpgYGANCg0KIyBTZWN0aW9uIDE6IERlc2NyaXB0aXZlIFJlcHJlc2VudGF0aW9uIGZvciBCcmF6aWxpYW4gV29tZW4gaW4gTG9jYWwgRWxlY3Rpb25zICANCg0KVHdvIGNvbXBldGluZyB0aGVvcmllcyBtaWdodCBleHBsYWluIGNoYW5nZXMgaW4gZGVzY3JpcHRpdmUgcmVwcmVzZW50YXRpb24gZm9yIHdvbWVuIGluIEJyYXppbCBhZnRlciBEaWxtYSBSb3Vzc2VmZidzIGltcGVhY2htZW50LiBWb3RlcnMgbWlnaHQgaW50ZXJuYWxpemUgdGhlIG1pc29neW5pc3RpYyBwdWJsaWMgbmFycmF0aXZlcyBzdXJyb3VuZGluZyBSb3Vzc2VmZidzIGltcGVhY2htZW50LCBhcyB3ZWxsIGFzIHRoZSBhc3NvY2lhdGlvbiBiZXR3ZWVuIGZlbWFsZSBjYW5kaWRhdGVzIGFuZCBsZWZ0aXN0IHBhcnRpZXMsIHdoaWNoIHdvdWxkIGxlYWQgb25lIHRvIGV4cGVjdCB2b3RlcnMgdG8gcHVuaXNoIGZlbWFsZSBjYW5kaWRhdGVzIGF0IHRoZSBwb2xscy4gQSBjb21wZXRpbmcgdGhlb3J5IGZvY3VzZXMgb24gdGhlICJhbnRpLXN5c3RlbSIgc2VudGltZW50IGFjY29tcGFueWluZyBSb3Vzc2VmZidzIGltcGVhY2htZW50LiBBbnRpLXN5c3RlbSBzZW50aW1lbnQgaGFzIGJlZW4gc2hvd24gdG8gZmF2b3IgZmVtYWxlIGNhbmRpZGF0ZXMsIGVzcGVjaWFsbHkgaW4gbWFsZS1kb21pbmF0ZWQgcG9saXRpY2FsIHN5c3RlbXMgbGlrZSBCcmF6aWwncywgYmVjYXVzZSBmZW1hbGUgY2FuZGlkYXRlcyBhcmUgbGlrZWx5IHRvIGJlIGFzc29jaWF0ZWQgd2l0aCB2b3Rpbmcgb3V0IHRoZSBzdGF0dXMgcXVvIGFuZCBzdGFydGluZyBmcmVzaCB3aXRoIG5ldyByZXByZXNlbnRhdGl2ZXMuICANCg0KQnJhemlsJ3MgcGFydHkgc3lzdGVtIGlzIHNoYXBlZCBieSBpdHMgb3BlbiBsaXN0IHByb3BvcnRpb25hbCByZXByZXNlbnRhdGlvbi4gQW55IGNhbmRpZGF0ZSBjYW4gam9pbiBhIHBhcnR5J3MgbGlzdC4gTGVnaXNsYXRpdmUgc2VhdHMgYXJlIGRpc3RyaWJ1dGVkIGJ5IHZvdGVzIGdhaW5lZCBieSBwYXJ0aWVzLCBhbmQgdGhlIHNlYXRzIGFyZSBvY2N1cGllZCBieSB0aGUgZmlyc3QgJG4kIGNhbmRpZGF0ZXMgb24gdGhhdCBwYXJ0eSBsaXN0LCB3aGVyZSAkbiQgaXMgdGhlIG51bWJlciBvZiBzZWF0cyB3b24gYnkgdGhhdCBwYXJ0eS4gSSBkb3dubG9hZGVkIGNhbmRpZGF0ZS1sZXZlbCBkYXRhIGZvciBjaXR5IGNvdW5jaWwgZWxlY3Rpb25zIGluIEJyYXppbCdzIDUsNTcwIG11bmljaXBhbGl0aWVzLiBGb3IgZWFjaCBwYXJ0eSwgaW4gZWFjaCBjaXR5LCBmb3IgZm91ciBlbGVjdGlvbiB5ZWFycywgSSBjYWxjdWxhdGVkIHRoZSBwcm9wb3J0aW9uIG9mIHZvdGVzIHRoYXQgd2VyZSB3b24gYnkgd29tZW4uICANCg0KRm9yIHRoZSBlbGVjdGlvbnMgaW4gMjAwNCwgMjAwOCwgMjAxMiwgYW5kIDIwMTYsIEkgdXNlIGEgcHJveHkgZm9yIGFudGktc3lzdGVtIHZvdGluZyB0aGF0IGlzICJhY3RpdmF0ZWQiIGR1cmluZyBSb3Vzc2VmZidzIGltcGVhY2htZW50LCBwcmlvciB0byB0aGUgMjAxNiBlbGVjdGlvbnMuIFRoZSBwcm94eSBpcyB0aGUgZnV0dXJlIHN1cHBvcnQgZm9yIGZhci1yaWdodCwgYW50aS1zeXN0ZW0gY2FuZGlkYXRlIEphaXIgQm9sc29uYXJvIGluIDIwMTguIEkgY29udHJvbCBmb3IgcGFydHkgbGlzdC1sZXZlbCB2YXJpYWJsZXMgbGlrZSBzaXplIG9mIHRoZSBsaXN0IGFuZCB3ZXRoZXIgdGhleSBhcmUgaW4gYSBjb2FsaXRpb24uIEkgY29udHJvbCBmb3Igc2V2ZXJhbCBtdW5pY2lwYWxpdHktbGV2ZWwgZmFjdG9ycyBsaWtlIEdJTkksIHBvcHVsYXRpb24sIGFuZCB3aGV0aGVyIHRoZXJlIGlzIGEgZmVtYWxlIG1heW9yLiANCg0KVGhlIGRhdGEgc2V0ICh0b28gbGFyZ2UgdG8gc2hhcmUgb24gR2l0SHViKSBpbmNsdWRlcyA1NSwwMDAgdG8gNzUsMDAwIHBhcnR5IGxpc3RzIHBlciBlbGVjdGlvbiB5ZWFyLiBUaGUgZGVwZW5kZW50IHZhcmlhYmxlIGlzIGEgcGVyY2VudGFnZSwgd2hpY2ggcG9zZXMgYSBjaGFsbGVuZ2UgaW4gdGVybXMgb2YgbW9kZWxpbmcuIEkgdHJlYXQgZWFjaCBlbGVjdGlvbiBhcyBjcm9zcy1zZWN0aW9uYWwgZGF0YS4gRm9yIGVhY2ggZWxlY3Rpb24sIEkgcnVuIGEgZ2VuZXJhbGl6ZWQgbGluZWFyIG1vZGVsIHRoYXQgdHJlYXRzIGVhY2ggc2luZ2xlIHZvdGUgY2FzdCBhcyBhIEJlcm5vdWxsaSB0cmlhbCB3aXRoICJzdWNjZXNzZnVsIiB0cmlhbCBiZWluZyBhIHZvdGUgY2FzdCBmb3IgYSBmZW1hbGUgY2FuZGlkYXRlLiBUaGlzIGlzIGFjaGlldmVkIGJ5IHdlaWdodGluZyBlYWNoIHByb3BvcnRpb24gdmFsdWUgKG9ic2VydmF0aW9uIG91dGNvbWUgaW4gdGhlIG1vZGVsKSBieSB0aGUgdG90YWwgbnVtYmVyIG9mIHZvdGVzIGdhaW5lZCBieSB0aGF0IHBhcnR5IGxpc3QuIFRoZSBxdWFzaS1iaW5vbWlhbCBsaW5rIGZ1bmN0aW9uIGlzIHNpbWlsYXIgdG8gYSBsb2dpc3RpYyByZWdyZXNzaW9uIGJ1dCBpbmNsdWRlcyBhbiBhZGRpdGlvbmFsIHBhcmFtZXRlciB0aGF0IGhlbHBzIGFjY291bnQgZm9yIG92ZXJkaXNwZXJzaW9uLiBCZWxvdyBJIHJ1biB0aGUgZm91ciBHTE0gbW9kZWxzLiBUaGUgbWFpbiBlZmZlY3RzIG9mIGludGVyZXN0IGFyZSB0aGUgaW50ZXJhY3Rpb24gYmV0d2VlbiBwYXJ0eSBncm91cHMgYW5kIG11bmljaXBhbGl0eS1sZXZlbCBCb2xzb25hcm8gc3VwcG9ydCAodGhlIGFudGktc3lzdGVtIHByb3h5KS4gVGhlIGludGVyYWN0aW9ucyBpbmNsdWRlIHBvbHlub21pYWwgdGVybXMgaW4gb3JkZXIgdG8gcmVsYXggc3RyaWN0IGxpbmVhcml0eSBhc3N1bXB0aW9ucywgd2hpY2ggbWFrZXMgaW50ZXJwcmV0YXRpb24gb2YgY29lZmZpY2llbnRzIGRpZmZpY3VsdC4gVG8gZW5hYmxlIGludGVycHJldGF0aW9uLCBJIHZpc3VhbGl6ZSB0aGVzZSBpbnRlcmFjdGlvbnMgaW4gdGhlIGZvbGxvd2luZyBjaHVuay4NCg0KIyMgV2VpZ2h0ZWQgR0xNIE1vZGVscw0KYGBge3IsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFLCByZXN1bHRzID0gImFzaXMifQ0KIyBQb2x5bm9taWFsLCB3ZWlnaHRlZCBHTE0gd2l0aCBjb250cm9scw0KDQojIExvYWQgZGF0YQ0KdmVyIDwtIHJlYWRSRFMoImRhdGEvZ2VuZGVyX2RlbW9jcmFjeS5yZHMiKSAlPiUNCiAgZmlsdGVyKCFpcy5uYShtYXlvci5mZW1hbGUpICYgIWlzLm5hKHBjdF9ib2xzb25hcm8pICYgIWlzLm5hKGxuUE9QKSkgJT4lICAjIFRoaXMgcmVtb3ZlcyAyMDAwIG9ic2VydmF0aW9ucyBidXQgbWFrZXMgbW9kZWxzIGNvbXBhcmFibGUgZm9yIEdPRiB0ZXN0cw0KICBtdXRhdGUocGVyY2VudC5mZW1hbGUgPSBGZW1hbGUgLyBQYXJ0eS5Ub3RhbCkgJT4lDQogIHJlbG9jYXRlKG9ic2VydmF0aW9uLCBpYmdlNywgU0lHTEFfUEFSVElETywgcGVyY2VudC5mZW1hbGUpDQoNCm0yMDA0cCA8LSBnbG0ocGVyY2VudC5mZW1hbGUgfg0KICAgICAgICAgICAgICBub19jb2FsaXRpb24gKiBsaXN0LnNpemUgKyBtYXlvci5mZW1hbGUgKyBHSU5JICsgbG5QT1AgKyBOb3J0aE5vcnRoZWFzdCArDQogICAgICAgICAgICAgIGltcGVhY2htZW50MiAqIHBvbHkocGN0X2JvbHNvbmFybywgMiksDQogICAgICAgICAgICAgIGZhbWlseSA9IHF1YXNpYmlub21pYWwsIHdlaWdodHM9UGFydHkuVG90YWwsIGRhdGE9dmVyICU+JSBmaWx0ZXIoeWVhcj09IjIwMDQiKSkNCm0yMDA4cCA8LSBnbG0ocGVyY2VudC5mZW1hbGUgfg0KICAgICAgICAgICAgICBub19jb2FsaXRpb24gKiBsaXN0LnNpemUgKyBtYXlvci5mZW1hbGUgKyBsYWcubWF5b3IuZmVtYWxlICsgR0lOSSArIGxuUE9QICsgTm9ydGhOb3J0aGVhc3QgKw0KICAgICAgICAgICAgICBpbXBlYWNobWVudDIgKiBwb2x5KHBjdF9ib2xzb25hcm8sIDIpLA0KICAgICAgICAgICAgICBmYW1pbHkgPSBxdWFzaWJpbm9taWFsLCB3ZWlnaHRzPVBhcnR5LlRvdGFsLCBkYXRhPXZlciAlPiUgZmlsdGVyKHllYXI9PSIyMDA4IikpDQptMjAxMnAgPC0gZ2xtKHBlcmNlbnQuZmVtYWxlIH4NCiAgICAgICAgICAgICAgbm9fY29hbGl0aW9uICogbGlzdC5zaXplICsgbWF5b3IuZmVtYWxlICsgbGFnLm1heW9yLmZlbWFsZSArIEdJTkkgKyBsblBPUCArIE5vcnRoTm9ydGhlYXN0ICsNCiAgICAgICAgICAgICAgaW1wZWFjaG1lbnQyICogcG9seShwY3RfYm9sc29uYXJvLCAyKSwNCiAgICAgICAgICAgICAgZmFtaWx5ID0gcXVhc2liaW5vbWlhbCwgd2VpZ2h0cz1QYXJ0eS5Ub3RhbCwgZGF0YT12ZXIgJT4lIGZpbHRlcih5ZWFyPT0iMjAxMiIpKQ0KbTIwMTZwIDwtIGdsbShwZXJjZW50LmZlbWFsZSB+DQogICAgICAgICAgICAgIG5vX2NvYWxpdGlvbiAqIGxpc3Quc2l6ZSArIG1heW9yLmZlbWFsZSArIGxhZy5tYXlvci5mZW1hbGUgKyBHSU5JICsgbG5QT1AgKyBOb3J0aE5vcnRoZWFzdCArDQogICAgICAgICAgICAgIGltcGVhY2htZW50MiAqIHBvbHkocGN0X2JvbHNvbmFybywgMiksDQogICAgICAgICAgICAgIGZhbWlseSA9IHF1YXNpYmlub21pYWwsIHdlaWdodHM9UGFydHkuVG90YWwsIGRhdGE9dmVyICU+JSBmaWx0ZXIoeWVhcj09IjIwMTYiKSkNCg0KDQpudWxsMjAwNCA8LSBnbG0ocGVyY2VudC5mZW1hbGUgfiAxLCBmYW1pbHkgPSBxdWFzaWJpbm9taWFsLCB3ZWlnaHRzPVBhcnR5LlRvdGFsLCBkYXRhPXZlciAlPiUgZmlsdGVyKHllYXI9PSIyMDA0IikpDQpudWxsMjAwOCA8LSBnbG0ocGVyY2VudC5mZW1hbGUgfiAxLCBmYW1pbHkgPSBxdWFzaWJpbm9taWFsLCB3ZWlnaHRzPVBhcnR5LlRvdGFsLCBkYXRhPXZlciAlPiUgZmlsdGVyKHllYXI9PSIyMDA4IiAmICFpcy5uYShsYWcubWF5b3IuZmVtYWxlKSkpDQpudWxsMjAxMiA8LSBnbG0ocGVyY2VudC5mZW1hbGUgfiAxLCBmYW1pbHkgPSBxdWFzaWJpbm9taWFsLCB3ZWlnaHRzPVBhcnR5LlRvdGFsLCBkYXRhPXZlciAlPiUgZmlsdGVyKHllYXI9PSIyMDEyIiAmICFpcy5uYShsYWcubWF5b3IuZmVtYWxlKSkpDQpudWxsMjAxNiA8LSBnbG0ocGVyY2VudC5mZW1hbGUgfiAxLCBmYW1pbHkgPSBxdWFzaWJpbm9taWFsLCB3ZWlnaHRzPVBhcnR5LlRvdGFsLCBkYXRhPXZlciAlPiUgZmlsdGVyKHllYXI9PSIyMDE2IiAmICFpcy5uYShsYWcubWF5b3IuZmVtYWxlKSkpDQoNCiMgTW9kZWwgb3V0cHV0DQpzdGFyZ2F6ZXIobTIwMDRwLCBtMjAwOHAsIG0yMDEycCwgbTIwMTZwLA0KICB0aXRsZSA9ICJUYWJsZSAxLiBQYXJ0eSBMaXN0IFZvdGluZyBmb3IgRmVtYWxlIENpdHkgQ291bmNpbCBDYW5kaWRhdGVzLCAyMDA0IC0gMjAxNiIsDQogIGRlcC52YXIuY2FwdGlvbiA9ICJQZXJjZW50YWdlIG9mIFZvdGVzIGZvciBXb21lbiIsDQogICNjb3ZhcmlhdGUubGFiZWxzPWMoIiIpLA0KICB0eXBlPSJodG1sIiwNCiAgaW50ZXJjZXB0LmJvdHRvbSA9IFQsDQogIGRpZ2l0cz0yLA0KICBjb2x1bW4ubGFiZWxzID0gYygiMjAwNCIsICIyMDA4IiwgIjIwMTIiLCAiMjAxNiIpKQ0KDQojIFRoZXNlIGdvb2RuZXNzIG9mIGZpdCB0ZXN0cyBhZ2FpbnN0IHRoZSBudWxsIGFyZSBmaW5lIGJ1dCB1bmludGVyZXN0aW5nIGZvciB0aGlzIGRlbW9uc3RyYXRpb24uDQojIGFub3ZhKG51bGwyMDA0LCBtMjAwNHAsIHRlc3QgPSAiRiIpDQojIGFub3ZhKG51bGwyMDA4LCBtMjAwOHAsIHRlc3QgPSAiRiIpDQojIGFub3ZhKG51bGwyMDEyLCBtMjAxMnAsIHRlc3QgPSAiRiIpDQojIGFub3ZhKG51bGwyMDE2LCBtMjAxNnAsIHRlc3QgPSAiRiIpDQoNCmBgYA0KDQojIyBWaXN1YWxpemluZyBHTE0gSW50ZXJhY3Rpb25zOiAlIG9mIHBhcnR5IGxpc3Qgdm90ZXMgdGhhdCBhcmUgY2FzdCBmb3Igd29tZW4gaW4gcGFydGllcyBhbGxpZWQgYW5kIG9wcG9zZWQgdG8gaW1wZWFjaG1lbnQgaW4gd2Vha2x5IGFuZCBzdHJvbmdseSBhbnRpLXN5c3RlbSBtdW5pY2lwYWxpdGllcw0KDQpUaGUgaW50ZXJlc3RpbmcgZmluZGluZyBoZXJlIGlzIHRoYXQgZmVtYWxlIGNhbmRpZGF0ZXMgZnJvbSB0aGUgUFQgYW5kIHRoZWlyIGFsbGllZCBwYXJ0aWVzICJBZ2FpbnN0IEltcGVhY2htZW50IiBwZXJmb3JtIHVuaXF1ZWx5IHdlbGwgaW4gMjAxNiAoY29tcGFyZWQgd2l0aCBtYWxlIGNvLXBhcnRpc2FucyBvbiB0aGVpciBsaXN0IGluIHRoYXQgeWVhcikuIEluIGZhY3QsIGZlbWFsZSBjYW5kaWRhdGVzIHBlcmZvcm0gd2VsbCBwcmVjaXNlbHkgaW4gdGhvc2UgZGlzdHJpY3RzIG1hcmtlZCBieSAiYW50aS1zeXN0ZW0iIHZvdGluZyBwcmVmZXJlbmNlczogdGhlIHJpZ2h0IGV4dHJlbWl0eSBvZiB0aGUgeC1heGlzIG9mIGVhY2ggc3VicGxvdC4gRm9yIHRoZSBQU0RCIGFuZCBvdGhlciBwYXJ0aWVzIHRoYXQgIlZvdGVkIHRvIEltcGVhY2giLCB3b21lbiBhbHNvIHBlcmZvcm0gd2VsbCBpbiAyMDE2OyBob3dldmVyLCB0aGlzIHJlbGF0aXZlIHN1Y2Nlc3MgaXMgbm90IHN0cm9uZ2x5IHJlbGF0ZWQgdG8gdGhlIGxldmVsIG9mIGFudGktc3lzdGVtIHNlbnRpbWVudCBpbiB0aGUgbXVuaWNpcGFsaXR5IHdoZXJlIHRoZSBlbGVjdGlvbiBpcyBoZWxkLiBUaGlzIHByb3ZpZGVzIHN1cHBvcnQgZm9yIHRoZSB0aGVvcnkgdGhlb3J5IHRoYXQgZmVtYWxlIGNhbmRpZGF0ZXMgdGVuZCB0byBwZXJmb3JtIGJldHRlciB3aGVuIHZvdGVycyBhcmUgc2Vla2luZyB0byBwdW5pc2ggcG9saXRpY2FsIGVsaXRlcyBhc3NvY2lhdGVkIHdpdGggdGhlIHN0YXR1cyBxdW8sIGV2ZW4gaW4gdGhlIGZhY2Ugb2YgcmVjZW50IG1pc29neW5pc3RpYyByaGV0b3JpYyBhbmQgcG9zdHVyaW5nLg0KDQoNCmBgYHtyLCB3YXJuaW5nID0gRkFMU0UsIG1lc3NhZ2UgPSBGQUxTRSwgcmVzdWx0cyA9ICJhc2lzIn0NCiMgUHJlZGljdCBhbmQgc3RvcmUgaW50ZXJhY3Rpb24gdGVybXMgZnJvbSBHTE0gbW9kZWxzDQpwcDA0IDwtIGdncHJlZGljdChtMjAwNHAsIHRlcm1zID0gYygicGN0X2JvbHNvbmFyb1thbGxdIiwgImltcGVhY2htZW50MiIpKQ0KcHAwOCA8LSBnZ3ByZWRpY3QobTIwMDhwLCB0ZXJtcyA9IGMoInBjdF9ib2xzb25hcm9bYWxsXSIsICJpbXBlYWNobWVudDIiKSkNCnBwMTIgPC0gZ2dwcmVkaWN0KG0yMDEycCwgdGVybXMgPSBjKCJwY3RfYm9sc29uYXJvW2FsbF0iLCAiaW1wZWFjaG1lbnQyIikpDQpwcDE2IDwtIGdncHJlZGljdChtMjAxNnAsIHRlcm1zID0gYygicGN0X2JvbHNvbmFyb1thbGxdIiwgImltcGVhY2htZW50MiIpKQ0KcHAwNCR5ZWFyIDwtICIyMDA0Ig0KcHAwOCR5ZWFyIDwtICIyMDA4Ig0KcHAxMiR5ZWFyIDwtICIyMDEyIg0KcHAxNiR5ZWFyIDwtICIyMDE2Ig0KcHAgPC0gcmJpbmQocHAwNCwgcHAwOCwgcHAxMiwgcHAxNikNCg0KIyBUd28gYW5kIFRocmVlIC0gcG9seW5vbWlhbA0KDQpwcm9wdF9pbnRlcmFjdGlvbiA8LSBnZ3Bsb3QoZGF0YSA9IHBwICU+JSBmaWx0ZXIoZ3JvdXA9PSJQVCIgfCBncm91cD09IkFnYWluc3QgSW1wZWFjaG1lbnQiKSwgYWVzKHg9eCwgeT1wcmVkaWN0ZWQsIGZpbGwgPSB5ZWFyKSkgKw0KICBnZW9tX2xpbmUoKSArIGdlb21fcmliYm9uKGFlcyh5bWluID0gY29uZi5sb3csIHltYXggPSBjb25mLmhpZ2gpLCBhbHBoYSA9IC41LCBsaW5ldHlwZT0yKSArIA0KICB0aGVtZV9idygpICsgc2NhbGVfZmlsbF9ncmV5KHN0YXJ0ID0gMC45LCBlbmQgPSAwLjEpICsgeWxpbSguMTAsIDAuMzEpICsgeGxpbSguMSwgLjc1KSArDQogIHRoZW1lKGxlZ2VuZC5wb3NpdGlvbj0iYm90dG9tIiwNCiAgICBsZWdlbmQudGl0bGUgPSBlbGVtZW50X2JsYW5rKCksIHRleHQ9ZWxlbWVudF90ZXh0KHNpemU9MTIsICBmYW1pbHk9InNlcmlmIikpICsgDQogIGZhY2V0X3dyYXAofmdyb3VwKSArIA0KICBsYWJzKHRpdGxlPSJQYXJ0eSBMaXN0IFZvdGVzIGZvciBXb21lbiAoJSk6IEFudGktSW1wZWFjaG1lbnQgKDIwMDQgLSAyMDE2KSIsIA0KICAgIHN1YnRpdGxlPSAiQnkgTXVuaXBhbGl0eSBGaXJzdCBSb3VuZCBWb3RlcyBmb3IgQm9sc29uYXJvIiwgDQogICAgeD0iMXN0IFJvdW5kIEJvbHNvbmFybyBWb3RlIiwgDQogICAgeT0iVm90ZXMgZm9yIFdvbWVuIGJ5IFBhcnR5IExpc3QiKSANCnByb3B0X2ludGVyYWN0aW9uDQoNCmltcGVhY2htZW50X2ludGVyYWN0aW9uIDwtIGdncGxvdChkYXRhID0gcHAgJT4lIGZpbHRlcihncm91cD09IlBTREIiIHwgZ3JvdXA9PSJWb3RlZCB0byBJbXBlYWNoIiksIGFlcyh4PXgsIHk9cHJlZGljdGVkLCBmaWxsID0geWVhcikpICsNCiAgZ2VvbV9saW5lKCkgKyBnZW9tX3JpYmJvbihhZXMoeW1pbiA9IGNvbmYubG93LCB5bWF4ID0gY29uZi5oaWdoKSwgYWxwaGEgPSAuNSwgbGluZXR5cGU9MikgKyANCiAgdGhlbWVfYncoKSArIHNjYWxlX2ZpbGxfZ3JleShzdGFydCA9IDAuOSwgZW5kID0gMC4xKSArIHlsaW0oLjEwLCAwLjIxKSArIHhsaW0oLjEsIC43NSkgKw0KICB0aGVtZShsZWdlbmQucG9zaXRpb249ImJvdHRvbSIsDQogICAgbGVnZW5kLnRpdGxlID0gZWxlbWVudF9ibGFuaygpLCB0ZXh0PWVsZW1lbnRfdGV4dChzaXplPTEyLCAgZmFtaWx5PSJzZXJpZiIpKSArIA0KICBmYWNldF93cmFwKH5ncm91cCkgKyANCiAgbGFicyh0aXRsZT0iUGFydHkgTGlzdCBWb3RlcyBmb3IgV29tZW4gKCUpOiBQcm8tSW1wZWFjaG1lbnQgKDIwMDQgLSAyMDE2KSIsIA0KICAgIHN1YnRpdGxlPSAiQnkgTXVuaXBhbGl0eSBGaXJzdCBSb3VuZCBWb3RlcyBmb3IgQm9sc29uYXJvIiwgDQogICAgeD0iMXN0IFJvdW5kIEJvbHNvbmFybyBWb3RlIiwgDQogICAgeT0iVm90ZXMgZm9yIFdvbWVuIGJ5IFBhcnR5IExpc3QiKSANCmltcGVhY2htZW50X2ludGVyYWN0aW9uDQpgYGANCg0KIyBTZWN0aW9uIDI6IENoYW5nZXMgaW4gRmVkZXJhbCBMZWdpc2xhdG9ycycgUG9zaXRpb25zIG9uIEFib3J0aW9uIFJpZ2h0cyBmcm9tIDIwMTQgdG8gMjAxOA0KDQoNCkkgaGF2ZSBzaG93biBob3cgZGVzY3JpcHRpdmUgcmVwcmVzZW50YXRpb24gKHdoZXRoZXIgZWxpdGVzIHNoYXJlIGNvbmdydWVudCBpZGVudGl0aWVzIHdpdGggdGhlIHBvcHVsYXRpb24pIGNoYW5nZWQgaW4gcmVzcG9uc2UgdG8gdGhlIGxlZnQncyBwb2xpdGljYWwgY3Jpc2lzLiBJbiB0aGlzIGNoYXB0ZXIgd2Ugd2VyZSBhbHNvIGludGVyZXN0ZWQgaW4gd2hldGhlciBzdWJzdGFudGl2ZSByZXByZXNlbnRhdGlvbiBvZiB3b21lbidzIGlzc3VlcyBzaGlmdGVkIGR1cmluZyB0aGlzIHBlcmlvZC4gV2UgdXNlIHRoZSBkYXRhIGZyb20gdGhlIFtMYXRpbiBBbWVyaWNhbiBFbGl0ZXMgcHJvamVjdCBvZiB0aGUgVW5pdmVyc2l0eSBvZiBTYWxhbWFuY2FdKGh0dHBzOi8vb2lyLm9yZy5lcy9wZWxhL2VuLykgKFBFTEEtVVNBTCkgdG8gdGVzdCBmb3IgY2hhbmdlcyBpbiBhdmVyYWdlIHBvc2l0aW9ucyByZWdhcmRpbmcgc3VwcG9ydCBmb3IgYWJvcnRpb24gcmlnaHRzLiBJIHBlcmZvcm1lZCBhIG9uZS13YXkgYW5vdmEgdG8gdGVzdCBpZiB0aGUgYXZlcmFnZSBwb3NpdGlvbiBjaGFuZ2VkIChpdCBkaWQpIGFuZCBhIHR3by13YXkgYW5vdmEgdG8gdGVzdCB3aGV0aGVyIHRoaXMgY2hhbmdlIGlzIGRyaXZlbiBieSBhIHNoaWZ0IGluIG1hbGUgZWxpdGVzJyBwb3NpdGlvbnMgb3IgYSBzaGlmdCBpbiBmZW1hbGUgZWxpdGVzJyBwb3NpdGlvbnMgZnJvbSAyMDE0IHRvIDIwMTggKGZlbWFsZXMgZGlkIG5vdCBjaGFuZ2UgbW9yZSB0aGFuIG1lbiBpbiBhIHNpZ25pZmljYW50IGxldmVsKS4NCg0KIyMgVmlzdWFsaXppbmcgU3VwcG9ydCBhbmQgT3Bwb3NpdGlvbiBmb3IgQWJvcnRpb24gUmlnaHRzDQoNClRoaXMgcGxvdCB3YXMgaW5jbHVkZWQgaW4gdGhlIGNoYXB0ZXIsIGFuZCB0aGUgcmVzdWx0cyBvZiB0aGUgYW5hbHlzaXMgb2YgdmFyaWFuY2UgbW9kZWxzIHdlcmUgcmVwb3J0ZWQgaW4gdGhlIHRleHQsIHdoaWNoIGlzIHdoeSB0aGVyZSBpcyBub3QgYSBwcmV0dHkgdGFibGUuIENsZWFybHkgd2UgY2FuIHNlZSB0aGF0IG9wcG9zaXRpb24gdG8gYWJvcnRpb24gaGFzIGluY3JlYXNlZCBmcm9tIDIwMTQgdG8gMjAxOC4gDQoNCg0KYGBge3IsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFLCByZXN1bHRzID0gImFzaXMifQ0KDQojIyBBTk9WQSBhbmQgRmlndXJlIG9uIEFib3J0aW9uIGZyb20gUGVsYSBEYXRhOg0KIyMjUGVsYXM6IEVsaXRlIFN1cnZleXMgb24gUHJlZmVyZW5jZXMNCg0KIyBJIGRvbid0IGhhdmUgcGVybWlzc2lvbiB0byBzaGFyZSB0aGlzLCBzbyBJIG1hZGUgYSByZWR1Y2VkIHZlcnNpb24NCnBlbGEgPC0gcmVhZC5jc3YoImRhdGEvcGVsYS5jc3YiKQ0KDQp0aGVtZV9zZXQodGhlbWVfY2xhc3NpYygpKQ0KI2xpYnJhcnkoY293cGxvdCkNCiMgSGlzdG9ncmFtIG9uIGEgQ29udGludW91cyAoTnVtZXJpYykgVmFyaWFibGUNCmcgPC0gZ2dwbG90KHBlbGEgJT4lIGZpbHRlcih5ZWFyID09IDIwMTQpLCBhZXMoQWJvcnRvKSkgKyBzY2FsZV9maWxsX2JyZXdlcihwYWxldHRlID0gIkdyZXlzIikgKyB0aGVtZSh0ZXh0PWVsZW1lbnRfdGV4dChzaXplPTEyLCAgZmFtaWx5PSJzZXJpZiIpKQ0KcDE0IDwtIGcgKyBnZW9tX2hpc3RvZ3JhbShhZXMoZmlsbD1TZXgpLCANCiAgICAgICAgICAgICAgICAgICBiaW5zPTUsIA0KICAgICAgICAgICAgICAgICAgIGNvbD0iYmxhY2siLCANCiAgICAgICAgICAgICAgICAgICBzaXplPS4wNSkgKyAgICMgY2hhbmdlIG51bWJlciBvZiBiaW5zDQogIGxhYnModGl0bGU9IjIwMTEtMjAxNCBMb3dlciBDaGFtYmVyIE9wcG9zaXRpb24gZm9yIExlZ2FsaXphdGlvbiBvZiBBYm9ydGlvbiIsIA0KICAgICAgIHN1YnRpdGxlPSJTb3VyY2U6IFBFTEEtVVNBTCAyMDE0IiwgeD1lbGVtZW50X2JsYW5rKCksIHk9ZWxlbWVudF9ibGFuaygpKSArDQogIHNjYWxlX3hfY29udGludW91cyhicmVha3M9YygxLCAxMCksIGxhYmVsPWMoIlN1cHBvcnQgZm9yIExlZ2FsaXphdGlvbiIsICJPcHBvc2l0aW9uIGZvciBMZWdhbGl6YXRpb24iKSkNCg0KdGhlbWVfc2V0KHRoZW1lX2NsYXNzaWMoKSkNCiMgSGlzdG9ncmFtIG9uIGEgQ29udGludW91cyAoTnVtZXJpYykgVmFyaWFibGUNCmcgPC0gZ2dwbG90KHBlbGEgJT4lIGZpbHRlcih5ZWFyID09IDIwMTgpLCBhZXMoQWJvcnRvKSkgKyBzY2FsZV9maWxsX2JyZXdlcihwYWxldHRlID0gIkdyZXlzIikgKyB0aGVtZSh0ZXh0PWVsZW1lbnRfdGV4dChzaXplPTEyLCAgZmFtaWx5PSJzZXJpZiIpKQ0KcDE4IDwtIGcgKyBnZW9tX2hpc3RvZ3JhbShhZXMoZmlsbD1TZXgpLCANCiAgICAgICAgICAgICAgICAgICBiaW5zPTUsIA0KICAgICAgICAgICAgICAgICAgIGNvbD0iYmxhY2siLCANCiAgICAgICAgICAgICAgICAgICBzaXplPS4xKSArICAgIyBjaGFuZ2UgbnVtYmVyIG9mIGJpbnMNCiAgbGFicyh0aXRsZT0iMjAxNS0yMDE4IExvd2VyIENoYW1iZXIgT3Bwb3NpdGlvbiBmb3IgTGVnYWxpemF0aW9uIG9mIEFib3J0aW9uIiwgDQogICAgICAgc3VidGl0bGU9IlNvdXJjZTogUEVMQS1VU0FMIDIwMTgiLCB4PWVsZW1lbnRfYmxhbmsoKSwgeT1lbGVtZW50X2JsYW5rKCkpICsNCiAgc2NhbGVfeF9jb250aW51b3VzKGJyZWFrcz1jKDEsIDEwKSwgbGFiZWw9YygiU3VwcG9ydCBmb3IgTGVnYWxpemF0aW9uIiwgIk9wcG9zaXRpb24gZm9yIExlZ2FsaXphdGlvbiIpKQ0KICANCg0KI0Fub3RoZXIgb3B0aW9uDQphYm9ydGlvbl9oaXN0IDwtIGNvd3Bsb3Q6OnBsb3RfZ3JpZChwMTQsIHAxOCwgbmNvbCA9IDEsIG5yb3cgPSAyKQ0KYWJvcnRpb25faGlzdA0KDQpgYGANCg0KIyMgT25lLSBhbmQgVHdvLXdheSBBbm92YSBNb2RlbHMgZm9yIExldmVscyBvZiBPcHBvc2l0aW9uIHRvIEFib3J0aW9uIFJpZ2h0czogMjAxNCBhbmQgMjAxOA0KDQpUaGVzZSBhbmFseXNpcyBvZiB2YXJpYW5jZSBtb2RlbHMgc2hvdyB0aGF0IGluY3JlYXNlcyBpbiBvcHBvc2l0aW9uIHRvIGFib3J0aW9uIHJpZ2h0cyBhcmUgc3RhdGlzdGljYWxseSBzaWduaWZpY2FudCBmcm9tIDIwMTQgdG8gMjAxOC4gSG93ZXZlciwgdGhlIHR3by13YXkgbW9kZWwgZmFpbHMgdG8gcmVqZWN0IHRoZSBudWxsIHRoYXQgbWVuIGluIHRoZSBsZWdpc2xhdHVyZSBpbmNyZWFzZWQgaW4gb3Bwb3NpdGlvbiB0byBhYm9ydGlvbiByaWdodHMgbW9yZSB0aGFuIG1lbi4gQm90aCBncm91cHMgaW5jcmVhc2VkIGluIHRoZWlyIG9wcG9zaXRpb24gc2ltaWxhcmx5IGZyb20gMjAxNCB0byAyMDE4LiBXZSBkaXNjdXNzIHRoaXMgaW4gbXVjaCBtb3JlIGRldGFpbCBpbiB0aGUgYm9vayBjaGFwdGVyLiAgDQpgYGB7ciwgd2FybmluZyA9IEZBTFNFLCBtZXNzYWdlID0gRkFMU0UsIHJlc3VsdHMgPSAiYXNpcyJ9DQojIE9uZS13YXkgQU5PVkENCnJlcy5hb3YxIDwtIGFvdihBYm9ydG8gfiBhcy5mYWN0b3IoeWVhcikgLCBkYXRhID0gcGVsYSkNCmFub3ZhKHJlcy5hb3YxKQ0KIyBUd28td2F5IEFOT1ZBDQpyZXMuYW92MiA8LSBhb3YoQWJvcnRvIH4gYXMuZmFjdG9yKHllYXIpICogYXMuZmFjdG9yKFNleCksIGRhdGEgPSBwZWxhKQ0KYW5vdmEocmVzLmFvdjIpDQoNCmxpYnJhcnkoImdncHViciIpDQpwMSA8LSBnZ2xpbmUocGVsYSwgeCA9ICJ5ZWFyIiwgeSA9ICJBYm9ydG8iLA0KICAgICAgIGFkZCA9IGMoIm1lYW5fc2UiLCAiZG90cGxvdCIpLA0KICAgICAgIHBhbGV0dGUgPSBjKCIjMDBBRkJCIiwgIiNFN0I4MDAiKSkNCnAyIDwtIGdnbGluZShwZWxhLCB4ID0gInllYXIiLCB5ID0gIkFib3J0byIsIGNvbG9yID0gIlNleCIsDQogICAgICAgYWRkID0gYygibWVhbl9zZSIsICJkb3RwbG90IiksDQogICAgICAgcGFsZXR0ZSA9IGMoIiMwMEFGQkIiLCAiI0U3QjgwMCIpKQ0KDQpjb3dwbG90OjpwbG90X2dyaWQocDEsIHAyLCBuY29sID0gMiwgbnJvdyA9IDEpDQoNCiMjIyBTaWRlLWJ5LXNpZGUgaGlzdG9ncmFtIG9mIGFib3J0aW9uIGJ5IGdlbmRlci4NCg0Kcm0ocDEsIHAyLCBwZWxhLCBwMTQsIHAxOCwgZywgYWJvcnRpb25faGlzdCkNCg0KYGBgDQoNCiMgU2VjdGlvbiAzOiBUcmVuZCBBbmFseXNpcyBvZiBEZXNjcmlwdGl2ZSBSZXByZXNlbnRhdGlvbiBmb3IgQnJhemlsaWFuIFdvbWVuDQoNCkluIHRoZSBjaGFwdGVyLCB3ZSByZXZpZXcgdGhlIGxpdGVyYXR1cmUgaGlnaGxpZ2h0aW5nIHRoZSBpbXBvcnRhbmNlIG9mIGVxdWl0eSBpbiBnZW5kZXIgcmVwcmVzZW50YXRpb24gaW4gcG9saXRpY3MuIFRoZXNlIHZpc3VhbGl6YXRpb25zIHN0cnVjdHVyZSBvdXIgZGlzY3Vzc2lvbiBvZiB0cmVuZHMgaW4gZGVzY3JpcHRpdmUgcmVwcmVzZW50YXRpb24gaW4gQnJhemlsIG92ZXIgdGltZS4gRGVzY3JpcHRpdmUgcmVwcmVzZW50YXRpb24gaW4gQnJhemlsIGlzIGZhciBiZWxvdyB0aGUgYXBwcm94aW1hdGVseSBkZXNjcmlwdGl2ZSBiZW5jaG1hcmsgb2YgNTAlLiBUaGlzIHNlY3Rpb24gc2hvd3Mgd2hlcmUgdGhlIGRlZmljaXRzIGFyZSBpbiBkZXNjcmlwdGl2ZSByZXByZXNlbnRhdGlvbiBhbmQgcHJvdmlkZXMgc29tZSBkZXNjcmlwdGl2ZSBhbmFseXNpcyBvZiBob3cgZ2VuZGVyIHJlcHJlc2VudGF0aW9uIGNoYW5nZWQgaW4gdGhlIDIwMTYgZWxlY3Rpb25zLCBpbiB0aGUgY29udGV4dCBvZiBhbnRpLXN5c3RlbSBzZW50aW1lbnQgZGlyZWN0ZWQgdG93YXJkIHRoZSBsZWZ0IGFuZCB0aGVpciBhbGxpZXMuDQoNCiMjIENpdHkgQ291bmNpbCBhbmQgTWF5b3JhbCBUcmVuZHMgaW4gRGVzY3JpcHRpdmUgR2VuZGVyIFJlcHJlc2VudGF0aW9uIA0KYGBge3IsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFLCByZXN1bHRzID0gImFzaXMifQ0Kcm0ocC52YWx1ZXMwNCwgcC52YWx1ZXMwOCwgcC52YWx1ZXMxMiwgcC52YWx1ZXMxNiwgcHAwNCwgcHAwOCwgcHAxMiwgcHAxNiwgbnVsbDIwMDQsIG51bGwyMDA4LCBudWxsMjAxMiwgbnVsbDIwMTYsIG0yMDA0cCwgbTIwMDhwLCBtMjAxMnAsIG0yMDE2cCwgbTIwMTZiKQ0KDQojIFRoZXNlIGFyZSB2ZXJ5IGxhcmdlIGFuZCB3aWxsIG5vdCBiZSBvbiBteSBHaXRIdWINCnZlciA8LSByZWFkUkRTKCJkYXRhL3Zlcl9pbmNsdXNpdmUucmRzIikNCnByZWYgPC0gcmVhZFJEUygiZGF0YS9wcmVmX2luY2x1c2l2ZS5yZHMiKQ0KIyBSZXNoYXBlIGRhdGEgYW5kIGdlbmVyYXRlIHBlcmNlbnRpbGVzDQp2ZXIuY2FuZCA8LSB2ZXIgJT4lDQogIGZpbHRlcighaXMubmEoc2V4KSAmIGVsZWN0ZWQ9PSJFbGVjdGVkIikgJT4lDQogIGdyb3VwX2J5KHllYXIsIHNleCkgJT4lDQogIHN1bW1hcmlzZSh2YWx1ZSA9IG4oKSkgJT4lDQogIHVuZ3JvdXAoKSAlPiUNCiAgcGl2b3Rfd2lkZXIobmFtZXNfZnJvbT1zZXgsIHZhbHVlc19mcm9tID0gdmFsdWUpICU+JQ0KICBtdXRhdGUoDQogICAgdG90YWwgPSBNYWxlICsgRmVtYWxlLA0KICAgIHBjdCA9IEZlbWFsZSAvIHRvdGFsKSAlPiUNCiAgc2VsZWN0KHllYXIsIHBjdCkNCnByZWYuY2FuZCA8LSBwcmVmICU+JQ0KICBmaWx0ZXIoIWlzLm5hKHNleCkgJiBlbGVjdGVkPT0iRWxlY3RlZCIpICU+JQ0KICBncm91cF9ieSh5ZWFyLCBzZXgpICU+JQ0KICBzdW1tYXJpc2UodmFsdWUgPSBuKCkpICU+JQ0KICB1bmdyb3VwKCkgJT4lDQogIHBpdm90X3dpZGVyKG5hbWVzX2Zyb209c2V4LCB2YWx1ZXNfZnJvbSA9IHZhbHVlKSAlPiUNCiAgbXV0YXRlKA0KICAgIHRvdGFsID0gTWFsZSArIEZlbWFsZSwNCiAgICBwY3QgPSBGZW1hbGUgLyB0b3RhbCkgJT4lDQogIHNlbGVjdCh5ZWFyLCBwY3QpDQoNCnZlci5jYW5kJG9mZmljZSA8LSAiQ2l0eSBDb3VuY2lsIg0KcHJlZi5jYW5kJG9mZmljZSA8LSAiTWF5b3IiDQpwcmVmLnZlciA8LSByYmluZChwcmVmLmNhbmQsIHZlci5jYW5kKQ0KDQojIFZpc3VhbGl6aW5nIG1heW9ycyBhbmQgY2l0eSBjb3VuY2lsb3JzDQpwY3RfZmVtX21heW9yX2NzIDwtIGdncGxvdChwcmVmLnZlciAsIGFlcyh4ID0geWVhciwgeSA9IHBjdCkpICsgDQogIGdlb21fbGluZShhZXMobGluZXR5cGU9b2ZmaWNlKSwgc2l6ZSA9IDEuMSkgKw0KICBnZW9tX3BvaW50KHNpemU9MykgKw0KICAjZ2VvbV90ZXh0KGFlcyhsYWJlbD12YWx1ZSksaGp1c3Q9MCwgdmp1c3Q9MSkgKw0KICBzY2FsZV94X2NvbnRpbnVvdXMoYnJlYWtzPWMoMjAwNCwyMDA4LDIwMTIsIDIwMTYpKSArDQogIHNjYWxlX2xpbmV0eXBlX21hbnVhbCh2YWx1ZXM9YygiZG90dGVkIiwgInNvbGlkIikpICsNCiAgdGhlbWUobGVnZW5kLnRpdGxlID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICAgICAjbGVnZW5kLmp1c3RpZmljYXRpb249YygxLDApLCANCiAgICAgICAgICAgbGVnZW5kLnBvc2l0aW9uPSJib3R0b20iLA0KICAgICAgICAgICBwYW5lbC5iYWNrZ3JvdW5kID0gZWxlbWVudF9yZWN0KGZpbGwgPSAid2hpdGUiKSwNCiAgICAgICAgICAgcGFuZWwuZ3JpZC5tYWpvciAgPSBlbGVtZW50X2xpbmUoY29sb3IgPSAiZ3JheSIpLA0KICAgICAgICAgICBwYW5lbC5ib3JkZXIgPSBlbGVtZW50X3JlY3QoY29sb3IgPSAiYmxhY2siLCBmaWxsID0gTkEpLA0KICAgICAgICAgICBsZWdlbmQua2V5ID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICAgICB0ZXh0PWVsZW1lbnRfdGV4dChzaXplPTEyDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICwgIGZhbWlseT0ic2VyaWYiKSkgKyANCiAgbGFicyh0aXRsZT0iRmVtYWxlIENvdW5jaWxvcnMgYW5kIE1heW9ycyBFbGVjdGVkICgyMDA0IC0gMjAxNikiLCBzdWJ0aXRsZT0gIlBlcmNlbnRhZ2Ugb2YgVG90YWwgRWxlY3RlZCIsIHg9IlllYXIiLCB5PSJQZXJjZW50IikgDQpwY3RfZmVtX21heW9yX2NzDQpybShwcmVmLCBwcmVmLmNhbmQsIHByZWYudmVyLCB2ZXIuY2FuZCkNCg0KIyBUaGlzIGRhdGEgY29tZXMgZnJvbSBhbiBleHRlcm5hbCBzb3VyY2UgYW5kIGlzIGVudGVyZWQgbWFudWFsbHkNCnllYXIgPC0gYygyMDAyLCAyMDA2LCAyMDEwLCAyMDE0LCAyMDE4LCAyMDAyLCAyMDA2LCAyMDEwLCAyMDE0LCAyMDE4LCAyMDAyLCAyMDA2LCAyMDEwLCAyMDE0LCAyMDE4LCAyMDAyLCAyMDA2LCAyMDEwLCAyMDE0LCAyMDE4KQ0Kb2ZmaWNlIDwtIGMoIkdvdmVybm9ycyIsICJHb3Zlcm5vcnMiLCAiR292ZXJub3JzIiwgIkdvdmVybm9ycyIsIkdvdmVybm9ycyIsIA0KICAgICAgICAgICAgIlNlbmF0b3JzIiwiU2VuYXRvcnMiLCJTZW5hdG9ycyIsIlNlbmF0b3JzIiwiU2VuYXRvcnMiLA0KICAgICAgICAgICAgIkZlZGVyYWwgRGVwdXR5IiwiRmVkZXJhbCBEZXB1dHkiLCJGZWRlcmFsIERlcHV0eSIsIkZlZGVyYWwgRGVwdXR5IiwiRmVkZXJhbCBEZXB1dHkiLCANCiAgICAgICAgICAgICJTdGF0ZSBEZXB1dHkiLCJTdGF0ZSBEZXB1dHkiLCJTdGF0ZSBEZXB1dHkiLCJTdGF0ZSBEZXB1dHkiLCJTdGF0ZSBEZXB1dHkiKQ0KcGN0IDwtIGMoNy40LCAxMS4xLCA3LjQsIDMuNywgMy43LA0KICAgICAgICAxNC44LCAxNC44LCAxNC44LCAxOC41LCAxMi45LA0KICAgICAgICA4LjYsIDguOCwgOC44LCA5LjksIDE1LA0KICAgICAgICAxMi42LCAxMS42LCAxMi45LCAxMS40LCAxNS4zKQ0Kb2ZmIDwtIGRhdGEuZnJhbWUob2ZmaWNlLCB5ZWFyLCBwY3QpDQoNCiMgVmlzdWFsaXppbmcgZmVkZXJhbCBhbmQgc3RhdGUgb2ZmaWNlcw0KZ2dwbG90KG9mZiAsIGFlcyh4ID0geWVhciwgeSA9IHBjdCkpICsgDQogICNnZW9tX2xpbmUoYWVzKGxpbmV0eXBlPW9mZmljZSksIHNpemUgPSAxLjEpICsNCiAgZ2VvbV9saW5lKGFlcygpLCBzaXplID0gMS4xKSArDQogIGdlb21fcG9pbnQoc2l6ZT0zKSArDQogICNnZW9tX3RleHQoYWVzKGxhYmVsPXZhbHVlKSxoanVzdD0wLCB2anVzdD0xKSArDQogIHNjYWxlX3hfY29udGludW91cyhicmVha3M9YygyMDAyLDIwMDYsMjAxMCwgMjAxNCwgMjAxOCkpICsNCiAgI3NjYWxlX2xpbmV0eXBlX21hbnVhbCh2YWx1ZXM9YygiZG90dGVkIiwgInNvbGlkIikpICsNCiAgdGhlbWUobGVnZW5kLnRpdGxlID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICAgICAjbGVnZW5kLmp1c3RpZmljYXRpb249YygxLDApLCANCiAgICAgICAgICAgI2xlZ2VuZC5wb3NpdGlvbj0iYm90dG9tIiwNCiAgICAgICAgICAgcGFuZWwuYmFja2dyb3VuZCA9IGVsZW1lbnRfcmVjdChmaWxsID0gIndoaXRlIiksDQogICAgICAgICAgIHBhbmVsLmdyaWQubWFqb3IgID0gZWxlbWVudF9saW5lKGNvbG9yID0gImdyYXkiKSwNCiAgICAgICAgICAgcGFuZWwuYm9yZGVyID0gZWxlbWVudF9yZWN0KGNvbG9yID0gImJsYWNrIiwgZmlsbCA9IE5BKSwNCiAgICAgICAgICAgbGVnZW5kLmtleSA9IGVsZW1lbnRfYmxhbmsoKSwNCiAgICAgICAgICAgc3RyaXAuYmFja2dyb3VuZCA9IGVsZW1lbnRfcmVjdCgNCiAgICAgICAgICAgY29sb3I9ImJsYWNrIiwgZmlsbD0id2hpdGUiLCBzaXplPTEuNSwgbGluZXR5cGU9InNvbGlkIiksDQogICAgICAgICAgIHRleHQ9ZWxlbWVudF90ZXh0KHNpemU9MTIsICBmYW1pbHk9InNlcmlmIikpICsgDQogIGxhYnModGl0bGU9IkZlbWFsZSBDYW5kaWRhdGVzIEVsZWN0ZWQgKDIwMDIgLSAyMDE4KSIsIHN1YnRpdGxlPSAiUGVyY2VudGFnZSBvZiBUb3RhbCBFbGVjdGVkIiwgeD0iWWVhciIsIHk9IlBlcmNlbnQiKSArIGZhY2V0X3dyYXAofm9mZmljZSkNCg0Kcm0ob2ZmKQ0KDQpgYGANCg0KIyMgR2FpbnMgYW5kIExvc3NlcyBpbiBEZXNjcmlwdGl2ZSBSZXByZXNlbnRhdGlvbiBieSBQYXJ0eSBHcm91cA0KYGBge3IsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFLCByZXN1bHRzID0gImFzaXMifQ0KDQojIHJlc2hhcGUgZGF0YSBhbmQgc3VtbWFyaXNlIHBhcnR5IGdyb3VwIHN0YXRpc3RpY3MNCnZlci5pbXBlYWNobWVudC5nZW5kZXIgPC0gdmVyICU+JQ0KICBmaWx0ZXIoIWlzLm5hKHNleCkpICU+JQ0KICBncm91cF9ieSh5ZWFyLCB0ZXJjaWxlcywgaW1wZWFjaG1lbnQyLCBlbGVjdGVkLCBzZXgpICU+JQ0KICAjZ3JvdXBfYnkoeWVhciwgaW1wZWFjaG1lbnQsIGVsZWN0ZWQsIHNleCkgJT4lDQogIHN1bW1hcmlzZSh2YWx1ZSA9IG4oKSkgJT4lDQogIHVuZ3JvdXAoKSAlPiUNCiAgZ3JvdXBfYnkoeWVhciwgaW1wZWFjaG1lbnQyLCBzZXgpICU+JQ0KICBtdXRhdGUoDQogICAgdmFsdWUgPSBpZmVsc2UoZWxlY3RlZD09Ik5vdCBFbGVjdGVkIiwgc3VtKHZhbHVlKSwgdmFsdWUpLA0KICAgIGVsZWN0ZWQgPSByZWNvZGVfZmFjdG9yKGVsZWN0ZWQsICJOb3QgRWxlY3RlZCIgPSAiRWxlY3RlZCBBbmQgVW5lbGVjdGVkIiksDQogICAgaW1wID0gaWZlbHNlKGltcGVhY2htZW50Mj09IlZvdGVkIHRvIEltcGVhY2giLCAxLCAwKSkgJT4lDQogIHVuZ3JvdXAoKSANCiMgUGxvdHMNCmdncGxvdCh2ZXIuaW1wZWFjaG1lbnQuZ2VuZGVyICU+JSBmaWx0ZXIoaW1wPT0wLCBpbXBlYWNobWVudDIhPSJObyBGZWRlcmFsIERlcHV0aWVzIiAmIGVsZWN0ZWQ9PSJFbGVjdGVkIiAmIHNleD09IkZlbWFsZSIgKSwgYWVzKHggPSB5ZWFyLCB5ID0gdmFsdWUpKSArIA0KICBnZW9tX2xpbmUoYWVzKGxpbmV0eXBlPWltcGVhY2htZW50MiksIHNpemUgPSAxLjEpICsNCiAgZ2VvbV9wb2ludChzaXplPTMpICsNCiAgI2dlb21fdGV4dChhZXMobGFiZWw9dmFsdWUpLGhqdXN0PTAsIHZqdXN0PTEpICsNCiAgc2NhbGVfeF9jb250aW51b3VzKGJyZWFrcz1jKDIwMDQsMjAwOCwyMDEyLCAyMDE2KSkgKw0KICBzY2FsZV9saW5ldHlwZV9tYW51YWwodmFsdWVzPWMoImRvdHRlZCIsICJzb2xpZCIsICJ0d29kYXNoIikpICsNCiAgdGhlbWUobGVnZW5kLnRpdGxlID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBwYW5lbC5zcGFjaW5nID0gdW5pdCgxLCAibGluZXMiKSwNCiAgICAgICAgICAgI2xlZ2VuZC5qdXN0aWZpY2F0aW9uPWMoMSwwKSwgDQogICAgICAgICAgIGxlZ2VuZC5wb3NpdGlvbj0iYm90dG9tIiwNCiAgICAgICAgICAgcGFuZWwuYmFja2dyb3VuZCA9IGVsZW1lbnRfcmVjdChmaWxsID0gIndoaXRlIiksDQogICAgICAgICAgIHBhbmVsLmdyaWQubWFqb3IgID0gZWxlbWVudF9saW5lKGNvbG9yID0gImdyYXkiKSwNCiAgICAgICAgICAgcGFuZWwuYm9yZGVyID0gZWxlbWVudF9yZWN0KGNvbG9yID0gImJsYWNrIiwgZmlsbCA9IE5BKSwNCiAgICAgICAgICAgbGVnZW5kLmtleSA9IGVsZW1lbnRfYmxhbmsoKSwNCiAgICAgICAgICAgdGV4dD1lbGVtZW50X3RleHQoc2l6ZT0xMiwgIGZhbWlseT0ic2VyaWYiKSkgKyANCiAgbGFicyh0aXRsZT0iRmVtYWxlIENpdHkgQ291bmNpbG9ycyBFbGVjdGVkICgyMDA0IC0gMjAxNikiLCBzdWJ0aXRsZT0gIkJ5IE11bmljaXBhbGl0eSBUZXJjaWxlcyBvZiBGaXJzdCBSb3VuZCBWb3RlcyBmb3IgQm9sc29uYXJvIiwgeD0iWWVhciIsIHk9IkNvdW5jaWxvcnMiKSArIGZhY2V0X3dyYXAofnRlcmNpbGVzKQ0KDQpnZ3Bsb3QodmVyLmltcGVhY2htZW50LmdlbmRlciAlPiUgZmlsdGVyKGltcD09MCwgaW1wZWFjaG1lbnQyIT0iTm8gRmVkZXJhbCBEZXB1dGllcyIgJiBlbGVjdGVkPT0iRWxlY3RlZCIgJiBzZXg9PSJNYWxlIiApLCBhZXMoeCA9IHllYXIsIHkgPSB2YWx1ZSkpICsgDQogIGdlb21fbGluZShhZXMobGluZXR5cGU9aW1wZWFjaG1lbnQyKSwgc2l6ZSA9IDEuMSkgKw0KICBnZW9tX3BvaW50KHNpemU9MykgKw0KICAjZ2VvbV90ZXh0KGFlcyhsYWJlbD12YWx1ZSksaGp1c3Q9MCwgdmp1c3Q9MSkgKw0KICBzY2FsZV94X2NvbnRpbnVvdXMoYnJlYWtzPWMoMjAwNCwyMDA4LDIwMTIsIDIwMTYpKSArDQogIHNjYWxlX2xpbmV0eXBlX21hbnVhbCh2YWx1ZXM9YygiZG90dGVkIiwgInNvbGlkIiwgInR3b2Rhc2giKSkgKw0KICB0aGVtZShsZWdlbmQudGl0bGUgPSBlbGVtZW50X2JsYW5rKCksDQogICAgICAgIHBhbmVsLnNwYWNpbmcgPSB1bml0KDEsICJsaW5lcyIpLA0KICAgICAgICAgICAjbGVnZW5kLmp1c3RpZmljYXRpb249YygxLDApLCANCiAgICAgICAgICAgbGVnZW5kLnBvc2l0aW9uPSJib3R0b20iLA0KICAgICAgICAgICBwYW5lbC5iYWNrZ3JvdW5kID0gZWxlbWVudF9yZWN0KGZpbGwgPSAid2hpdGUiKSwNCiAgICAgICAgICAgcGFuZWwuZ3JpZC5tYWpvciAgPSBlbGVtZW50X2xpbmUoY29sb3IgPSAiZ3JheSIpLA0KICAgICAgICAgICBwYW5lbC5ib3JkZXIgPSBlbGVtZW50X3JlY3QoY29sb3IgPSAiYmxhY2siLCBmaWxsID0gTkEpLA0KICAgICAgICAgICBsZWdlbmQua2V5ID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICAgICB0ZXh0PWVsZW1lbnRfdGV4dChzaXplPTEyLCAgZmFtaWx5PSJzZXJpZiIpKSArIA0KICBsYWJzKHRpdGxlPSJNYWxlIENpdHkgQ291bmNpbG9ycyBFbGVjdGVkICgyMDA0IC0gMjAxNikiLCBzdWJ0aXRsZT0gIkJ5IE11bmljaXBhbGl0eSBUZXJjaWxlcyBvZiBGaXJzdCBSb3VuZCBWb3RlcyBmb3IgQm9sc29uYXJvIiwgeD0iWWVhciIsIHk9IkNvdW5jaWxvcnMiKSArIGZhY2V0X3dyYXAofnRlcmNpbGVzKQ0KDQpnZ3Bsb3QodmVyLmltcGVhY2htZW50LmdlbmRlciAlPiUgZmlsdGVyKGltcD09MSwgaW1wZWFjaG1lbnQyIT0iTm8gRmVkZXJhbCBEZXB1dGllcyIgJiBlbGVjdGVkPT0iRWxlY3RlZCIgJiBzZXg9PSJGZW1hbGUiICksIGFlcyh4ID0geWVhciwgeSA9IHZhbHVlKSkgKyANCiAgZ2VvbV9saW5lKGFlcyhsaW5ldHlwZT1pbXBlYWNobWVudDIpLCBzaXplID0gMS4xKSArDQogIGdlb21fcG9pbnQoc2l6ZT0zKSArDQogICNnZW9tX3RleHQoYWVzKGxhYmVsPXZhbHVlKSxoanVzdD0wLCB2anVzdD0xKSArDQogIHNjYWxlX3hfY29udGludW91cyhicmVha3M9YygyMDA0LDIwMDgsMjAxMiwgMjAxNikpICsNCiAgc2NhbGVfbGluZXR5cGVfbWFudWFsKHZhbHVlcz1jKCJzb2xpZCIpKSArDQogIHRoZW1lKGxlZ2VuZC50aXRsZSA9IGVsZW1lbnRfYmxhbmsoKSwNCiAgICAgICAgcGFuZWwuc3BhY2luZyA9IHVuaXQoMSwgImxpbmVzIiksDQogICAgICAgICAgICNsZWdlbmQuanVzdGlmaWNhdGlvbj1jKDEsMCksIA0KICAgICAgICAgICBsZWdlbmQucG9zaXRpb249ImJvdHRvbSIsDQogICAgICAgICAgIHBhbmVsLmJhY2tncm91bmQgPSBlbGVtZW50X3JlY3QoZmlsbCA9ICJ3aGl0ZSIpLA0KICAgICAgICAgICBwYW5lbC5ncmlkLm1ham9yICA9IGVsZW1lbnRfbGluZShjb2xvciA9ICJncmF5IiksDQogICAgICAgICAgIHBhbmVsLmJvcmRlciA9IGVsZW1lbnRfcmVjdChjb2xvciA9ICJibGFjayIsIGZpbGwgPSBOQSksDQogICAgICAgICAgIGxlZ2VuZC5rZXkgPSBlbGVtZW50X2JsYW5rKCksDQogICAgICAgICAgIHRleHQ9ZWxlbWVudF90ZXh0KHNpemU9MTIsICBmYW1pbHk9InNlcmlmIikpICsgDQogIGxhYnModGl0bGU9IkZlbWFsZSBDaXR5IENvdW5jaWxvcnMgRWxlY3RlZCAoMjAwNCAtIDIwMTYpIiwgc3VidGl0bGU9ICJCeSBNdW5pY2lwYWxpdHkgVGVyY2lsZXMgb2YgRmlyc3QgUm91bmQgVm90ZXMgZm9yIEJvbHNvbmFybyIsIHg9IlllYXIiLCB5PSJDb3VuY2lsb3JzIikgKyBmYWNldF93cmFwKH50ZXJjaWxlcykNCg0KZ2dwbG90KHZlci5pbXBlYWNobWVudC5nZW5kZXIgJT4lIGZpbHRlcihpbXA9PTEsIGltcGVhY2htZW50MiE9Ik5vIEZlZGVyYWwgRGVwdXRpZXMiICYgZWxlY3RlZD09IkVsZWN0ZWQiICYgc2V4PT0iTWFsZSIgKSwgYWVzKHggPSB5ZWFyLCB5ID0gdmFsdWUpKSArIA0KICBnZW9tX2xpbmUoYWVzKGxpbmV0eXBlPWltcGVhY2htZW50MiksIHNpemUgPSAxLjEpICsNCiAgZ2VvbV9wb2ludChzaXplPTMpICsNCiAgI2dlb21fdGV4dChhZXMobGFiZWw9dmFsdWUpLGhqdXN0PTAsIHZqdXN0PTEpICsNCiAgc2NhbGVfeF9jb250aW51b3VzKGJyZWFrcz1jKDIwMDQsMjAwOCwyMDEyLCAyMDE2KSkgKw0KICBzY2FsZV9saW5ldHlwZV9tYW51YWwodmFsdWVzPWMoInNvbGlkIikpICsNCiAgdGhlbWUobGVnZW5kLnRpdGxlID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBwYW5lbC5zcGFjaW5nID0gdW5pdCgxLCAibGluZXMiKSwNCiAgICAgICAgICAgI2xlZ2VuZC5qdXN0aWZpY2F0aW9uPWMoMSwwKSwgDQogICAgICAgICAgIGxlZ2VuZC5wb3NpdGlvbj0iYm90dG9tIiwNCiAgICAgICAgICAgcGFuZWwuYmFja2dyb3VuZCA9IGVsZW1lbnRfcmVjdChmaWxsID0gIndoaXRlIiksDQogICAgICAgICAgIHBhbmVsLmdyaWQubWFqb3IgID0gZWxlbWVudF9saW5lKGNvbG9yID0gImdyYXkiKSwNCiAgICAgICAgICAgcGFuZWwuYm9yZGVyID0gZWxlbWVudF9yZWN0KGNvbG9yID0gImJsYWNrIiwgZmlsbCA9IE5BKSwNCiAgICAgICAgICAgbGVnZW5kLmtleSA9IGVsZW1lbnRfYmxhbmsoKSwNCiAgICAgICAgICAgdGV4dD1lbGVtZW50X3RleHQoc2l6ZT0xMiwgIGZhbWlseT0ic2VyaWYiKSkgKyANCiAgbGFicyh0aXRsZT0iTWFsZSBDaXR5IENvdW5jaWxvcnMgRWxlY3RlZCAoMjAwNCAtIDIwMTYpIiwgc3VidGl0bGU9ICJCeSBNdW5pY2lwYWxpdHkgVGVyY2lsZXMgb2YgRmlyc3QgUm91bmQgVm90ZXMgZm9yIEJvbHNvbmFybyIsIHg9IlllYXIiLCB5PSJDb3VuY2lsb3JzIikgKyBmYWNldF93cmFwKH50ZXJjaWxlcykNCg0Kcm0odmVyLmltcGVhY2htZW50LmdlbmRlciwgdmVyKQ0KDQoNCmBgYA0KDQo=</div>
 
 
 
@@ -298,6 +2058,12 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("gender_rep.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

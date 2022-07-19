@@ -38,3 +38,7 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 DavidRMcCoy.io.Rproj
+data/pref_inclusive.rds
+data/ver_inclusive.rds
+docs/data/ver_inclusive.rds
+docs/data/pref_inclusive.rds

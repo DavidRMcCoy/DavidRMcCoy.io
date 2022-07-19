@@ -11,7 +11,7 @@
 
 
 
-<title>Ex. 2 Covid Visualizations</title>
+<title>Ex. 3 Covid Visualizations</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -251,10 +251,10 @@ $(document).ready(function () {
   <a href="TX_ed.html">Ex. 1 Texas Public Schools</a>
 </li>
 <li>
-  <a href="covid_vis.html">Ex. 2 Covid Visualizations</a>
+  <a href="gender_rep.html">Ex. 2 Equity in Gender Representation in Brazil</a>
 </li>
 <li>
-  <a href="gender_rep.html">Ex. 3 Gender Representation in Brazil</a>
+  <a href="covid_vis.html">Ex. 3 Covid Visualizations</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -269,20 +269,23 @@ $(document).ready(function () {
 <div class="btn-group pull-right float-right">
 <button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
 <li><a id="rmd-download-source" href="#">Download Rmd</a></li>
 </ul>
 </div>
 
 
 
-<h1 class="title toc-ignore">Ex. 2 Covid Visualizations</h1>
+<h1 class="title toc-ignore">Ex. 3 Covid Visualizations</h1>
 
 </div>
 
 
 <p>#yolo</p>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkV4LiAyIENvdmlkIFZpc3VhbGl6YXRpb25zIg0KLS0tDQoNCiN5b2xvDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkV4LiAzIENvdmlkIFZpc3VhbGl6YXRpb25zIg0KLS0tDQoNCiN5b2xvDQo=</div>
 
 
 
@@ -319,6 +322,7 @@ $(document).ready(function () {
 <script>
 $(document).ready(function () {
   window.initializeSourceEmbed("covid_vis.Rmd");
+  window.initializeCodeFolding("show" === "show");
 });
 </script>
 
