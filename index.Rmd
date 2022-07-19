@@ -6,7 +6,7 @@ Welcome! I created this simple website to provide a few examples of my skills th
 
 I included these examples to demonstrate that my skill set generalizes beyond political science topics. To learn more, feel free to reach out to me by email or invite me for an interview.
 
-## 
+## Previews of my Three Code Examples
 ```{r, results = "asis", warning = FALSE, message = FALSE, echo = FALSE}
 image_link <- function(image,url,...){
   htmltools::a(
