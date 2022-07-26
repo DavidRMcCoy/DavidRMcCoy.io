@@ -34,9 +34,12 @@ Brazil's party system is shaped by its open list proportional representation. An
 
 For the elections in 2004, 2008, 2012, and 2016, I use a proxy for anti-system voting that is "activated" during Rousseff's impeachment, prior to the 2016 elections. The proxy is the future support for far-right, anti-system candidate Jair Bolsonaro in 2018. I control for party list-level variables like size of the list and wether they are in a coalition. I control for several municipality-level factors like GINI, population, and whether there is a female mayor. 
 
-The data set (too large to share on GitHub) includes 55,000 to 75,000 party lists per election year. The dependent variable is a percentage, which poses a challenge in terms of modeling. I treat each election as cross-sectional data. For each election, I run a generalized linear model that treats each single vote cast as a Bernoulli trial with "successful" trial being a vote cast for a female candidate. This is achieved by weighting each proportion value (observation outcome in the model) by the total number of votes gained by that party list. The quasi-binomial link function is similar to a logistic regression but includes an additional parameter that helps account for overdispersion. Below I run the four GLM models. The main effects of interest are the interaction between party groups and municipality-level Bolsonaro support (the anti-system proxy). The interactions include polynomial terms in order to relax strict linearity assumptions, which makes interpretation of coefficients difficult. To enable interpretation, I visualize these interactions in the following chunk.
+The data set (too large to share on GitHub) includes 55,000 to 75,000 party lists per election year. The dependent variable is a percentage, which poses a challenge in terms of modeling. I treat each election as cross-sectional data. For each election, I run a generalized linear model that treats each single vote cast as a Bernoulli trial with "successful" trial being a vote cast for a female candidate. This is achieved by weighting each proportion value (observation outcome in the model) by the total number of votes gained by that party list. The quasi-binomial link function is similar to the binomial link used in logistic regression but includes an additional parameter that helps account for overdispersion in the data, otherwise the interpretation is the same. Below I run the four GLM models. 
 
-## Weighted GLM Models
+## Weighted Binomial GLM Models
+
+The main effects of interest are the interaction between party groups and municipality-level, future Bolsonaro support (the anti-system proxy). The interactions include polynomial terms in order to relax strict linearity assumptions, which makes interpretation of coefficients difficult in the table output. To enable interpretation, I visualize these interactions in the following code chunk. The other effects listed in the table are primarily included as controls for municipality-level factors and list-level factors.
+
 ```{r, warning = FALSE, message = FALSE, results = "asis"}
 # Polynomial, weighted GLM with controls
 
@@ -104,8 +107,7 @@ pp12$year <- "2012"
 pp16$year <- "2016"
 pp <- rbind(pp04, pp08, pp12, pp16)
 
-# Two and Three - polynomial
-
+#Plot interaction terms
 propt_interaction <- ggplot(data = pp %>% filter(group=="PT" | group=="Against Impeachment"), aes(x=x, y=predicted, fill = year)) +
   geom_line() + geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .5, linetype=2) + 
   theme_bw() + scale_fill_grey(start = 0.9, end = 0.1) + ylim(.10, 0.31) + xlim(.1, .75) +
@@ -134,23 +136,18 @@ impeachment_interaction
 # Section 2: Changes in Federal Legislators' Positions on Abortion Rights from 2014 to 2018
 
 
-I have shown how descriptive representation (whether elites share congruent identities with the population) changed in response to the left's political crisis. In this chapter we were also interested in whether substantive representation of women's issues shifted during this period. We use the data from the [Latin American Elites project of the University of Salamanca](https://oir.org.es/pela/en/) (PELA-USAL) to test for changes in average positions regarding support for abortion rights. I performed a one-way anova to test if the average position changed (it did) and a two-way anova to test whether this change is driven by a shift in male elites' positions or a shift in female elites' positions from 2014 to 2018 (females did not change more than men in a significant level).
+I have shown how descriptive representation (whether elites share congruent identities with the population) changed in response to the left's political crisis. In this chapter we were also interested in whether substantive representation of women's issues shifted during this period. We use the data from the [Latin American Elites project of the University of Salamanca](https://oir.org.es/pela/en/) (PELA-USAL) to test for changes in average positions regarding support for abortion rights. I performed a one-way anova to test if the average position changed (it did) and a two-way anova to test whether this change is driven by a shift in male elites' positions or a shift in female elites' positions from 2014 to 2018 (females did not change more or less than males in a significant level).
 
 ## Visualizing Support and Opposition for Abortion Rights
 
-This plot was included in the chapter, and the results of the analysis of variance models were reported in the text, which is why there is not a pretty table. Clearly we can see that opposition to abortion has increased from 2014 to 2018. 
+This plot was included in the chapter, and the results of the analysis of variance models were reported in the text, which is why there is not a pretty table here. Clearly we can see that opposition to abortion has increased from 2014 to 2018. However, it is important to perform formal tests to show whether the change is significant and/or whether it is driven by the influx of new conservative male or female legislators.
 
 
 ```{r, warning = FALSE, message = FALSE, results = "asis"}
-
-## ANOVA and Figure on Abortion from Pela Data:
-###Pelas: Elite Surveys on Preferences
-
 # I don't have permission to share this, so I made a reduced version
 pela <- read.csv("data/pela.csv")
 
 theme_set(theme_classic())
-#library(cowplot)
 # Histogram on a Continuous (Numeric) Variable
 g <- ggplot(pela %>% filter(year == 2014), aes(Aborto)) + scale_fill_brewer(palette = "Greys") + theme(text=element_text(size=12,  family="serif"))
 p14 <- g + geom_histogram(aes(fill=Sex), 
@@ -172,16 +169,13 @@ p18 <- g + geom_histogram(aes(fill=Sex),
        subtitle="Source: PELA-USAL 2018", x=element_blank(), y=element_blank()) +
   scale_x_continuous(breaks=c(1, 10), label=c("Support for Legalization", "Opposition for Legalization"))
   
-
-#Another option
 abortion_hist <- cowplot::plot_grid(p14, p18, ncol = 1, nrow = 2)
 abortion_hist
-
 ```
 
 ## One- and Two-way Anova Models for Levels of Opposition to Abortion Rights: 2014 and 2018
 
-These analysis of variance models show that increases in opposition to abortion rights are statistically significant from 2014 to 2018. However, the two-way model fails to reject the null that men in the legislature increased in opposition to abortion rights more than men. Both groups increased in their opposition similarly from 2014 to 2018. We discuss this in much more detail in the book chapter.  
+These analysis of variance models show that increases in opposition to abortion rights are statistically significant from 2014 to 2018. The one-way model show (LHS plot below) shows a highly significant effect for `year` (the dummy for the legislature). However, the two-way model (RHS plot below) fails to reject the null that men and women increased their opposition in statistically significant levels. Both groups increased in their opposition similarly from 2014 to 2018. We discuss this in more detail in the book chapter.  
 ```{r, warning = FALSE, message = FALSE, results = "asis"}
 # One-way ANOVA
 res.aov1 <- aov(Aborto ~ as.factor(year) , data = pela)
@@ -199,11 +193,6 @@ p2 <- ggline(pela, x = "year", y = "Aborto", color = "Sex",
        palette = c("#00AFBB", "#E7B800"))
 
 cowplot::plot_grid(p1, p2, ncol = 2, nrow = 1)
-
-### Side-by-side histogram of abortion by gender.
-
-rm(p1, p2, pela, p14, p18, g, abortion_hist)
-
 ```
 
 # Section 3: Trend Analysis of Descriptive Representation for Brazilian Women
@@ -247,11 +236,9 @@ pref.ver <- rbind(pref.cand, ver.cand)
 pct_fem_mayor_cs <- ggplot(pref.ver , aes(x = year, y = pct)) + 
   geom_line(aes(linetype=office), size = 1.1) +
   geom_point(size=3) +
-  #geom_text(aes(label=value),hjust=0, vjust=1) +
   scale_x_continuous(breaks=c(2004,2008,2012, 2016)) +
   scale_linetype_manual(values=c("dotted", "solid")) +
   theme(legend.title = element_blank(),
-           #legend.justification=c(1,0), 
            legend.position="bottom",
            panel.background = element_rect(fill = "white"),
            panel.grid.major  = element_line(color = "gray"),
@@ -294,9 +281,6 @@ ggplot(off , aes(x = year, y = pct)) +
            color="black", fill="white", size=1.5, linetype="solid"),
            text=element_text(size=12,  family="serif")) + 
   labs(title="Female Candidates Elected (2002 - 2018)", subtitle= "Percentage of Total Elected", x="Year", y="Percent") + facet_wrap(~office)
-
-rm(off)
-
 ```
 
 ## Gains and Losses in Descriptive Representation by Party Group
@@ -383,9 +367,5 @@ ggplot(ver.impeachment.gender %>% filter(imp==1, impeachment2!="No Federal Deput
            legend.key = element_blank(),
            text=element_text(size=12,  family="serif")) + 
   labs(title="Male City Councilors Elected (2004 - 2016)", subtitle= "By Municipality Terciles of First Round Votes for Bolsonaro", x="Year", y="Councilors") + facet_wrap(~terciles)
-
-rm(ver.impeachment.gender, ver)
-
-
 ```
 

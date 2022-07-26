@@ -35,14 +35,14 @@ rm(list=ls())
 # Bulding a County-Day Data Set to Understand the COVID-19 Waves
 
 ## Google Mobility Data and COVID() API
-This shows how to load clean and merge the Google data and John Hopkins data from the COVID19() API. These are enourmous, hierarchically structured data sets. The COVID-19 data comes as cumulative values, which must be converted to daily new counts. The Google Mobility data is the deviation from a fixed set of days at the start of the sample; thus, something similar to a county fixed-effect is included in this data; however, we can imagine how this type of fixed-effect would pose complex problems. For example, very cold counties will have stronger seasonal effects than temperate counties.    
+This shows how to load clean and merge the Google data and John Hopkins data from the COVID19() API. These are enormous, hierarchically structured data sets. The COVID-19 data comes as cumulative values, which must be converted to daily new counts. The Google Mobility data is the deviation from a fixed set of days at the start of the sample; thus, something similar to a county fixed-effect is included in this data; however, we can imagine how this type of fixed-effect would pose complex problems. For example, very cold counties will have stronger seasonal effects than temperate counties.    
 ```{r, warning = F, message = F}
 # Load yearly data for US and bind to single data frame
 g <- rbind(
   read_csv("data/2020_US_Region_Mobility_Report.csv"),
   read_csv("data/2021_US_Region_Mobility_Report.csv"),
   read_csv("data/2022_US_Region_Mobility_Report.csv"))
-# Standardize ID variables
+# Subset to appropriate geographical level and standardize ID variables
 g <- g %>%
   filter(!is.na(census_fips_code) & !is.na(sub_region_2)) %>%
   select(-metro_area, -iso_3166_2_code) %>%
@@ -58,7 +58,7 @@ usc <- readRDS("data/uscities.rds") %>%
     cases = confirmed) %>%
   select(id, place_id, date, deaths, cases, hosp, 13:30, population, latitude, longitude)
 
-# Get time invariant vars from COVID data set to balance final set
+# Get time invariant vars from COVID data set to balance final set with pre-dated data
 id <- usc %>%
   group_by(place_id) %>%
   summarize(
@@ -87,14 +87,12 @@ This creates the full data set that I will subset for several time periods to se
 1. Take centered z-scores of Google Mobility items and averaged indices of three most correlated items: recreation and retail, going to work, being at home (reversed).
 2. To transform cumulative death and case panel data to county-day new deaths and cases, I group data by county and perform:
 $$daily_{i,t} = cumulative_{i,t} - cumulative_{i,t-1}  $$
-3. Transformation $T$ for daily new deaths and daily new cases is the logged moving average of one plus daily counts per million:
-$$T_{n,t} = (\frac{1}{7}) \sum_{i =n-3}^{n+3} p_{n-3}...p_{n+3}$$
-Where $p_{n,t}$ equals the log of daily counts in county $n$ at time $t$ per million residents plus one:
+3. Transformation $T$ for daily new deaths and daily new cases is the seven-day moving average of the logged value of one plus daily counts per million residents:
+$$T_{n,t} = (\frac{1}{7}) \sum_{i =n-3}^{n+3} p_{i,n-3} +...p_{i,n}+...p_{i,n+3}$$
+Where $p_{n,t}$ equals the log of daily counts in county $n$ at time $t$ per million residents plus one: $$p_{n,t} = log(1+(\frac{daily_{i,t}}{population_i} 1,000,000))$$
+4. Create the seven-day moving average of Google Mobility index; same as $T_{n,t}$ but $p_{n,t}$ is the mean of the three standardized Google Mobility items in county $n$ at time $t$.
 
-$$p_{n,t} = log(1+(\frac{daily_{i,t}}{population_i} 1,000,000))$$
-4. Seven-day moving average of Google Mobility index; same as $T_{n,t}$ but $p_{n,t}$ is the mean of the three standardized Google Mobility items at in county $n$ at time $t$.
-
-Because a [reasonable estimate](https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(20)30566-3/fulltext) of time between exposure and death is one month, I lag the Google Mobility index by 30 days. I lag new cases by 15 days. I should highlight that the relationships I expect to see in the data are exploratory and descriptive and cannot be expected to demonstrate causality in any direction. For this, I would need to go much further in eliminating endogeneity. I chose these three variables at these lagged points in time, because I am curious whether lagged community mobility and new cases are more associated with fewer deaths or whether this relationship is completely obscured (due to the endogenous correlation between past deaths with present deaths).
+Because a [reasonable estimate](https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(20)30566-3/fulltext) of the expected value of time between exposure and death is one month, I lag the Google Mobility index by 30 days and lag new cases by 15 days. I should highlight that the relationships I expect to see in the data are exploratory and descriptive and cannot be expected to demonstrate causality in any direction. For this, I would need to go much further in eliminating endogeneity. I chose these three variables at these lagged points in time, because I am curious whether lagged community mobility and new cases are more associated with fewer deaths at $t = 0$ or whether this relationship is completely obscured (due to the endogenous and not modeled correlation between past deaths with present deaths).
 
 ```{r, warning = F, message = F}
 # I need to re-scale, and scale() doesn't work well with dplyr
@@ -204,7 +202,7 @@ Each point in the plot is a county with population greater than 390,000. The x-a
 
 Testing and reporting infrastructure was urgently needed in order to deal with the pandemic. This visualization shows in real time how measurement of new cases (yellowness and size) emerges, improves, and stabilizes during the first months.
 
-During the latter half, it shows how counties responded with robust lock downs in order to deal with local outbreaks. The data shows that when outbreaks emerged at $t=0$, points tend to shift leftward. During the latter half, there is a tendency for a downward slope among points. Unless lockdowns can cause outbreaks and increased deaths (not plausible), the endogenous relationship between deaths at $t=0$ and deaths at $t-30$ is apparent in the downward slope in the data.
+During the latter half, it shows how counties responded with robust lock downs in order to deal with local outbreaks. The data shows that when outbreaks emerged at $t=0$, points tend to shift leftward. During the latter half, there is a tendency for a downward slope among points. Unless lock downs can cause outbreaks and increased deaths (not plausible), the endogenous relationship between deaths at $t=0$ and deaths at $t-30$ is apparent in the downward slope in the data.
 
 ```{r, warning = FALSE, message = FALSE}
 
@@ -386,7 +384,9 @@ This code cleans and combines COVID-19 data from the [COVID19()](https://covid19
 
 ## Visualizing Cumulative COVID-19 Deaths in Louisiana
 
-I clean up the COVID-19 data; subset the data based on date and location; parse map data with identification variables that match the COVID-19 data for Louisiana Parishes; merge these two data sets. Next, I specify spatial limits and create one static image for each calendar date in the sample. Each image includes a layer that is a blank map of Louisiana and a layer that contains the cumulative death data for that day as the fill for each Parish. Finally, I use the gifsky() package to save the .gif file and knitr to print it.
+I clean up the COVID-19 data; subset the data based on date and location; parse map data with identification variables that match the COVID-19 data for Louisiana Parishes; merge these two data sets. Next, I specify spatial limits and create one static image for each calendar date in the sample. Each image includes a layer that is a blank map of Louisiana and a layer that contains the cumulative death data for that day as the fill for each Parish. Finally, I use the gifsky() package to save the .gif file and knitr to print it. Dark grey Parishes are those that had yet to see a death from COVID-19 in the panel, according to official data.
+
+As expected, Orleans and Jefferson Parishes experience a rapid and early acceleration in deaths, due to the unfortunate timing of Mardi Gras in 2020. The data suggests that urban density mattered more than outright population size, as Lafayette Parish experienced a much slower climb than Caddo Parish, even though they are similar in overall size and Lafayette hosts the state's second largest regional Mardi Gras celebration.
 
 ```{r, warning = FALSE, message = FALSE}
 # Clear 

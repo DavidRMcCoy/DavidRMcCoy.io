@@ -85,7 +85,7 @@ school <- school %>%
     enrollment_public = Enrollment) %>%
   mutate(
     n = str_split(Campus, " \\|\\|", simplify = TRUE)[,2], # First split on "||"
-    nn = str_split(n, " \\(", simplify = TRUE)[,2], # Next splot on " ("
+    nn = str_split(n, " \\(", simplify = TRUE)[,2], # Next split on " ("
     nnn = str_split(n, " \\(", simplify = TRUE)[,3], # A few have an additional " ("
     cid = as.numeric(gsub("\\D+", "", nn)),
     cid = ifelse(is.na(cid), as.numeric(gsub("\\D+", "", nnn)), cid)) %>%
@@ -136,7 +136,7 @@ print(
 
 # Exploring the Relationship between Race/Ethnicity, Poverty, and Education Outcomes
 
-Here I write a function to build `plotly` interactive visualizations. Readers can hover over the image to get point-level data, as well as to zoom in to a plot region and toggle a `Student Group` on/off in the point/color legend. School-level data is plotted on the x-axis based on poverty levels `Eco. Disadvanted (%)`. School-level data disaggregated by race/ethnicity on the y-axis to show each racial/ethnic groups's academic performance as `Meets Grade Level (%)`. The three race/ethnicy groups are connected by vertical lines, showing the distance or spread (y-axis) in performance among the groups within each campus. The size of each point on the plot is mapped by the absolute number of students in each race/ethnicity category within that school. The lines are generated through Loess smoothing algorithms that display (non-linear) trends across the x-axis.
+Here I write a function to build `plotly` interactive visualizations. Readers can hover over the image to get point-level data, as well as to zoom in to a plot region and toggle a `Student Group` on/off in the point/color legend. School-level data is plotted on the x-axis based on poverty levels `Eco. Disadvanted (%)`. School-level data disaggregated by race/ethnicity on the y-axis to show each racial/ethnic group's academic performance as `Meets Grade Level (%)`. The three race/ethnic groups are connected by vertical lines, showing the distance or spread (y-axis) in performance among the groups within each campus. The size of each point on the plot is mapped by the absolute number of students in each race/ethnicity category within that school. The lines are generated through Loess smoothing algorithms that display (non-linear) trends across the x-axis.
 
 ## Create Functions for Interactive Plots
 
@@ -278,6 +278,12 @@ region <- region %>%
     Region_lab = paste("Region", region, sep = " "),
     `Region Ordered` = factor(region, levels = region, 
                               labels = paste("Region", region, sep = " ")))
+```
+
+## Visualizing Public and Private Schools
+In order to make the comparison more reasonable, I focus on ESC regions with similar `Total Enrollment` that have low and high rates of private school attendance in the region. Thus, the groups of schools I compare later come from the red regions (small regions with rates of private school attendance) and the blue regions (small regions with low rates of private school attendance). I should note that this effort to choose comparable groups of regions does not sufficiently eliminate endogeneity to consider any outcomes causal. This is an exploratory analysis.
+```{r, warning=F, message=F, class.source = 'fold-hide'}
+
 # Scatter and bar plots
 s <- ggplot(region, 
             aes(x = log(`Total Enrollment`), 
@@ -293,13 +299,12 @@ b <- ggplot(region,
   geom_col() +
   theme(legend.position = "bottom")
 ggarrange(s, b, nrow = 1, common.legend = TRUE, legend = "bottom")
-rm(s, b)
 ```
 
 ## Education Outcomes by High and Low Rates of Regional Private School Attendance
 The most notable difference here is that extremely privileged or disadvantaged schools have more extreme values in regions where there are high rates of private school attendance. We can further examine this by directly comparing racial/ethnic groups.
 
-```{r, results = "asis", warning=F, message=F}
+```{r, results = "asis", warning=F, message=F, class.source = 'fold-hide'}
 # Low and high private school attendance
 
 ps <- list()
