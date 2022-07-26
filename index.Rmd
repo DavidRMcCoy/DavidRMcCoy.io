@@ -4,9 +4,11 @@ title: "About"
 
 Welcome! I created this simple website to provide a few examples of my skills that are relevant for my current job search. I'm applying to researcher/analyst positions based in Austin, TX (or remote). If you have arrived at this site, you likely already have access to [my resume](https://github.com/DavidRMcCoy/DavidRMcCoy.io/raw/main/docs/McCoy_Resume_June_2022.pdf) (note: this version excludes my phone number). 
 
-I included these examples to demonstrate that my skill set generalizes beyond political science topics. To learn more, feel free to reach out to me by email or invite me for an interview.
+I included these examples to demonstrate that my skill set generalizes beyond political science topics. To learn more, feel free to reach out to me by email or invite me for an interview. 
 
 ## Previews of my Three Code Examples
+
+These three analyses are a mix of pet projects and more developed analyses. They demonstrate that I am comfortable working creatively and competently with data emanating from a wide range of topics and sources, as well as designing creative solutions to answering research questions. The first example focuses most on wrangling and visualizing complex data related to race/ethnicity, poverty, and education outcomes in Texas public schools. The second is most focused on research design and testing hypotheses related to gender equity in Brazilian elections. The third example is most focused on wrangling and joining large, complex data sets, making transformations, and creating niche visualizations of COVID-19 data and Google Community Mobility data.  
 ```{r, results = "asis", warning = FALSE, message = FALSE, echo = FALSE}
 image_link <- function(image,url,...){
   htmltools::a(
@@ -17,6 +19,7 @@ image_link <- function(image,url,...){
 
 image_link("ed.png", "https://davidrmccoy.github.io/DavidRMcCoy.io/TX_ed.html", width="300px")
 image_link("gen.png", "https://davidrmccoy.github.io/DavidRMcCoy.io/gender_rep.html", width="200px")
+image_link("waves_1_2_mob_death.gif", "https://davidrmccoy.github.io/DavidRMcCoy.io/covid_vis.html", width="200px")
 
 ```
 

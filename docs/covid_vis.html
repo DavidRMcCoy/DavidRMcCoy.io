@@ -11,7 +11,7 @@
 
 
 
-<title>Ex. 3 Covid Visualizations</title>
+<title>Visualizing COVID-19 Outcomes</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -44,6 +44,110 @@
 
 
 
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 <style type="text/css">
@@ -254,7 +358,7 @@ $(document).ready(function () {
   <a href="gender_rep.html">Ex. 2 Equity in Gender Representation in Brazil</a>
 </li>
 <li>
-  <a href="covid_vis.html">Ex. 3 Covid Visualizations</a>
+  <a href="covid_vis.html">Ex. 3 Covid Outcomes</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -278,14 +382,699 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Ex. 3 Covid Visualizations</h1>
+<h1 class="title toc-ignore">Visualizing COVID-19 Outcomes</h1>
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a
+href="#bulding-a-county-day-data-set-to-understand-the-covid-19-waves">Bulding
+a County-Day Data Set to Understand the COVID-19 Waves</a></li>
+<li><a href="#waves-1-and-2-of-covid-19">Waves 1 and 2 of
+COVID-19</a></li>
+<li><a href="#wave-3-of-covid-19-delta">Wave 3 of COVID-19
+(Delta)</a></li>
+<li><a href="#waves-4-and-5-of-covid-19">Waves 4 and 5 of
+COVID-19</a></li>
+<li><a href="#mapping-louisianas-covid-19-death-data">Mapping
+Louisiana’s COVID-19 Death Data</a></li>
+</ul>
+</div>
 
-<p>#yolo</p>
+<div align="right">
+<strong>Note: Toggle the “code” button to view/remove R code</strong>
+</div>
+<p>This page reviews a couple of pet projects I completed to familiarize
+myself with the availability of pandemic-related data in an effort to
+brainstorm for a research project on intervention effectiveness. I use
+data from an API that consolidates Johns Hopkins data related to cases
+and deaths (and many other topics I did not utilize): <a
+href="https://covid19datahub.io/">COVID19() R Package</a>. I clean and
+merge the COVID-19 data with simple additive indices of standardized
+variables from <a
+href="https://www.google.com/covid19/mobility/">Google’s Community
+Mobility data</a>. I create a large, county-day panel data set for all
+counties larger than (and including) New Orleans, LA (because I wanted
+to see if Mardi Gras 2020 is visible in the data, which it is at the
+start of the first plot). Using animated .gif plots, I show how each of
+the five waves of COVID-19 “appears” in the publicly available data,
+focusing on daily deaths, 30-day-lagged mobility data (from Google), and
+15-day-lagged new case data. My goal was to gain an understanding of
+differing patterns in order to inform future analysis that would attempt
+to deal with endogeneity and inform lag-timing for dependent
+variables.</p>
+<p>Last, I structure the data as a map object using the <a
+href="https://r-spatial.github.io/sf/">sf() package</a> and data from <a
+href="https://cran.r-project.org/web/packages/rnaturalearth/README.html">rnaturalearth()</a>
+to understand how cases move geographically through space.</p>
+<p>Unfortunately these data sets are too large to share the <a
+href="https://github.com/DavidRMcCoy/DavidRMcCoy.io">GitHub site for
+this project</a>, so I show how to download each API file with commented
+code and packages.</p>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tools)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gifski)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gganimate)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(summarytools)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggspatial)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># These are only needed if you are downloading the data from the APIs</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># library(rnaturalearth)</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># library(rnaturalearthdata)</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># library(COVID19)</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Clear data</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span></code></pre></div>
+</div>
+<div id="bulding-a-county-day-data-set-to-understand-the-covid-19-waves"
+class="section level1">
+<h1>Bulding a County-Day Data Set to Understand the COVID-19 Waves</h1>
+<div id="google-mobility-data-and-covid-api" class="section level2">
+<h2>Google Mobility Data and COVID() API</h2>
+<p>This shows how to load clean and merge the Google data and John
+Hopkins data from the COVID19() API. These are enourmous, hierarchically
+structured data sets. The COVID-19 data comes as cumulative values,
+which must be converted to daily new counts. The Google Mobility data is
+the deviation from a fixed set of days at the start of the sample; thus,
+something similar to a county fixed-effect is included in this data;
+however, we can imagine how this type of fixed-effect would pose complex
+problems. For example, very cold counties will have stronger seasonal
+effects than temperate counties.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load yearly data for US and bind to single data frame</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="st">&quot;data/2020_US_Region_Mobility_Report.csv&quot;</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="st">&quot;data/2021_US_Region_Mobility_Report.csv&quot;</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="st">&quot;data/2022_US_Region_Mobility_Report.csv&quot;</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize ID variables</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">%&gt;%</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(census_fips_code) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(sub_region_2)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>metro_area, <span class="sc">-</span>iso_3166_2_code) <span class="sc">%&gt;%</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">County =</span> sub_region_2,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">State =</span> sub_region_1) <span class="sc">%&gt;%</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">2</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Load saved data set from COVID19 API</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>usc <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;data/uscities.rds&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">place_id =</span> key_google_mobility,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">cases =</span> confirmed) <span class="sc">%&gt;%</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, place_id, date, deaths, cases, hosp, <span class="dv">13</span><span class="sc">:</span><span class="dv">30</span>, population, latitude, longitude)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Get time invariant vars from COVID data set to balance final set</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>id <span class="ot">&lt;-</span> usc <span class="sc">%&gt;%</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(place_id) <span class="sc">%&gt;%</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">population =</span> population[<span class="dv">1</span>],</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">latitude =</span> latitude[<span class="dv">1</span>],</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">longitude =</span> longitude[<span class="dv">1</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Join Google data with invariant data</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">full_join</span>(g, id, <span class="at">by =</span> <span class="st">&quot;place_id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter out small counties</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(population<span class="sc">&gt;</span><span class="dv">390000</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>           <span class="co"># filter out non-counties and Puerto Rico</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>           <span class="sc">&amp;</span> <span class="sc">!</span>County <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Kansas City&quot;</span>, <span class="st">&quot;New York City&quot;</span>, <span class="st">&quot;District of Columbia&quot;</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>           <span class="sc">&amp;</span> place_id <span class="sc">!=</span> <span class="st">&quot;ChIJJZ95DGVoA4wRfE4aUPoNFNI&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Match COVID() package data to larger Google Data</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(usc <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>population, <span class="sc">-</span>latitude, <span class="sc">-</span>longitude), <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;place_id&quot;</span>, <span class="st">&quot;date&quot;</span>))</span></code></pre></div>
+</div>
+<div
+id="mobility-index-with-time-fixed-effects-from-googles-public-data"
+class="section level2">
+<h2>Mobility Index with Time Fixed Effects from Google’s Public
+Data</h2>
+</div>
+<div id="rolling-averages-of-deaths-and-cases-of-covid-19"
+class="section level2">
+<h2>Rolling Averages of Deaths and Cases of COVID-19</h2>
+<p>This creates the full data set that I will subset for several time
+periods to see how the pandemic changes during each wave of
+COVID-19:</p>
+<ol style="list-style-type: decimal">
+<li>Take centered z-scores of Google Mobility items and averaged indices
+of three most correlated items: recreation and retail, going to work,
+being at home (reversed).</li>
+<li>To transform cumulative death and case panel data to county-day new
+deaths and cases, I group data by county and perform: <span
+class="math display">\[daily_{i,t} = cumulative_{i,t} -
+cumulative_{i,t-1}  \]</span></li>
+<li>Transformation <span class="math inline">\(T\)</span> for daily new
+deaths and daily new cases is the logged moving average of one plus
+daily counts per million: <span class="math display">\[T_{n,t} =
+(\frac{1}{7}) \sum_{i =n-3}^{n+3} p_{n-3}...p_{n+3}\]</span> Where <span
+class="math inline">\(p_{n,t}\)</span> equals the log of daily counts in
+county <span class="math inline">\(n\)</span> at time <span
+class="math inline">\(t\)</span> per million residents plus one:</li>
+</ol>
+<p><span class="math display">\[p_{n,t} =
+log(1+(\frac{daily_{i,t}}{population_i} 1,000,000))\]</span> 4.
+Seven-day moving average of Google Mobility index; same as <span
+class="math inline">\(T_{n,t}\)</span> but <span
+class="math inline">\(p_{n,t}\)</span> is the mean of the three
+standardized Google Mobility items at in county <span
+class="math inline">\(n\)</span> at time <span
+class="math inline">\(t\)</span>.</p>
+<p>Because a <a
+href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(20)30566-3/fulltext">reasonable
+estimate</a> of time between exposure and death is one month, I lag the
+Google Mobility index by 30 days. I lag new cases by 15 days. I should
+highlight that the relationships I expect to see in the data are
+exploratory and descriptive and cannot be expected to demonstrate
+causality in any direction. For this, I would need to go much further in
+eliminating endogeneity. I chose these three variables at these lagged
+points in time, because I am curious whether lagged community mobility
+and new cases are more associated with fewer deaths or whether this
+relationship is completely obscured (due to the endogenous correlation
+between past deaths with present deaths).</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># I need to re-scale, and scale() doesn&#39;t work well with dplyr</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>scale_me <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  (x <span class="sc">-</span> <span class="fu">mean</span>(x, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">/</span> <span class="fu">sd</span>(x, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose values for scales - deaths per million inhabitants</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>rescale <span class="ot">=</span> <span class="dv">1000000</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>shelter_county <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(place_id, date) <span class="sc">%&gt;%</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Date Variables</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">as.Date</span>(date),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Date =</span> <span class="fu">format</span>(<span class="fu">as.Date</span>(date), <span class="st">&quot;%b %d %Y&quot;</span>),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Google Mobility Data</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">Recreation =</span> <span class="fu">scale_me</span>(retail_and_recreation_percent_change_from_baseline),</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Grocery =</span> <span class="fu">scale_me</span>(grocery_and_pharmacy_percent_change_from_baseline),</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Parks =</span> <span class="fu">scale_me</span>(parks_percent_change_from_baseline),</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Transit =</span> <span class="fu">scale_me</span>(transit_stations_percent_change_from_baseline),</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">Work =</span> <span class="fu">scale_me</span>(workplaces_percent_change_from_baseline),</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">n.Home =</span> <span class="fu">scale_me</span>(<span class="sc">-</span> residential_percent_change_from_baseline) <span class="co"># must be reversed</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">Mobility =</span> <span class="fu">mean</span>(<span class="fu">c</span>(Recreation, n.Home, Work), <span class="at">na.rm=</span>T)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(place_id) <span class="sc">%&gt;%</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Must derive daily case count from grouped, lagged, cumulative. There are a few errors to remove.  </span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Daily Death Variables rolling avg</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">deaths =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(deaths), <span class="dv">0</span>, deaths),</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">dailydeaths =</span> deaths <span class="sc">-</span> <span class="fu">lag</span>(deaths),</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">dailydeaths  =</span> <span class="fu">ifelse</span>(dailydeaths<span class="sc">&lt;</span><span class="dv">0</span> , <span class="dv">0</span>, dailydeaths),</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">dailydeaths.pc.log =</span> <span class="fu">log</span>(<span class="dv">1</span> <span class="sc">+</span> ((dailydeaths<span class="sc">/</span>population) <span class="sc">*</span> rescale)),</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">r.dailydeaths.pc.log =</span> <span class="fu">rollmean</span>(dailydeaths.pc.log, <span class="at">k =</span> <span class="dv">7</span>, <span class="at">fill =</span> <span class="cn">NA</span>),</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Daily Case Variables rolling avg</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">cases =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(cases), <span class="dv">0</span>, cases),</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">dailycases =</span> cases <span class="sc">-</span> <span class="fu">lag</span>(cases),</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">dailycases =</span> <span class="fu">ifelse</span>(dailycases<span class="sc">&lt;</span><span class="dv">0</span> , <span class="dv">0</span>, dailycases),</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">dailycases.pc.log =</span> <span class="fu">log</span>(<span class="dv">1</span> <span class="sc">+</span> ((dailycases<span class="sc">/</span>population) <span class="sc">*</span> rescale)),</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">r.dailycases.pc.log =</span> <span class="fu">rollmean</span>(dailycases.pc.log, <span class="at">k =</span> <span class="dv">7</span>, <span class="at">fill =</span> <span class="cn">NA</span>),</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Mobility Rolling Mean</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">r.Mobility =</span> <span class="fu">rollmean</span>(Mobility, <span class="at">k =</span> <span class="dv">7</span>, <span class="at">fill =</span> <span class="cn">NA</span>),</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Lagged Variables for Analysis - These are for &quot;size&quot; so 0 -&gt; 1</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">r.dailycases.pc.log.L30 =</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fu">lag</span>(r.dailycases.pc.log, 30L),</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">r.dailycases.pc.log.L15 =</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fu">lag</span>(r.dailycases.pc.log, 15L),</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">r.Mobility.L30 =</span> <span class="fu">lag</span>(r.Mobility, 30L)</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Drop unused variables</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(County, State, Date, r.dailydeaths.pc.log, r.dailycases.pc.log.L15, r.Mobility.L30, place_id, date)</span></code></pre></div>
+</div>
+<div id="the-full-data-set" class="section level2">
+<h2>The Full Data Set</h2>
+<p>Less than one percent of the data is missing. Most of the missing
+values are caused by the 15- and 30-day lags and the moving averages at
+the margins of the panel.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfSummary</span>(shelter_county,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">plain.ascii  =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">style        =</span> <span class="st">&quot;grid&quot;</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">graph.magnif =</span> <span class="fl">0.75</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">valid.col    =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">tmp.img.dir  =</span> <span class="st">&quot;/tmp&quot;</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">silent =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;render&quot;</span>)</span></code></pre></div>
+<div class="container st-container">
+<h3>Data Frame Summary</h3>
+<h4></h4>
+<strong>Dimensions</strong>: 155408 x 8
+  <br/><strong>Duplicates</strong>: 0
+<br/>
+<table class="table table-striped table-bordered st-table st-table-striped st-table-bordered st-multiline ">
+  <thead>
+    <tr>
+      <th align="center" class="st-protect-top-border"><strong>No</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Variable</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Stats / Values</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Freqs (% of Valid)</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Graph</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Missing</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">1</td>
+      <td align="left">County
+[character]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. Montgomery County</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. Jefferson County</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. Clark County</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">4. El Paso County</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">5. Essex County</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">6. Hillsborough County</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">7. Lake County</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">8. Middlesex County</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">9. Orange County</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">10. Polk County</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">[ 152 others ]</td></tr></table></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3532</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">2.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">2649</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.7%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1766</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1766</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1766</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1766</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1766</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1766</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1766</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">1766</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">135099</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">86.9%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAG4AAADKBAMAAAC2+GgwAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcaBBAU1lxXJAAAAHhJREFUaN7t07ERgCAUBUFasASlA+2/NxPG/EHgfGYv3/Ba27/rPLKG6xzHfW72o1AtO79z3Lor8zvHccsuZX7nuLouZb7luLouZX7nuLouZX7nuLouZX7nuP9dyvzOcXVdynzLcXVdypZ/TxuuP1k3x23sZj/auRdShuSJxanIKgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0yNlQwNDoxNjoyMCswMDowMKFTH3YAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMjZUMDQ6MTY6MjArMDA6MDDQDqfKAAAAAElFTkSuQmCC"></td>
+      <td align="center">0
+(0.0%)</td>
+    </tr>
+    <tr>
+      <td align="center">2</td>
+      <td align="left">State
+[character]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. California</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. Florida</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. Texas</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">4. New Jersey</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">5. Pennsylvania</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">6. Massachusetts</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">7. New York</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">8. Ohio</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">9. Colorado</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">10. Illinois</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">[ 31 others ]</td></tr></table></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">19426</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">12.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">13245</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">8.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">11479</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">7.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">9713</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">6.2%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">7947</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">5.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">7064</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">4.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">6181</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">4.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">5298</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">3.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">4415</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">2.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">4415</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">2.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">66225</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">42.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAADwAAADKBAMAAAALGT5FAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcaBBAU1lxXJAAAAJ1JREFUWMPt1NsJwCAUA1BXyAjWDez+u5U+8KN4jdCK2ia/B+RCgs71zXLG45aLw3pEPA2TQmGkjo+nbd5Pi+KJmBQKI/Vr8eXTxEMxaQxGXltLgUN+x+J+TBqDkeo5lDjkLxMPy6RQGNFafsmN1+LLp4nnYlIojGgt3+SmcyBs/Fvp8igejEljwBPWHD7GjdeST/r2soniUZkU2isb1zKhVMwhchkAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMjZUMDQ6MTY6MjArMDA6MDChUx92AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTI2VDA0OjE2OjIwKzAwOjAw0A6nygAAAABJRU5ErkJggg=="></td>
+      <td align="center">0
+(0.0%)</td>
+    </tr>
+    <tr>
+      <td align="center">3</td>
+      <td align="left">Date
+[character]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. Apr 01 2020</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. Apr 01 2021</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. Apr 01 2022</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">4. Apr 02 2020</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">5. Apr 02 2021</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">6. Apr 02 2022</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">7. Apr 03 2020</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">8. Apr 03 2021</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">9. Apr 03 2022</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">10. Apr 04 2020</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">[ 873 others ]</td></tr></table></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">176</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">176</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">176</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">176</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">176</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">176</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">176</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">176</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">176</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">176</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">153648</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">98.9%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHsAAADKBAMAAAB3fyKcAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcaBBAU1lxXJAAAAIVJREFUaN7t1LkRgDAQBEFCgAx4QiD/3HBIQCuVEKVev40zbpZl7h1btBXH8f/xTLfi396O43hPnmm1wfEJeaYH4ZW34zjek2daLnAcL+WZVhscx0t5ptUGx/FSnmm1wfEJeaYH4ZW34zjek2daLnAcL+WZbsXPbPvLrzsajuMRr3zYWfcAlv5ITu+nyZcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMjZUMDQ6MTY6MjArMDA6MDChUx92AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTI2VDA0OjE2OjIwKzAwOjAw0A6nygAAAABJRU5ErkJggg=="></td>
+      <td align="center">0
+(0.0%)</td>
+    </tr>
+    <tr>
+      <td align="center">4</td>
+      <td align="left">r.dailydeaths.pc.log
+[numeric]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0.8 (0.6)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">0 &le; 0.7 &le; 4.6</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 0.8 (0.8)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle">58630 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHQAAABUBAMAAAChGA4iAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcaBBAU1lxXJAAAAKBJREFUWMPt1UsOgDAIBNBeQW/g9AZy/7v5iSstMFab+IH9C00DTEr/KmDoeqA7UxvNMlMZ6yiAWpplDBr0TrpsQSUVCfpNemIo9jTzfYMGbUnBhvuRZvamBn0b5YaiSLm+Qa9QJnoUykReUCreVeof5MdRLwYM6l2aj1Hzo2xq9m1IjVH2qLFCTan6ZJ+qe8BQZQ8Yus7GUkOJoqLSv2oCu7uM9bmao6AAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMjZUMDQ6MTY6MjArMDA6MDChUx92AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTI2VDA0OjE2OjIwKzAwOjAw0A6nygAAAABJRU5ErkJggg=="></td>
+      <td align="center">1232
+(0.8%)</td>
+    </tr>
+    <tr>
+      <td align="center">5</td>
+      <td align="left">r.dailycases.pc.log.L15
+[numeric]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 5 (1.7)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1 &le; 5.2 &le; 9.5</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 2.1 (0.3)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle">121908 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHQAAABUBAMAAAChGA4iAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcaBBAU1lxXJAAAAK1JREFUWMPt1lsSgCAIBVC3UDsIdhD731tKOWkjDvHTQ+5vnmFIpUIYK1M7ADCJ6VOk9UM0Nhqp3G6HIlGkJBZ2+gYqbK2GCoWdfpDyPbdRdk/T1jFW0lZhp06djkvnYxxWFGDR0MNVlKhD5zy8DDR35PStNO2ulfIyPYV0Qm0U0wMz5RZtNP/A/ohCPSiudH9ZbYp14Sstljl1qqDAWSwUi9omun/Wztl0O2GsbLd/08H0hKQrAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA3LTI2VDA0OjE2OjIwKzAwOjAwoVMfdgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNy0yNlQwNDoxNjoyMCswMDowMNAOp8oAAAAASUVORK5CYII="></td>
+      <td align="center">3344
+(2.2%)</td>
+    </tr>
+    <tr>
+      <td align="center">6</td>
+      <td align="left">r.Mobility.L30
+[numeric]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0 (0.7)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-3.7 &le; 0.1 &le; 2.2</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 0.9 (-49.5)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle">141310 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHQAAABUBAMAAAChGA4iAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcaBBAVoVtnsgAAAH9JREFUWMPt2GEKgCAMBWCvsI5gN2j3v1saFmNJbCOI2Hs/hY+pyBRLyRV6zlJb9KCRMvMGCgoKCvoJPdp3kHYGaqb6onRQXRkUFBSU6GzfAboKBgr6N9qPfpA2xhno2KIIHexlev0WOKl8pU6oWOeNyolPqGAeqipaaA2k5MoOYWV8Goe7N9YAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMjZUMDQ6MTY6MjErMDA6MDAHJBTCAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTI2VDA0OjE2OjIxKzAwOjAwdnmsfgAAAABJRU5ErkJggg=="></td>
+      <td align="center">5808
+(3.7%)</td>
+    </tr>
+    <tr>
+      <td align="center">7</td>
+      <td align="left">place_id
+[character]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. ChIJ-0CVcqRcKocRs7hv5vsqL</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. ChIJ-Xm73adITIYRhrb-NBX-z</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. ChIJ_6JyBQxdK4cRgEgsf9Ec7</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">4. ChIJ_w4lRiZdxokRjwDbOR-3-</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">5. ChIJ06tle7N4b4YRqHTn0TzEb</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">6. ChIJ0d0uysfzyIkRfznnnLSl6</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">7. ChIJ0dNnmHCr9YgRE8XXDotB0</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">8. ChIJ0UrHnkGrw4kRhaap0swA3</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">9. ChIJ0VeFKvoWnlQRJTO2Z6ANh</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">10. ChIJ0wxG_rFgtokRmRY44U76C</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">[ 166 others ]</td></tr></table></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">883</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">883</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">883</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">883</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">883</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">883</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">883</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">883</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">883</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">883</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">0.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">146578</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">94.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHYAAADKBAMAAACCgaksAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcaBBAVoVtnsgAAAHlJREFUaN7t1LENgDAQA8CswAjABrD/bjQ0lJhIIfpzf40lu7V6WZcgLMv+wia0h52xK5Zl/QbLVrYJHW1HdcWyrO2zLJvZhPoNlq1tE+o3WLa2TajfYNn5bUJH21FdsSxr+yzLZjahPeyW5Lb7+T4Hy7IP+2WDlXIB0gMdYKaXXyoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMjZUMDQ6MTY6MjErMDA6MDAHJBTCAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTI2VDA0OjE2OjIxKzAwOjAwdnmsfgAAAABJRU5ErkJggg=="></td>
+      <td align="center">0
+(0.0%)</td>
+    </tr>
+    <tr>
+      <td align="center">8</td>
+      <td align="left">date
+[Date]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min : 2020-02-15</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">med : 2021-05-01</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">max : 2022-07-16</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">range : 2y 5m 1d</td></tr></table></td>
+      <td align="left" style="vertical-align:middle">883 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHQAAABUBAMAAAChGA4iAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcaBBAWOFI2CAAAAFlJREFUWMPt2LEJACAMRNGskBV0A7P/bkYUbEyhYCH+I9XhI00qRf6KqqatOJg0W7E5ecyqazUUeoP6VZ7S8FlEfdcp9QIKhUKhUCgUCoVCoc/TvV+UHvkrFUqr1trFp2SKAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA3LTI2VDA0OjE2OjIyKzAwOjAwNswOXwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNy0yNlQwNDoxNjoyMiswMDowMEeRtuMAAAAASUVORK5CYII="></td>
+      <td align="center">0
+(0.0%)</td>
+    </tr>
+  </tbody>
+</table>
+<p>Generated by <a href='https://github.com/dcomtois/summarytools'>summarytools</a> 1.0.1 (<a href='https://www.r-project.org/'>R</a> version 4.0.3)<br/>2022-07-25</p>
+</div>
+</div>
+</div>
+<div id="waves-1-and-2-of-covid-19" class="section level1">
+<h1>Waves 1 and 2 of COVID-19</h1>
+<p>This is the first of three data transformations that feed directly
+into a script for creating animated scripts for visualizing county-day
+panel data. For each of the three subsets, I rescale the mobility index,
+so that the variable has a mean of zero and standard deviation of one.
+Next, I include time fixed-effects to remove daily-level shifts that
+affect all counties by subtracting the average value of all cases on
+that day from each county-day value. Thus, units are still able to vary
+systematically in respective county-level means; however, each county’s
+daily move is above and beyond the common shock experienced through
+seasonality or overall changes. This is the case for all three wave
+plots.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define Start and End Dates</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>start.date <span class="ot">=</span> <span class="fu">as.Date</span>(<span class="st">&quot;2020-03-18&quot;</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>end.date <span class="ot">=</span> <span class="fu">as.Date</span>(<span class="st">&quot;2020-09-30&quot;</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>w12 <span class="ot">&lt;-</span> shelter_county <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter start and end dates</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">&gt;</span> start.date <span class="sc">&amp;</span> date <span class="sc">&lt;</span> end.date) <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(place_id) <span class="sc">%&gt;%</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get a count of obs per county for animation</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale and center mobility based on subsample</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">r.Mobility.L30 =</span> <span class="fu">scale_me</span>(r.Mobility.L30)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get daily means for all cases to use as time fixed-effects</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">mob_day_mean =</span> <span class="fu">mean</span>(r.Mobility.L30, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Take out daily shifts for all cases</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">mob_time_fe =</span> r.Mobility.L30 <span class="sc">-</span> mob_day_mean,</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">Date =</span> <span class="fu">fct_reorder</span>(Date, n)) </span></code></pre></div>
+<div id="visualizing-waves-1-and-2" class="section level2">
+<h2>Visualizing Waves 1 and 2</h2>
+<p>Each point in the plot is a county with population greater than
+390,000. The x-axis shows each counties mobility relative to its own
+baseline minus the deviation experienced on average by all counties.
+Without the time fixed-effect, there is a daily “wobble” of all units
+that impedes (already difficult) interpretation. The y-axis includes the
+logged deaths per million inhabitants as a seven-day moving average. The
+color and size of points are both measures of</p>
+<p>Testing and reporting infrastructure was urgently needed in order to
+deal with the pandemic. This visualization shows in real time how
+measurement of new cases (yellowness and size) emerges, improves, and
+stabilizes during the first months.</p>
+<p>During the latter half, it shows how counties responded with robust
+lock downs in order to deal with local outbreaks. The data shows that
+when outbreaks emerged at <span class="math inline">\(t=0\)</span>,
+points tend to shift leftward. During the latter half, there is a
+tendency for a downward slope among points. Unless lockdowns can cause
+outbreaks and increased deaths (not plausible), the endogenous
+relationship between deaths at <span class="math inline">\(t=0\)</span>
+and deaths at <span class="math inline">\(t-30\)</span> is apparent in
+the downward slope in the data.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> w12,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x=</span>mob_time_fe, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">y=</span>r.dailydeaths.pc.log, </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">color=</span>r.dailycases.pc.log.L15,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">size =</span> r.dailycases.pc.log.L15)) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#xlim(-40, 62) + ylim(0, 8) +</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis</span>(<span class="at">option=</span><span class="st">&quot;plasma&quot;</span>, <span class="at">alpha =</span> .<span class="dv">4</span>, </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span> <span class="sc">+</span> <span class="fu">round</span>(<span class="fu">max</span>(w12<span class="sc">$</span>r.dailycases.pc.log.L15), <span class="at">digits =</span> <span class="dv">1</span>)), <span class="at">trans =</span> <span class="st">&quot;log&quot;</span>, </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                      <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">round</span>(<span class="fu">max</span>(w12<span class="sc">$</span>r.dailycases.pc.log.L15), <span class="at">digits =</span> <span class="dv">0</span>))) <span class="sc">+</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">family=</span><span class="st">&quot;serif&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;COVID-19 Waves 1 and 2: Daily Deaths, Month-Lagged Mobility, and </span><span class="sc">\n</span><span class="st"> 15-Day-Lagged New Cases: All US Counties with 390K Residents </span><span class="sc">\n</span><span class="st"> {closest_state}&quot;</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;All values are 7-Day Rolling Averages&quot;</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#caption = &quot;Data Source: Google Mobility Data, NYT, COVID19 API \n Github: DavidRMcCoy&quot;,</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;New Cases </span><span class="sc">\n</span><span class="st"> (-15 Days)&quot;</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Daily Deaths per Million Residents (Log)&quot;</span>,</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Mobility Index (-30 Days): Using Google Mobility Data&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">size =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transition_states</span>(Date,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>                    <span class="at">transition_length =</span> <span class="dv">10</span>,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>                    <span class="at">state_length =</span> <span class="dv">1</span>,</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>                    <span class="at">wrap =</span> F) <span class="sc">+</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shadow_wake</span>(<span class="at">wake_length =</span> <span class="fl">0.004</span>) <span class="sc">+</span> <span class="fu">enter_fade</span>() <span class="sc">+</span> <span class="fu">exit_shrink</span>()</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Render</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>c_s <span class="ot">&lt;-</span> <span class="fu">animate</span>(p, <span class="at">nframes =</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="fu">max</span>(w12<span class="sc">$</span>n)), <span class="at">detail=</span><span class="dv">10</span>)</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="fu">anim_save</span>(<span class="st">&quot;waves_1_2_mob_death.gif&quot;</span>, <span class="at">animation=</span>c_s)</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>c_s</span></code></pre></div>
+<p><img
+src="covid_vis_files/figure-html/unnamed-chunk-6-1.gif" /><!-- --></p>
+</div>
+</div>
+<div id="wave-3-of-covid-19-delta" class="section level1">
+<h1>Wave 3 of COVID-19 (Delta)</h1>
+<p><strong>Note:</strong> You can view the code by toggling the “code”
+button.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define Start and End Dates</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>start.date <span class="ot">=</span> <span class="fu">as.Date</span>(<span class="st">&quot;2020-10-01&quot;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>end.date <span class="ot">=</span> <span class="fu">as.Date</span>(<span class="st">&quot;2021-03-30&quot;</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>w3 <span class="ot">&lt;-</span> shelter_county <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter start and end dates</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">&gt;</span> start.date <span class="sc">&amp;</span> date <span class="sc">&lt;</span> end.date) <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(place_id) <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get a count of obs per county for animation</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale and center mobility based on subsample</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">r.Mobility.L30 =</span> <span class="fu">scale_me</span>(r.Mobility.L30)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get daily means for all cases to use as time fixed-effects</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">mob_day_mean =</span> <span class="fu">mean</span>(r.Mobility.L30, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Take out daily shifts for all cases</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">mob_time_fe =</span> r.Mobility.L30 <span class="sc">-</span> mob_day_mean,</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">Date =</span> <span class="fu">fct_reorder</span>(Date, n)) </span></code></pre></div>
+<div id="visualizing-wave-3-of-covid-19-delta" class="section level2">
+<h2>Visualizing Wave 3 of COVID-19 (Delta)</h2>
+<p>The third wave is distinct in at least two ways. First, during much
+of the panel, there is a period in which no counties are near zero.
+Unlike the latter half of the second wave, there is not an enduring
+downward slope to the distribution, but rather, there is a great deal of
+variation among counties over time. There seem to be moments in which
+movement toward the left on the x-axis results in fewer cases (smaller
+more purple points) 15 days later. Other times, the fluctuations seem
+arbitrary.</p>
+<p>Interestingly, near the end of the third wave, when deaths and cases
+at <span class="math inline">\(t-15\)</span> begin to diminish, counties
+begin to spread out across the x-axis. The mean of all counties for each
+day is fixed at zero, so we can’t expect all cases to shift left or
+right. However, this wide spread at the end of the third wave meant that
+some cities were much quicker to return to higher levels of mobility
+than other counties, which is in line with the growing backlash against
+lock downs at the time.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> w3,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x=</span>mob_time_fe, </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">y=</span>r.dailydeaths.pc.log, </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">color=</span>r.dailycases.pc.log.L15,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">size =</span> r.dailycases.pc.log.L15)) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#xlim(-40, 62) + ylim(0, 8) +</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis</span>(<span class="at">option=</span><span class="st">&quot;plasma&quot;</span>, <span class="at">alpha =</span> .<span class="dv">4</span>, </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span> <span class="sc">+</span> <span class="fu">round</span>(<span class="fu">max</span>(w3<span class="sc">$</span>r.dailycases.pc.log.L15), <span class="at">digits =</span> <span class="dv">1</span>)), <span class="at">trans =</span> <span class="st">&quot;log&quot;</span>, </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                      <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">round</span>(<span class="fu">max</span>(w3<span class="sc">$</span>r.dailycases.pc.log.L15), <span class="at">digits =</span> <span class="dv">0</span>))) <span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">family=</span><span class="st">&quot;serif&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;COVID-19 Wave 3: Daily Deaths, Month-Lagged Mobility, and </span><span class="sc">\n</span><span class="st"> 15-Day-Lagged New Cases: All US Counties with 390K Residents </span><span class="sc">\n</span><span class="st"> {closest_state}&quot;</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;All values are 7-Day Rolling Averages&quot;</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;New Cases </span><span class="sc">\n</span><span class="st"> (-15 Days)&quot;</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Daily Deaths per Million Residents (Log)&quot;</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Mobility Index (-30 Days): Using Google Mobility Data&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">size =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transition_states</span>(Date,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>                    <span class="at">transition_length =</span> <span class="dv">10</span>,</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>                    <span class="at">state_length =</span> <span class="dv">1</span>,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>                    <span class="at">wrap =</span> F) <span class="sc">+</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shadow_wake</span>(<span class="at">wake_length =</span> <span class="fl">0.004</span>) <span class="sc">+</span> <span class="fu">enter_fade</span>() <span class="sc">+</span> <span class="fu">exit_shrink</span>()</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#Render</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>c_s <span class="ot">&lt;-</span> <span class="fu">animate</span>(p, <span class="at">nframes =</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="fu">max</span>(w3<span class="sc">$</span>n)), <span class="at">detail=</span><span class="dv">10</span>)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co">#anim_save(&quot;wave_3_mob_death.gif&quot;, animation=c_s)</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>c_s</span></code></pre></div>
+<p><img
+src="covid_vis_files/figure-html/unnamed-chunk-8-1.gif" /><!-- --></p>
+</div>
+</div>
+<div id="waves-4-and-5-of-covid-19" class="section level1">
+<h1>Waves 4 and 5 of COVID-19</h1>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define Start and End Dates</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>start.date <span class="ot">=</span> <span class="fu">as.Date</span>(<span class="st">&quot;2021-07-15&quot;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>end.date <span class="ot">=</span> <span class="fu">as.Date</span>(<span class="st">&quot;2022-04-28&quot;</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>w45 <span class="ot">&lt;-</span> shelter_county <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter start and end dates</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">&gt;</span> start.date <span class="sc">&amp;</span> date <span class="sc">&lt;</span> end.date) <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(place_id) <span class="sc">%&gt;%</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get a count of obs per county for animation</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale and center mobility based on subsample</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">r.Mobility.L30 =</span> <span class="fu">scale_me</span>(r.Mobility.L30)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get daily means for all cases to use as time fixed-effects</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">mob_day_mean =</span> <span class="fu">mean</span>(r.Mobility.L30, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Take out daily shifts for all cases</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">mob_time_fe =</span> r.Mobility.L30 <span class="sc">-</span> mob_day_mean,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">Date =</span> <span class="fu">fct_reorder</span>(Date, n)) </span></code></pre></div>
+<div id="visualizing-waves-4-and-5" class="section level2">
+<h2>Visualizing Waves 4 and 5</h2>
+<p>The most salient difference about waves four and five is the fact
+that a subset of counties (those in Florida, primarily) no longer appear
+comparable to the rest of the country. As <a
+href="https://coronavirus.jhu.edu/region-data-notes/florida">Johns
+Hopkins notes</a>, Florida began reporting cases once per month, which
+results in many near-zero values followed by incomparable values that
+cannot be treated as county-day panel data. Aside from this distinction,
+there is little different from the data in the third wave. There is a
+mix of expected, systematic patterns of moving left accompanied by
+random noise. Additionally, the end of the wave exhibits greater
+spread/polarization among cases as some counties revert more quickly
+from lock down at the end of the wave.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> w45,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x=</span>mob_time_fe, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">y=</span>r.dailydeaths.pc.log, </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">color=</span>r.dailycases.pc.log.L15,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">size =</span> r.dailycases.pc.log.L15)) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#xlim(-40, 62) + ylim(0, 8) +</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis</span>(<span class="at">option=</span><span class="st">&quot;plasma&quot;</span>, <span class="at">alpha =</span> .<span class="dv">4</span>, <span class="at">direction =</span> <span class="dv">1</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span> <span class="sc">+</span> <span class="fu">round</span>(<span class="fu">max</span>(w45<span class="sc">$</span>r.dailycases.pc.log.L15), <span class="at">digits =</span> <span class="dv">1</span>)), </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                      <span class="at">trans =</span> <span class="st">&quot;log&quot;</span>, </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                      <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">round</span>(<span class="fu">max</span>(w45<span class="sc">$</span>r.dailycases.pc.log.L15), <span class="at">digits =</span> <span class="dv">0</span>))) <span class="sc">+</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">family=</span><span class="st">&quot;serif&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;COVID-19 Waves 4 and 5: Daily Deaths, Month-Lagged Mobility, and </span><span class="sc">\n</span><span class="st"> 15-Day-Lagged New Cases: All US Counties with 390K Residents </span><span class="sc">\n</span><span class="st"> {closest_state}&quot;</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;All values are 7-Day Rolling Averages&quot;</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;New Cases </span><span class="sc">\n</span><span class="st"> (-15 Days)&quot;</span>,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Daily Deaths per Million Residents (Log)&quot;</span>,</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Mobility Index (-30 Days): Using Google Mobility Data&quot;</span>) <span class="sc">+</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">size =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transition_states</span>(Date,</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>                    <span class="at">transition_length =</span> <span class="dv">10</span>,</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>                    <span class="at">state_length =</span> <span class="dv">1</span>,</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>                    <span class="at">wrap =</span> F) <span class="sc">+</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shadow_wake</span>(<span class="at">wake_length =</span> <span class="fl">0.004</span>) <span class="sc">+</span> <span class="fu">enter_fade</span>() <span class="sc">+</span> <span class="fu">exit_shrink</span>()</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Render</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>c_s <span class="ot">&lt;-</span> <span class="fu">animate</span>(p, <span class="at">nframes =</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="fu">max</span>(w45<span class="sc">$</span>n)), <span class="at">detail=</span><span class="dv">10</span>)</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co">#anim_save(&quot;waves_4_5_mob_death.gif&quot;, animation=c_s)</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>c_s</span></code></pre></div>
+<p><img
+src="covid_vis_files/figure-html/unnamed-chunk-10-1.gif" /><!-- --></p>
+</div>
+</div>
+<div id="mapping-louisianas-covid-19-death-data" class="section level1">
+<h1>Mapping Louisiana’s COVID-19 Death Data</h1>
+<p>This code cleans and combines COVID-19 data from the <a
+href="https://covid19datahub.io/">COVID19()</a> API with map objects
+(sf) from the <a
+href="https://cran.r-project.org/web/packages/rnaturalearth/README.html">rnaturalearth()</a>
+package data.</p>
+<div id="visualizing-cumulative-covid-19-deaths-in-louisiana"
+class="section level2">
+<h2>Visualizing Cumulative COVID-19 Deaths in Louisiana</h2>
+<p>I clean up the COVID-19 data; subset the data based on date and
+location; parse map data with identification variables that match the
+COVID-19 data for Louisiana Parishes; merge these two data sets. Next, I
+specify spatial limits and create one static image for each calendar
+date in the sample. Each image includes a layer that is a blank map of
+Louisiana and a layer that contains the cumulative death data for that
+day as the fill for each Parish. Finally, I use the gifsky() package to
+save the .gif file and knitr to print it.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clear </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define Start and End Dates</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>start.date <span class="ot">=</span> <span class="fu">as.Date</span>(<span class="st">&quot;2020-03-22&quot;</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>end.date <span class="ot">=</span> <span class="fu">as.Date</span>(<span class="st">&quot;2020-08-15&quot;</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#keep &lt;- c(&quot;Louisiana&quot;, &quot;Mississippi&quot;, &quot;Texas&quot;, &quot;Arkansas&quot;)</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Define data subset as my native state of Louisiana</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Louisiana&quot;</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a map data (sf) object from rnaturalearth() package</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># world &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;)</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># saveRDS(world, &quot;world.rds&quot;)</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>world <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;data/world.rds&quot;</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># County/Parish COVID-19 data saved from COVID19() API</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>usc <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;data/uscities.rds&quot;</span>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean and subset COVID-19 data</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>uscities <span class="ot">&lt;-</span>  usc <span class="sc">%&gt;%</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    administrative_area_level_2 <span class="sc">%in%</span> keep <span class="sc">&amp;</span> </span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>      date <span class="sc">&gt;=</span> start.date <span class="sc">&amp;</span> date <span class="sc">&lt;=</span> end.date) <span class="sc">%&gt;%</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">Parish =</span> <span class="fu">gsub</span>(<span class="st">&quot;St.&quot;</span>, <span class="st">&quot;St&quot;</span>, administrative_area_level_3),</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">Parish =</span> <span class="fu">gsub</span>(<span class="st">&quot;LaSalle&quot;</span>, <span class="st">&quot;La Salle&quot;</span>, Parish),</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">State =</span> administrative_area_level_2,</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">Date =</span> <span class="fu">format</span>(<span class="fu">as.Date</span>(date), <span class="at">format=</span><span class="st">&quot;%b %d %Y&quot;</span>),</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Keep until August 15, 2020</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>  <span class="co">#filter(n &lt; 156) %&gt;%</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(State, Parish, Date, n, deaths, date)</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Create object that can link COVID-19 data to sf map object </span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="co"># You will need to load all packages to run this code</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="co"># sf_counties &lt;- st_as_sf(map(&quot;county&quot;, plot = FALSE, fill = TRUE))</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co"># saveRDS(sf_counties, &quot;data/sf_counties.rds&quot;)</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Load saved spatial data from sf API - using code above this</span></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>sf_counties <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;data/sf_counties.rds&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Parse using ID variable to create matching names.</span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">State =</span> <span class="fu">toTitleCase</span>(<span class="fu">str_split_fixed</span>(ID, <span class="st">&quot;,&quot;</span>, <span class="dv">2</span>)[,<span class="dv">1</span>]),</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">Parish =</span> <span class="fu">toTitleCase</span>(<span class="fu">str_split_fixed</span>(ID, <span class="st">&quot;,&quot;</span>, <span class="dv">2</span>)[,<span class="dv">2</span>])) <span class="sc">%&gt;%</span></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Keep Louisiana&#39;s Parishes</span></span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(State <span class="sc">%in%</span> keep) <span class="sc">%&gt;%</span></span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>ID)</span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a balanced data frame to hold missing values: use date length</span></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>balanced <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">Parish =</span> <span class="fu">rep</span>(sf_counties<span class="sc">$</span>Parish, <span class="at">each =</span> <span class="fu">length</span>(start.date<span class="sc">:</span>end.date)),</span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="fu">as.Date</span>(<span class="fu">rep</span>(start.date<span class="sc">:</span>end.date, <span class="at">times =</span> <span class="dv">64</span>)))</span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>counties <span class="ot">&lt;-</span> <span class="fu">left_join</span>(balanced, uscities, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;Parish&quot;</span>, <span class="st">&quot;date&quot;</span>)) </span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>counties <span class="ot">&lt;-</span> <span class="fu">left_join</span>(sf_counties, counties, <span class="at">by =</span> <span class="st">&quot;Parish&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Parish) <span class="sc">%&gt;%</span></span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">Date =</span> <span class="fu">format</span>(<span class="fu">as.Date</span>(date), <span class="at">format=</span><span class="st">&quot;%b %d %Y&quot;</span>),</span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(usc)</span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>makeplot <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>  datalist <span class="ot">&lt;-</span> <span class="fu">split</span>(counties, counties<span class="sc">$</span>date)</span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(datalist, <span class="cf">function</span>(counties){</span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> world) <span class="sc">+</span></span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_sf</span>(<span class="at">data =</span> counties, <span class="fu">aes</span>(<span class="at">fill =</span> deaths)) <span class="sc">+</span></span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a>            <span class="fu">scale_fill_viridis_c</span>( <span class="at">alpha =</span> .<span class="dv">8</span>, <span class="at">direction=</span><span class="sc">-</span><span class="dv">1</span>, <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1501</span>), <span class="at">trans =</span> <span class="st">&quot;log&quot;</span>, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a>            <span class="fu">coord_sf</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">94.5</span>, <span class="sc">-</span><span class="fl">88.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">28.9</span>, <span class="fl">33.25</span>), <span class="at">expand =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">subtitle=</span>counties<span class="sc">$</span>Date, </span>
+<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title=</span><span class="st">&quot;Cumulative COVID-19 Deaths in Louisiana Parishes: March 22 to August 15&quot;</span>, </span>
+<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill =</span> <span class="st">&quot;Cumulative Deaths&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">family=</span><span class="st">&quot;serif&quot;</span>))</span>
+<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(p)</span>
+<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a><span class="fu">save_gif</span>(<span class="fu">makeplot</span>(), <span class="at">gif_file =</span> <span class="st">&quot;louisiana.july2022.gif&quot;</span>, <span class="at">width =</span> <span class="dv">800</span>, <span class="at">height =</span> <span class="dv">700</span>, <span class="at">res =</span> <span class="dv">100</span>, <span class="at">delay=</span><span class="fl">0.1</span>, <span class="at">progress =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;C:\\Users\\david\\Documents\\GitHub\\DavidRMcCoy.io\\louisiana.july2022.gif&quot;</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;louisiana.july2022.gif&quot;</span>)</span></code></pre></div>
+<p><img src="louisiana.july2022.gif" /><!-- --></p>
+</div>
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkV4LiAzIENvdmlkIFZpc3VhbGl6YXRpb25zIg0KLS0tDQoNCiN5b2xvDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlZpc3VhbGl6aW5nIENPVklELTE5IE91dGNvbWVzIg0KLS0tDQo8ZGl2IGFsaWduPSJyaWdodCI+KipOb3RlOiBUb2dnbGUgdGhlICJjb2RlIiBidXR0b24gdG8gdmlldy9yZW1vdmUgUiBjb2RlKio8L2Rpdj4gIA0KICANClRoaXMgcGFnZSByZXZpZXdzIGEgY291cGxlIG9mIHBldCBwcm9qZWN0cyBJIGNvbXBsZXRlZCB0byBmYW1pbGlhcml6ZSBteXNlbGYgd2l0aCB0aGUgYXZhaWxhYmlsaXR5IG9mIHBhbmRlbWljLXJlbGF0ZWQgZGF0YSBpbiBhbiBlZmZvcnQgdG8gYnJhaW5zdG9ybSBmb3IgYSByZXNlYXJjaCBwcm9qZWN0IG9uIGludGVydmVudGlvbiBlZmZlY3RpdmVuZXNzLiBJIHVzZSBkYXRhIGZyb20gYW4gQVBJIHRoYXQgY29uc29saWRhdGVzIEpvaG5zIEhvcGtpbnMgZGF0YSByZWxhdGVkIHRvIGNhc2VzIGFuZCBkZWF0aHMgKGFuZCBtYW55IG90aGVyIHRvcGljcyBJIGRpZCBub3QgdXRpbGl6ZSk6IFtDT1ZJRDE5KCkgUiBQYWNrYWdlXShodHRwczovL2NvdmlkMTlkYXRhaHViLmlvLykuIEkgY2xlYW4gYW5kIG1lcmdlIHRoZSBDT1ZJRC0xOSBkYXRhIHdpdGggc2ltcGxlIGFkZGl0aXZlIGluZGljZXMgb2Ygc3RhbmRhcmRpemVkIHZhcmlhYmxlcyBmcm9tIFtHb29nbGUncyBDb21tdW5pdHkgTW9iaWxpdHkgZGF0YV0oaHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS9jb3ZpZDE5L21vYmlsaXR5LykuIEkgY3JlYXRlIGEgbGFyZ2UsIGNvdW50eS1kYXkgcGFuZWwgZGF0YSBzZXQgZm9yIGFsbCBjb3VudGllcyBsYXJnZXIgdGhhbiAoYW5kIGluY2x1ZGluZykgTmV3IE9ybGVhbnMsIExBIChiZWNhdXNlIEkgd2FudGVkIHRvIHNlZSBpZiBNYXJkaSBHcmFzIDIwMjAgaXMgdmlzaWJsZSBpbiB0aGUgZGF0YSwgd2hpY2ggaXQgaXMgYXQgdGhlIHN0YXJ0IG9mIHRoZSBmaXJzdCBwbG90KS4gVXNpbmcgYW5pbWF0ZWQgLmdpZiBwbG90cywgSSBzaG93IGhvdyBlYWNoIG9mIHRoZSBmaXZlIHdhdmVzIG9mIENPVklELTE5ICJhcHBlYXJzIiBpbiB0aGUgcHVibGljbHkgYXZhaWxhYmxlIGRhdGEsIGZvY3VzaW5nIG9uIGRhaWx5IGRlYXRocywgMzAtZGF5LWxhZ2dlZCBtb2JpbGl0eSBkYXRhIChmcm9tIEdvb2dsZSksIGFuZCAxNS1kYXktbGFnZ2VkIG5ldyBjYXNlIGRhdGEuIE15IGdvYWwgd2FzIHRvIGdhaW4gYW4gdW5kZXJzdGFuZGluZyBvZiBkaWZmZXJpbmcgcGF0dGVybnMgaW4gb3JkZXIgdG8gaW5mb3JtIGZ1dHVyZSBhbmFseXNpcyB0aGF0IHdvdWxkIGF0dGVtcHQgdG8gZGVhbCB3aXRoIGVuZG9nZW5laXR5IGFuZCBpbmZvcm0gbGFnLXRpbWluZyBmb3IgZGVwZW5kZW50IHZhcmlhYmxlcy4NCg0KTGFzdCwgSSBzdHJ1Y3R1cmUgdGhlIGRhdGEgYXMgYSBtYXAgb2JqZWN0IHVzaW5nIHRoZSBbc2YoKSBwYWNrYWdlXShodHRwczovL3Itc3BhdGlhbC5naXRodWIuaW8vc2YvKSBhbmQgZGF0YSBmcm9tIFtybmF0dXJhbGVhcnRoKCldKGh0dHBzOi8vY3Jhbi5yLXByb2plY3Qub3JnL3dlYi9wYWNrYWdlcy9ybmF0dXJhbGVhcnRoL1JFQURNRS5odG1sKSB0byB1bmRlcnN0YW5kIGhvdyBjYXNlcyBtb3ZlIGdlb2dyYXBoaWNhbGx5IHRocm91Z2ggc3BhY2UuDQoNClVuZm9ydHVuYXRlbHkgdGhlc2UgZGF0YSBzZXRzIGFyZSB0b28gbGFyZ2UgdG8gc2hhcmUgdGhlIFtHaXRIdWIgc2l0ZSBmb3IgdGhpcyBwcm9qZWN0XShodHRwczovL2dpdGh1Yi5jb20vRGF2aWRSTWNDb3kvRGF2aWRSTWNDb3kuaW8pLCBzbyBJIHNob3cgaG93IHRvIGRvd25sb2FkIGVhY2ggQVBJIGZpbGUgd2l0aCBjb21tZW50ZWQgY29kZSBhbmQgcGFja2FnZXMuDQoNCiMjIFBhY2thZ2VzDQpgYGB7ciwgd2FybmluZyA9IEYsIG1lc3NhZ2UgPSBGfQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KHpvbykNCmxpYnJhcnkodmlyaWRpcykNCmxpYnJhcnkoZ2x1ZSkNCmxpYnJhcnkodG9vbHMpDQpsaWJyYXJ5KGx1YnJpZGF0ZSkNCmxpYnJhcnkoZ2lmc2tpKQ0KbGlicmFyeShnZ2FuaW1hdGUpDQpsaWJyYXJ5KHN1bW1hcnl0b29scykNCmxpYnJhcnkoZm9yY2F0cykNCmxpYnJhcnkoc2YpDQpsaWJyYXJ5KGdnc3BhdGlhbCkNCiMgVGhlc2UgYXJlIG9ubHkgbmVlZGVkIGlmIHlvdSBhcmUgZG93bmxvYWRpbmcgdGhlIGRhdGEgZnJvbSB0aGUgQVBJcw0KIyBsaWJyYXJ5KHJuYXR1cmFsZWFydGgpDQojIGxpYnJhcnkocm5hdHVyYWxlYXJ0aGRhdGEpDQojIGxpYnJhcnkoQ09WSUQxOSkNCg0KIyBDbGVhciBkYXRhDQpybShsaXN0PWxzKCkpDQpgYGANCg0KIyBCdWxkaW5nIGEgQ291bnR5LURheSBEYXRhIFNldCB0byBVbmRlcnN0YW5kIHRoZSBDT1ZJRC0xOSBXYXZlcw0KDQojIyBHb29nbGUgTW9iaWxpdHkgRGF0YSBhbmQgQ09WSUQoKSBBUEkNClRoaXMgc2hvd3MgaG93IHRvIGxvYWQgY2xlYW4gYW5kIG1lcmdlIHRoZSBHb29nbGUgZGF0YSBhbmQgSm9obiBIb3BraW5zIGRhdGEgZnJvbSB0aGUgQ09WSUQxOSgpIEFQSS4gVGhlc2UgYXJlIGVub3VybW91cywgaGllcmFyY2hpY2FsbHkgc3RydWN0dXJlZCBkYXRhIHNldHMuIFRoZSBDT1ZJRC0xOSBkYXRhIGNvbWVzIGFzIGN1bXVsYXRpdmUgdmFsdWVzLCB3aGljaCBtdXN0IGJlIGNvbnZlcnRlZCB0byBkYWlseSBuZXcgY291bnRzLiBUaGUgR29vZ2xlIE1vYmlsaXR5IGRhdGEgaXMgdGhlIGRldmlhdGlvbiBmcm9tIGEgZml4ZWQgc2V0IG9mIGRheXMgYXQgdGhlIHN0YXJ0IG9mIHRoZSBzYW1wbGU7IHRodXMsIHNvbWV0aGluZyBzaW1pbGFyIHRvIGEgY291bnR5IGZpeGVkLWVmZmVjdCBpcyBpbmNsdWRlZCBpbiB0aGlzIGRhdGE7IGhvd2V2ZXIsIHdlIGNhbiBpbWFnaW5lIGhvdyB0aGlzIHR5cGUgb2YgZml4ZWQtZWZmZWN0IHdvdWxkIHBvc2UgY29tcGxleCBwcm9ibGVtcy4gRm9yIGV4YW1wbGUsIHZlcnkgY29sZCBjb3VudGllcyB3aWxsIGhhdmUgc3Ryb25nZXIgc2Vhc29uYWwgZWZmZWN0cyB0aGFuIHRlbXBlcmF0ZSBjb3VudGllcy4gICAgDQpgYGB7ciwgd2FybmluZyA9IEYsIG1lc3NhZ2UgPSBGfQ0KIyBMb2FkIHllYXJseSBkYXRhIGZvciBVUyBhbmQgYmluZCB0byBzaW5nbGUgZGF0YSBmcmFtZQ0KZyA8LSByYmluZCgNCiAgcmVhZF9jc3YoImRhdGEvMjAyMF9VU19SZWdpb25fTW9iaWxpdHlfUmVwb3J0LmNzdiIpLA0KICByZWFkX2NzdigiZGF0YS8yMDIxX1VTX1JlZ2lvbl9Nb2JpbGl0eV9SZXBvcnQuY3N2IiksDQogIHJlYWRfY3N2KCJkYXRhLzIwMjJfVVNfUmVnaW9uX01vYmlsaXR5X1JlcG9ydC5jc3YiKSkNCiMgU3RhbmRhcmRpemUgSUQgdmFyaWFibGVzDQpnIDwtIGcgJT4lDQogIGZpbHRlcighaXMubmEoY2Vuc3VzX2ZpcHNfY29kZSkgJiAhaXMubmEoc3ViX3JlZ2lvbl8yKSkgJT4lDQogIHNlbGVjdCgtbWV0cm9fYXJlYSwgLWlzb18zMTY2XzJfY29kZSkgJT4lDQogIHJlbmFtZSgNCiAgICBDb3VudHkgPSBzdWJfcmVnaW9uXzIsDQogICAgU3RhdGUgPSBzdWJfcmVnaW9uXzEpICU+JQ0KICBzZWxlY3QoLTEsIC0yKQ0KIyBMb2FkIHNhdmVkIGRhdGEgc2V0IGZyb20gQ09WSUQxOSBBUEkNCnVzYyA8LSByZWFkUkRTKCJkYXRhL3VzY2l0aWVzLnJkcyIpICU+JQ0KICB1bmdyb3VwKCkgJT4lDQogIG11dGF0ZSgNCiAgICBwbGFjZV9pZCA9IGtleV9nb29nbGVfbW9iaWxpdHksDQogICAgY2FzZXMgPSBjb25maXJtZWQpICU+JQ0KICBzZWxlY3QoaWQsIHBsYWNlX2lkLCBkYXRlLCBkZWF0aHMsIGNhc2VzLCBob3NwLCAxMzozMCwgcG9wdWxhdGlvbiwgbGF0aXR1ZGUsIGxvbmdpdHVkZSkNCg0KIyBHZXQgdGltZSBpbnZhcmlhbnQgdmFycyBmcm9tIENPVklEIGRhdGEgc2V0IHRvIGJhbGFuY2UgZmluYWwgc2V0DQppZCA8LSB1c2MgJT4lDQogIGdyb3VwX2J5KHBsYWNlX2lkKSAlPiUNCiAgc3VtbWFyaXplKA0KICAgIHBvcHVsYXRpb24gPSBwb3B1bGF0aW9uWzFdLA0KICAgIGxhdGl0dWRlID0gbGF0aXR1ZGVbMV0sDQogICAgbG9uZ2l0dWRlID0gbG9uZ2l0dWRlWzFdKSAlPiUNCiAgdW5ncm91cCgpIA0KDQojIEpvaW4gR29vZ2xlIGRhdGEgd2l0aCBpbnZhcmlhbnQgZGF0YQ0KZCA8LSBmdWxsX2pvaW4oZywgaWQsIGJ5ID0gInBsYWNlX2lkIikgJT4lDQogICMgRmlsdGVyIG91dCBzbWFsbCBjb3VudGllcw0KICAgIGZpbHRlcihwb3B1bGF0aW9uPjM5MDAwMA0KICAgICAgICAgICAjIGZpbHRlciBvdXQgbm9uLWNvdW50aWVzIGFuZCBQdWVydG8gUmljbw0KICAgICAgICAgICAmICFDb3VudHkgJWluJSBjKCJLYW5zYXMgQ2l0eSIsICJOZXcgWW9yayBDaXR5IiwgIkRpc3RyaWN0IG9mIENvbHVtYmlhIikNCiAgICAgICAgICAgJiBwbGFjZV9pZCAhPSAiQ2hJSkpaOTVER1ZvQTR3UmZFNGFVUG9ORk5JIikgJT4lDQogICMgTWF0Y2ggQ09WSUQoKSBwYWNrYWdlIGRhdGEgdG8gbGFyZ2VyIEdvb2dsZSBEYXRhDQogIGxlZnRfam9pbih1c2MgJT4lIHNlbGVjdCgtcG9wdWxhdGlvbiwgLWxhdGl0dWRlLCAtbG9uZ2l0dWRlKSwgYnkgPSBjKCJwbGFjZV9pZCIsICJkYXRlIikpDQpgYGANCg0KDQojIyBNb2JpbGl0eSBJbmRleCB3aXRoIFRpbWUgRml4ZWQgRWZmZWN0cyBmcm9tIEdvb2dsZSdzIFB1YmxpYyBEYXRhDQojIyBSb2xsaW5nIEF2ZXJhZ2VzIG9mIERlYXRocyBhbmQgQ2FzZXMgb2YgQ09WSUQtMTkgIA0KDQpUaGlzIGNyZWF0ZXMgdGhlIGZ1bGwgZGF0YSBzZXQgdGhhdCBJIHdpbGwgc3Vic2V0IGZvciBzZXZlcmFsIHRpbWUgcGVyaW9kcyB0byBzZWUgaG93IHRoZSBwYW5kZW1pYyBjaGFuZ2VzIGR1cmluZyBlYWNoIHdhdmUgb2YgQ09WSUQtMTk6DQoNCjEuIFRha2UgY2VudGVyZWQgei1zY29yZXMgb2YgR29vZ2xlIE1vYmlsaXR5IGl0ZW1zIGFuZCBhdmVyYWdlZCBpbmRpY2VzIG9mIHRocmVlIG1vc3QgY29ycmVsYXRlZCBpdGVtczogcmVjcmVhdGlvbiBhbmQgcmV0YWlsLCBnb2luZyB0byB3b3JrLCBiZWluZyBhdCBob21lIChyZXZlcnNlZCkuDQoyLiBUbyB0cmFuc2Zvcm0gY3VtdWxhdGl2ZSBkZWF0aCBhbmQgY2FzZSBwYW5lbCBkYXRhIHRvIGNvdW50eS1kYXkgbmV3IGRlYXRocyBhbmQgY2FzZXMsIEkgZ3JvdXAgZGF0YSBieSBjb3VudHkgYW5kIHBlcmZvcm06DQokJGRhaWx5X3tpLHR9ID0gY3VtdWxhdGl2ZV97aSx0fSAtIGN1bXVsYXRpdmVfe2ksdC0xfSAgJCQNCjMuIFRyYW5zZm9ybWF0aW9uICRUJCBmb3IgZGFpbHkgbmV3IGRlYXRocyBhbmQgZGFpbHkgbmV3IGNhc2VzIGlzIHRoZSBsb2dnZWQgbW92aW5nIGF2ZXJhZ2Ugb2Ygb25lIHBsdXMgZGFpbHkgY291bnRzIHBlciBtaWxsaW9uOg0KJCRUX3tuLHR9ID0gKFxmcmFjezF9ezd9KSBcc3VtX3tpID1uLTN9XntuKzN9IHBfe24tM30uLi5wX3tuKzN9JCQNCldoZXJlICRwX3tuLHR9JCBlcXVhbHMgdGhlIGxvZyBvZiBkYWlseSBjb3VudHMgaW4gY291bnR5ICRuJCBhdCB0aW1lICR0JCBwZXIgbWlsbGlvbiByZXNpZGVudHMgcGx1cyBvbmU6DQoNCiQkcF97bix0fSA9IGxvZygxKyhcZnJhY3tkYWlseV97aSx0fX17cG9wdWxhdGlvbl9pfSAxLDAwMCwwMDApKSQkDQo0LiBTZXZlbi1kYXkgbW92aW5nIGF2ZXJhZ2Ugb2YgR29vZ2xlIE1vYmlsaXR5IGluZGV4OyBzYW1lIGFzICRUX3tuLHR9JCBidXQgJHBfe24sdH0kIGlzIHRoZSBtZWFuIG9mIHRoZSB0aHJlZSBzdGFuZGFyZGl6ZWQgR29vZ2xlIE1vYmlsaXR5IGl0ZW1zIGF0IGluIGNvdW50eSAkbiQgYXQgdGltZSAkdCQuDQoNCkJlY2F1c2UgYSBbcmVhc29uYWJsZSBlc3RpbWF0ZV0oaHR0cHM6Ly93d3cudGhlbGFuY2V0LmNvbS9qb3VybmFscy9sYW5jZXQvYXJ0aWNsZS9QSUlTMDE0MC02NzM2KDIwKTMwNTY2LTMvZnVsbHRleHQpIG9mIHRpbWUgYmV0d2VlbiBleHBvc3VyZSBhbmQgZGVhdGggaXMgb25lIG1vbnRoLCBJIGxhZyB0aGUgR29vZ2xlIE1vYmlsaXR5IGluZGV4IGJ5IDMwIGRheXMuIEkgbGFnIG5ldyBjYXNlcyBieSAxNSBkYXlzLiBJIHNob3VsZCBoaWdobGlnaHQgdGhhdCB0aGUgcmVsYXRpb25zaGlwcyBJIGV4cGVjdCB0byBzZWUgaW4gdGhlIGRhdGEgYXJlIGV4cGxvcmF0b3J5IGFuZCBkZXNjcmlwdGl2ZSBhbmQgY2Fubm90IGJlIGV4cGVjdGVkIHRvIGRlbW9uc3RyYXRlIGNhdXNhbGl0eSBpbiBhbnkgZGlyZWN0aW9uLiBGb3IgdGhpcywgSSB3b3VsZCBuZWVkIHRvIGdvIG11Y2ggZnVydGhlciBpbiBlbGltaW5hdGluZyBlbmRvZ2VuZWl0eS4gSSBjaG9zZSB0aGVzZSB0aHJlZSB2YXJpYWJsZXMgYXQgdGhlc2UgbGFnZ2VkIHBvaW50cyBpbiB0aW1lLCBiZWNhdXNlIEkgYW0gY3VyaW91cyB3aGV0aGVyIGxhZ2dlZCBjb21tdW5pdHkgbW9iaWxpdHkgYW5kIG5ldyBjYXNlcyBhcmUgbW9yZSBhc3NvY2lhdGVkIHdpdGggZmV3ZXIgZGVhdGhzIG9yIHdoZXRoZXIgdGhpcyByZWxhdGlvbnNoaXAgaXMgY29tcGxldGVseSBvYnNjdXJlZCAoZHVlIHRvIHRoZSBlbmRvZ2Vub3VzIGNvcnJlbGF0aW9uIGJldHdlZW4gcGFzdCBkZWF0aHMgd2l0aCBwcmVzZW50IGRlYXRocykuDQoNCmBgYHtyLCB3YXJuaW5nID0gRiwgbWVzc2FnZSA9IEZ9DQojIEkgbmVlZCB0byByZS1zY2FsZSwgYW5kIHNjYWxlKCkgZG9lc24ndCB3b3JrIHdlbGwgd2l0aCBkcGx5cg0Kc2NhbGVfbWUgPC0gZnVuY3Rpb24oeCl7DQogICh4IC0gbWVhbih4LCBuYS5ybT1UUlVFKSkgLyBzZCh4LCBuYS5ybT1UUlVFKQ0KfQ0KDQojIENob29zZSB2YWx1ZXMgZm9yIHNjYWxlcyAtIGRlYXRocyBwZXIgbWlsbGlvbiBpbmhhYml0YW50cw0KcmVzY2FsZSA9IDEwMDAwMDANCg0Kc2hlbHRlcl9jb3VudHkgPC0gZCAlPiUNCiAgYXJyYW5nZShwbGFjZV9pZCwgZGF0ZSkgJT4lDQogIG11dGF0ZSgNCiAgICAjIERhdGUgVmFyaWFibGVzDQogICAgZGF0ZSA9IGFzLkRhdGUoZGF0ZSksDQogICAgRGF0ZSA9IGZvcm1hdChhcy5EYXRlKGRhdGUpLCAiJWIgJWQgJVkiKSwNCiAgICAjIEdvb2dsZSBNb2JpbGl0eSBEYXRhDQogICAgUmVjcmVhdGlvbiA9IHNjYWxlX21lKHJldGFpbF9hbmRfcmVjcmVhdGlvbl9wZXJjZW50X2NoYW5nZV9mcm9tX2Jhc2VsaW5lKSwNCiAgICBHcm9jZXJ5ID0gc2NhbGVfbWUoZ3JvY2VyeV9hbmRfcGhhcm1hY3lfcGVyY2VudF9jaGFuZ2VfZnJvbV9iYXNlbGluZSksDQogICAgUGFya3MgPSBzY2FsZV9tZShwYXJrc19wZXJjZW50X2NoYW5nZV9mcm9tX2Jhc2VsaW5lKSwNCiAgICBUcmFuc2l0ID0gc2NhbGVfbWUodHJhbnNpdF9zdGF0aW9uc19wZXJjZW50X2NoYW5nZV9mcm9tX2Jhc2VsaW5lKSwNCiAgICBXb3JrID0gc2NhbGVfbWUod29ya3BsYWNlc19wZXJjZW50X2NoYW5nZV9mcm9tX2Jhc2VsaW5lKSwNCiAgICBuLkhvbWUgPSBzY2FsZV9tZSgtIHJlc2lkZW50aWFsX3BlcmNlbnRfY2hhbmdlX2Zyb21fYmFzZWxpbmUpICMgbXVzdCBiZSByZXZlcnNlZA0KICAgICkgJT4lDQogIHJvd3dpc2UoKSAlPiUNCiAgICBtdXRhdGUoDQogICAgICBNb2JpbGl0eSA9IG1lYW4oYyhSZWNyZWF0aW9uLCBuLkhvbWUsIFdvcmspLCBuYS5ybT1UKSkgJT4lDQogIHVuZ3JvdXAoKSAlPiUNCiAgZ3JvdXBfYnkocGxhY2VfaWQpICU+JQ0KIyBNdXN0IGRlcml2ZSBkYWlseSBjYXNlIGNvdW50IGZyb20gZ3JvdXBlZCwgbGFnZ2VkLCBjdW11bGF0aXZlLiBUaGVyZSBhcmUgYSBmZXcgZXJyb3JzIHRvIHJlbW92ZS4gIA0KICBtdXRhdGUoDQogICAgIyBEYWlseSBEZWF0aCBWYXJpYWJsZXMgcm9sbGluZyBhdmcNCiAgICBkZWF0aHMgPSBpZmVsc2UoaXMubmEoZGVhdGhzKSwgMCwgZGVhdGhzKSwNCiAgICBkYWlseWRlYXRocyA9IGRlYXRocyAtIGxhZyhkZWF0aHMpLA0KICAgIGRhaWx5ZGVhdGhzICA9IGlmZWxzZShkYWlseWRlYXRoczwwICwgMCwgZGFpbHlkZWF0aHMpLA0KICAgIGRhaWx5ZGVhdGhzLnBjLmxvZyA9IGxvZygxICsgKChkYWlseWRlYXRocy9wb3B1bGF0aW9uKSAqIHJlc2NhbGUpKSwNCiAgICByLmRhaWx5ZGVhdGhzLnBjLmxvZyA9IHJvbGxtZWFuKGRhaWx5ZGVhdGhzLnBjLmxvZywgayA9IDcsIGZpbGwgPSBOQSksDQogICAgIyBEYWlseSBDYXNlIFZhcmlhYmxlcyByb2xsaW5nIGF2Zw0KICAgIGNhc2VzID0gaWZlbHNlKGlzLm5hKGNhc2VzKSwgMCwgY2FzZXMpLA0KICAgIGRhaWx5Y2FzZXMgPSBjYXNlcyAtIGxhZyhjYXNlcyksDQogICAgZGFpbHljYXNlcyA9IGlmZWxzZShkYWlseWNhc2VzPDAgLCAwLCBkYWlseWNhc2VzKSwNCiAgICBkYWlseWNhc2VzLnBjLmxvZyA9IGxvZygxICsgKChkYWlseWNhc2VzL3BvcHVsYXRpb24pICogcmVzY2FsZSkpLA0KICAgIHIuZGFpbHljYXNlcy5wYy5sb2cgPSByb2xsbWVhbihkYWlseWNhc2VzLnBjLmxvZywgayA9IDcsIGZpbGwgPSBOQSksDQogICAgIyBNb2JpbGl0eSBSb2xsaW5nIE1lYW4NCiAgICByLk1vYmlsaXR5ID0gcm9sbG1lYW4oTW9iaWxpdHksIGsgPSA3LCBmaWxsID0gTkEpLA0KICAgICMgTGFnZ2VkIFZhcmlhYmxlcyBmb3IgQW5hbHlzaXMgLSBUaGVzZSBhcmUgZm9yICJzaXplIiBzbyAwIC0+IDENCiAgICByLmRhaWx5Y2FzZXMucGMubG9nLkwzMCA9IDEgKyBsYWcoci5kYWlseWNhc2VzLnBjLmxvZywgMzBMKSwNCiAgICByLmRhaWx5Y2FzZXMucGMubG9nLkwxNSA9IDEgKyBsYWcoci5kYWlseWNhc2VzLnBjLmxvZywgMTVMKSwNCiAgICByLk1vYmlsaXR5LkwzMCA9IGxhZyhyLk1vYmlsaXR5LCAzMEwpDQogICAgKSAlPiUNCiAgdW5ncm91cCgpICU+JQ0KICAjIERyb3AgdW51c2VkIHZhcmlhYmxlcw0KICBzZWxlY3QoQ291bnR5LCBTdGF0ZSwgRGF0ZSwgci5kYWlseWRlYXRocy5wYy5sb2csIHIuZGFpbHljYXNlcy5wYy5sb2cuTDE1LCByLk1vYmlsaXR5LkwzMCwgcGxhY2VfaWQsIGRhdGUpDQpgYGANCg0KIyMgVGhlIEZ1bGwgRGF0YSBTZXQNCg0KTGVzcyB0aGFuIG9uZSBwZXJjZW50IG9mIHRoZSBkYXRhIGlzIG1pc3NpbmcuIE1vc3Qgb2YgdGhlIG1pc3NpbmcgdmFsdWVzIGFyZSBjYXVzZWQgYnkgdGhlIDE1LSBhbmQgMzAtZGF5IGxhZ3MgYW5kIHRoZSBtb3ZpbmcgYXZlcmFnZXMgYXQgdGhlIG1hcmdpbnMgb2YgdGhlIHBhbmVsLg0KYGBge3IsIHJlc3VsdHMgPSAiYXNpcyIsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFLCBjbGFzcy5zb3VyY2UgPSAnZm9sZC1oaWRlJ30NCnByaW50KA0KICBkZlN1bW1hcnkoc2hlbHRlcl9jb3VudHksDQogICAgICAgICAgcGxhaW4uYXNjaWkgID0gRkFMU0UsDQogICAgICAgICAgc3R5bGUgICAgICAgID0gImdyaWQiLA0KICAgICAgICAgIGdyYXBoLm1hZ25pZiA9IDAuNzUsDQogICAgICAgICAgdmFsaWQuY29sICAgID0gRkFMU0UsDQogICAgICAgICAgdG1wLmltZy5kaXIgID0gIi90bXAiLA0KICAgICAgICAgIHNpbGVudCA9IFRSVUUpLA0KICBtZXRob2QgPSAicmVuZGVyIikNCmBgYA0KDQojIFdhdmVzIDEgYW5kIDIgb2YgQ09WSUQtMTkNCg0KVGhpcyBpcyB0aGUgZmlyc3Qgb2YgdGhyZWUgZGF0YSB0cmFuc2Zvcm1hdGlvbnMgdGhhdCBmZWVkIGRpcmVjdGx5IGludG8gYSBzY3JpcHQgZm9yIGNyZWF0aW5nIGFuaW1hdGVkIHNjcmlwdHMgZm9yIHZpc3VhbGl6aW5nIGNvdW50eS1kYXkgcGFuZWwgZGF0YS4gRm9yIGVhY2ggb2YgdGhlIHRocmVlIHN1YnNldHMsIEkgcmVzY2FsZSB0aGUgbW9iaWxpdHkgaW5kZXgsIHNvIHRoYXQgdGhlIHZhcmlhYmxlIGhhcyBhIG1lYW4gb2YgemVybyBhbmQgc3RhbmRhcmQgZGV2aWF0aW9uIG9mIG9uZS4gTmV4dCwgSSBpbmNsdWRlIHRpbWUgZml4ZWQtZWZmZWN0cyB0byByZW1vdmUgZGFpbHktbGV2ZWwgc2hpZnRzIHRoYXQgYWZmZWN0IGFsbCBjb3VudGllcyBieSBzdWJ0cmFjdGluZyB0aGUgYXZlcmFnZSB2YWx1ZSBvZiBhbGwgY2FzZXMgb24gdGhhdCBkYXkgZnJvbSBlYWNoIGNvdW50eS1kYXkgdmFsdWUuIFRodXMsIHVuaXRzIGFyZSBzdGlsbCBhYmxlIHRvIHZhcnkgc3lzdGVtYXRpY2FsbHkgaW4gcmVzcGVjdGl2ZSBjb3VudHktbGV2ZWwgbWVhbnM7IGhvd2V2ZXIsIGVhY2ggY291bnR5J3MgZGFpbHkgbW92ZSBpcyBhYm92ZSBhbmQgYmV5b25kIHRoZSBjb21tb24gc2hvY2sgZXhwZXJpZW5jZWQgdGhyb3VnaCBzZWFzb25hbGl0eSBvciBvdmVyYWxsIGNoYW5nZXMuIFRoaXMgaXMgdGhlIGNhc2UgZm9yIGFsbCB0aHJlZSB3YXZlIHBsb3RzLg0KDQpgYGB7ciwgd2FybmluZyA9IEZBTFNFLCBtZXNzYWdlID0gRkFMU0V9DQojIERlZmluZSBTdGFydCBhbmQgRW5kIERhdGVzDQpzdGFydC5kYXRlID0gYXMuRGF0ZSgiMjAyMC0wMy0xOCIpDQplbmQuZGF0ZSA9IGFzLkRhdGUoIjIwMjAtMDktMzAiKQ0KDQp3MTIgPC0gc2hlbHRlcl9jb3VudHkgJT4lDQogICMgRmlsdGVyIHN0YXJ0IGFuZCBlbmQgZGF0ZXMNCiAgZmlsdGVyKGRhdGUgPiBzdGFydC5kYXRlICYgZGF0ZSA8IGVuZC5kYXRlKSAlPiUNCiAgZ3JvdXBfYnkocGxhY2VfaWQpICU+JQ0KICBtdXRhdGUoDQogICAgIyBnZXQgYSBjb3VudCBvZiBvYnMgcGVyIGNvdW50eSBmb3IgYW5pbWF0aW9uDQogICAgbiA9IDE6bigpLA0KICAgICMgc2NhbGUgYW5kIGNlbnRlciBtb2JpbGl0eSBiYXNlZCBvbiBzdWJzYW1wbGUNCiAgICByLk1vYmlsaXR5LkwzMCA9IHNjYWxlX21lKHIuTW9iaWxpdHkuTDMwKSkgJT4lDQogIHVuZ3JvdXAoKSAlPiUNCiAgZ3JvdXBfYnkoZGF0ZSkgJT4lDQogIG11dGF0ZSgNCiAgICAjIEdldCBkYWlseSBtZWFucyBmb3IgYWxsIGNhc2VzIHRvIHVzZSBhcyB0aW1lIGZpeGVkLWVmZmVjdHMNCiAgICBtb2JfZGF5X21lYW4gPSBtZWFuKHIuTW9iaWxpdHkuTDMwLCBuYS5ybSA9IFQpKSAlPiUNCiAgdW5ncm91cCgpICU+JQ0KICBtdXRhdGUoDQogICAgIyBUYWtlIG91dCBkYWlseSBzaGlmdHMgZm9yIGFsbCBjYXNlcw0KICAgIG1vYl90aW1lX2ZlID0gci5Nb2JpbGl0eS5MMzAgLSBtb2JfZGF5X21lYW4sDQogICAgRGF0ZSA9IGZjdF9yZW9yZGVyKERhdGUsIG4pKSANCg0KDQpgYGANCg0KDQojIyBWaXN1YWxpemluZyBXYXZlcyAxIGFuZCAyDQoNCkVhY2ggcG9pbnQgaW4gdGhlIHBsb3QgaXMgYSBjb3VudHkgd2l0aCBwb3B1bGF0aW9uIGdyZWF0ZXIgdGhhbiAzOTAsMDAwLiBUaGUgeC1heGlzIHNob3dzIGVhY2ggY291bnRpZXMgbW9iaWxpdHkgcmVsYXRpdmUgdG8gaXRzIG93biBiYXNlbGluZSBtaW51cyB0aGUgZGV2aWF0aW9uIGV4cGVyaWVuY2VkIG9uIGF2ZXJhZ2UgYnkgYWxsIGNvdW50aWVzLiBXaXRob3V0IHRoZSB0aW1lIGZpeGVkLWVmZmVjdCwgdGhlcmUgaXMgYSBkYWlseSAid29iYmxlIiBvZiBhbGwgdW5pdHMgdGhhdCBpbXBlZGVzIChhbHJlYWR5IGRpZmZpY3VsdCkgaW50ZXJwcmV0YXRpb24uIFRoZSB5LWF4aXMgaW5jbHVkZXMgdGhlIGxvZ2dlZCBkZWF0aHMgcGVyIG1pbGxpb24gaW5oYWJpdGFudHMgYXMgYSBzZXZlbi1kYXkgbW92aW5nIGF2ZXJhZ2UuIFRoZSBjb2xvciBhbmQgc2l6ZSBvZiBwb2ludHMgYXJlIGJvdGggbWVhc3VyZXMgb2YgDQoNClRlc3RpbmcgYW5kIHJlcG9ydGluZyBpbmZyYXN0cnVjdHVyZSB3YXMgdXJnZW50bHkgbmVlZGVkIGluIG9yZGVyIHRvIGRlYWwgd2l0aCB0aGUgcGFuZGVtaWMuIFRoaXMgdmlzdWFsaXphdGlvbiBzaG93cyBpbiByZWFsIHRpbWUgaG93IG1lYXN1cmVtZW50IG9mIG5ldyBjYXNlcyAoeWVsbG93bmVzcyBhbmQgc2l6ZSkgZW1lcmdlcywgaW1wcm92ZXMsIGFuZCBzdGFiaWxpemVzIGR1cmluZyB0aGUgZmlyc3QgbW9udGhzLg0KDQpEdXJpbmcgdGhlIGxhdHRlciBoYWxmLCBpdCBzaG93cyBob3cgY291bnRpZXMgcmVzcG9uZGVkIHdpdGggcm9idXN0IGxvY2sgZG93bnMgaW4gb3JkZXIgdG8gZGVhbCB3aXRoIGxvY2FsIG91dGJyZWFrcy4gVGhlIGRhdGEgc2hvd3MgdGhhdCB3aGVuIG91dGJyZWFrcyBlbWVyZ2VkIGF0ICR0PTAkLCBwb2ludHMgdGVuZCB0byBzaGlmdCBsZWZ0d2FyZC4gRHVyaW5nIHRoZSBsYXR0ZXIgaGFsZiwgdGhlcmUgaXMgYSB0ZW5kZW5jeSBmb3IgYSBkb3dud2FyZCBzbG9wZSBhbW9uZyBwb2ludHMuIFVubGVzcyBsb2NrZG93bnMgY2FuIGNhdXNlIG91dGJyZWFrcyBhbmQgaW5jcmVhc2VkIGRlYXRocyAobm90IHBsYXVzaWJsZSksIHRoZSBlbmRvZ2Vub3VzIHJlbGF0aW9uc2hpcCBiZXR3ZWVuIGRlYXRocyBhdCAkdD0wJCBhbmQgZGVhdGhzIGF0ICR0LTMwJCBpcyBhcHBhcmVudCBpbiB0aGUgZG93bndhcmQgc2xvcGUgaW4gdGhlIGRhdGEuDQoNCmBgYHtyLCB3YXJuaW5nID0gRkFMU0UsIG1lc3NhZ2UgPSBGQUxTRX0NCg0KcCA8LSBnZ3Bsb3QoZGF0YSA9IHcxMiwNCiAgICAgICAgICAgIGFlcyh4PW1vYl90aW1lX2ZlLCANCiAgICAgICAgICAgICAgICB5PXIuZGFpbHlkZWF0aHMucGMubG9nLCANCiAgICAgICAgICAgICAgICBjb2xvcj1yLmRhaWx5Y2FzZXMucGMubG9nLkwxNSwNCiAgICAgICAgICAgICAgICBzaXplID0gci5kYWlseWNhc2VzLnBjLmxvZy5MMTUpKSArDQogIGdlb21fcG9pbnQoKSArIA0KICAjeGxpbSgtNDAsIDYyKSArIHlsaW0oMCwgOCkgKw0KICBzY2FsZV9jb2xvcl92aXJpZGlzKG9wdGlvbj0icGxhc21hIiwgYWxwaGEgPSAuNCwgDQogICAgICAgICAgICAgICAgICAgICAgbGltaXRzPWMoMSwgMSArIHJvdW5kKG1heCh3MTIkci5kYWlseWNhc2VzLnBjLmxvZy5MMTUpLCBkaWdpdHMgPSAxKSksIHRyYW5zID0gImxvZyIsIA0KICAgICAgICAgICAgICAgICAgICAgIGJyZWFrcyA9IGMoMSwgcm91bmQobWF4KHcxMiRyLmRhaWx5Y2FzZXMucGMubG9nLkwxNSksIGRpZ2l0cyA9IDApKSkgKw0KICB0aGVtZSh0ZXh0PWVsZW1lbnRfdGV4dChmYW1pbHk9InNlcmlmIikpICsNCiAgbGFicygNCiAgICB0aXRsZSA9ICJDT1ZJRC0xOSBXYXZlcyAxIGFuZCAyOiBEYWlseSBEZWF0aHMsIE1vbnRoLUxhZ2dlZCBNb2JpbGl0eSwgYW5kIFxuIDE1LURheS1MYWdnZWQgTmV3IENhc2VzOiBBbGwgVVMgQ291bnRpZXMgd2l0aCAzOTBLIFJlc2lkZW50cyBcbiB7Y2xvc2VzdF9zdGF0ZX0iLA0KICAgIHN1YnRpdGxlID0gIkFsbCB2YWx1ZXMgYXJlIDctRGF5IFJvbGxpbmcgQXZlcmFnZXMiLA0KICAgICNjYXB0aW9uID0gIkRhdGEgU291cmNlOiBHb29nbGUgTW9iaWxpdHkgRGF0YSwgTllULCBDT1ZJRDE5IEFQSSBcbiBHaXRodWI6IERhdmlkUk1jQ295IiwNCiAgICBjb2xvciA9ICJOZXcgQ2FzZXMgXG4gKC0xNSBEYXlzKSIsDQogICAgeSA9ICJEYWlseSBEZWF0aHMgcGVyIE1pbGxpb24gUmVzaWRlbnRzIChMb2cpIiwNCiAgICB4ID0gIk1vYmlsaXR5IEluZGV4ICgtMzAgRGF5cyk6IFVzaW5nIEdvb2dsZSBNb2JpbGl0eSBEYXRhIikgKw0KICBndWlkZXMoc2l6ZSA9ICJub25lIikgKw0KICB0cmFuc2l0aW9uX3N0YXRlcyhEYXRlLA0KICAgICAgICAgICAgICAgICAgICB0cmFuc2l0aW9uX2xlbmd0aCA9IDEwLA0KICAgICAgICAgICAgICAgICAgICBzdGF0ZV9sZW5ndGggPSAxLA0KICAgICAgICAgICAgICAgICAgICB3cmFwID0gRikgKw0KICBzaGFkb3dfd2FrZSh3YWtlX2xlbmd0aCA9IDAuMDA0KSArIGVudGVyX2ZhZGUoKSArIGV4aXRfc2hyaW5rKCkNCg0KIyBSZW5kZXINCmNfcyA8LSBhbmltYXRlKHAsIG5mcmFtZXMgPSAoMiAqIG1heCh3MTIkbikpLCBkZXRhaWw9MTApDQphbmltX3NhdmUoIndhdmVzXzFfMl9tb2JfZGVhdGguZ2lmIiwgYW5pbWF0aW9uPWNfcykNCmNfcw0KYGBgDQoNCg0KIyBXYXZlIDMgb2YgQ09WSUQtMTkgKERlbHRhKQ0KDQoNCioqTm90ZToqKiBZb3UgY2FuIHZpZXcgdGhlIGNvZGUgYnkgdG9nZ2xpbmcgdGhlICJjb2RlIiBidXR0b24uDQoNCmBgYHtyLCB3YXJuaW5nID0gRkFMU0UsIG1lc3NhZ2UgPSBGQUxTRSwgY2xhc3Muc291cmNlID0gJ2ZvbGQtaGlkZSd9DQojIERlZmluZSBTdGFydCBhbmQgRW5kIERhdGVzDQpzdGFydC5kYXRlID0gYXMuRGF0ZSgiMjAyMC0xMC0wMSIpDQplbmQuZGF0ZSA9IGFzLkRhdGUoIjIwMjEtMDMtMzAiKQ0KDQp3MyA8LSBzaGVsdGVyX2NvdW50eSAlPiUNCiAgIyBGaWx0ZXIgc3RhcnQgYW5kIGVuZCBkYXRlcw0KICBmaWx0ZXIoZGF0ZSA+IHN0YXJ0LmRhdGUgJiBkYXRlIDwgZW5kLmRhdGUpICU+JQ0KICBncm91cF9ieShwbGFjZV9pZCkgJT4lDQogIG11dGF0ZSgNCiAgICAjIGdldCBhIGNvdW50IG9mIG9icyBwZXIgY291bnR5IGZvciBhbmltYXRpb24NCiAgICBuID0gMTpuKCksDQogICAgIyBzY2FsZSBhbmQgY2VudGVyIG1vYmlsaXR5IGJhc2VkIG9uIHN1YnNhbXBsZQ0KICAgIHIuTW9iaWxpdHkuTDMwID0gc2NhbGVfbWUoci5Nb2JpbGl0eS5MMzApKSAlPiUNCiAgdW5ncm91cCgpICU+JQ0KICBncm91cF9ieShkYXRlKSAlPiUNCiAgbXV0YXRlKA0KICAgICMgR2V0IGRhaWx5IG1lYW5zIGZvciBhbGwgY2FzZXMgdG8gdXNlIGFzIHRpbWUgZml4ZWQtZWZmZWN0cw0KICAgIG1vYl9kYXlfbWVhbiA9IG1lYW4oci5Nb2JpbGl0eS5MMzAsIG5hLnJtID0gVCkpICU+JQ0KICB1bmdyb3VwKCkgJT4lDQogIG11dGF0ZSgNCiAgICAjIFRha2Ugb3V0IGRhaWx5IHNoaWZ0cyBmb3IgYWxsIGNhc2VzDQogICAgbW9iX3RpbWVfZmUgPSByLk1vYmlsaXR5LkwzMCAtIG1vYl9kYXlfbWVhbiwNCiAgICBEYXRlID0gZmN0X3Jlb3JkZXIoRGF0ZSwgbikpIA0KYGBgDQoNCg0KIyMgVmlzdWFsaXppbmcgV2F2ZSAzIG9mIENPVklELTE5IChEZWx0YSkNCg0KVGhlIHRoaXJkIHdhdmUgaXMgZGlzdGluY3QgaW4gYXQgbGVhc3QgdHdvIHdheXMuIEZpcnN0LCBkdXJpbmcgbXVjaCBvZiB0aGUgcGFuZWwsIHRoZXJlIGlzIGEgcGVyaW9kIGluIHdoaWNoIG5vIGNvdW50aWVzIGFyZSBuZWFyIHplcm8uIFVubGlrZSB0aGUgbGF0dGVyIGhhbGYgb2YgdGhlIHNlY29uZCB3YXZlLCB0aGVyZSBpcyBub3QgYW4gZW5kdXJpbmcgZG93bndhcmQgc2xvcGUgdG8gdGhlIGRpc3RyaWJ1dGlvbiwgYnV0IHJhdGhlciwgdGhlcmUgaXMgYSBncmVhdCBkZWFsIG9mIHZhcmlhdGlvbiBhbW9uZyBjb3VudGllcyBvdmVyIHRpbWUuIFRoZXJlIHNlZW0gdG8gYmUgbW9tZW50cyBpbiB3aGljaCBtb3ZlbWVudCB0b3dhcmQgdGhlIGxlZnQgb24gdGhlIHgtYXhpcyByZXN1bHRzIGluIGZld2VyIGNhc2VzIChzbWFsbGVyIG1vcmUgcHVycGxlIHBvaW50cykgMTUgZGF5cyBsYXRlci4gT3RoZXIgdGltZXMsIHRoZSBmbHVjdHVhdGlvbnMgc2VlbSBhcmJpdHJhcnkuIA0KDQpJbnRlcmVzdGluZ2x5LCBuZWFyIHRoZSBlbmQgb2YgdGhlIHRoaXJkIHdhdmUsIHdoZW4gZGVhdGhzIGFuZCBjYXNlcyBhdCAkdC0xNSQgYmVnaW4gdG8gZGltaW5pc2gsIGNvdW50aWVzIGJlZ2luIHRvIHNwcmVhZCBvdXQgYWNyb3NzIHRoZSB4LWF4aXMuIFRoZSBtZWFuIG9mIGFsbCBjb3VudGllcyBmb3IgZWFjaCBkYXkgaXMgZml4ZWQgYXQgemVybywgc28gd2UgY2FuJ3QgZXhwZWN0IGFsbCBjYXNlcyB0byBzaGlmdCBsZWZ0IG9yIHJpZ2h0LiBIb3dldmVyLCB0aGlzIHdpZGUgc3ByZWFkIGF0IHRoZSBlbmQgb2YgdGhlIHRoaXJkIHdhdmUgbWVhbnQgdGhhdCBzb21lIGNpdGllcyB3ZXJlIG11Y2ggcXVpY2tlciB0byByZXR1cm4gdG8gaGlnaGVyIGxldmVscyBvZiBtb2JpbGl0eSB0aGFuIG90aGVyIGNvdW50aWVzLCB3aGljaCBpcyBpbiBsaW5lIHdpdGggdGhlIGdyb3dpbmcgYmFja2xhc2ggYWdhaW5zdCBsb2NrIGRvd25zIGF0IHRoZSB0aW1lLg0KDQpgYGB7ciwgd2FybmluZyA9IEZBTFNFLCBtZXNzYWdlID0gRkFMU0UsIGNsYXNzLnNvdXJjZSA9ICdmb2xkLWhpZGUnfQ0KDQpwIDwtIGdncGxvdChkYXRhID0gdzMsDQogICAgICAgICAgICBhZXMoeD1tb2JfdGltZV9mZSwgDQogICAgICAgICAgICAgICAgeT1yLmRhaWx5ZGVhdGhzLnBjLmxvZywgDQogICAgICAgICAgICAgICAgY29sb3I9ci5kYWlseWNhc2VzLnBjLmxvZy5MMTUsDQogICAgICAgICAgICAgICAgc2l6ZSA9IHIuZGFpbHljYXNlcy5wYy5sb2cuTDE1KSkgKw0KICBnZW9tX3BvaW50KCkgKyANCiAgI3hsaW0oLTQwLCA2MikgKyB5bGltKDAsIDgpICsNCiAgc2NhbGVfY29sb3JfdmlyaWRpcyhvcHRpb249InBsYXNtYSIsIGFscGhhID0gLjQsIA0KICAgICAgICAgICAgICAgICAgICAgIGxpbWl0cz1jKDEsIDEgKyByb3VuZChtYXgodzMkci5kYWlseWNhc2VzLnBjLmxvZy5MMTUpLCBkaWdpdHMgPSAxKSksIHRyYW5zID0gImxvZyIsIA0KICAgICAgICAgICAgICAgICAgICAgIGJyZWFrcyA9IGMoMSwgcm91bmQobWF4KHczJHIuZGFpbHljYXNlcy5wYy5sb2cuTDE1KSwgZGlnaXRzID0gMCkpKSArDQogIHRoZW1lKHRleHQ9ZWxlbWVudF90ZXh0KGZhbWlseT0ic2VyaWYiKSkgKw0KICBsYWJzKA0KICAgIHRpdGxlID0gIkNPVklELTE5IFdhdmUgMzogRGFpbHkgRGVhdGhzLCBNb250aC1MYWdnZWQgTW9iaWxpdHksIGFuZCBcbiAxNS1EYXktTGFnZ2VkIE5ldyBDYXNlczogQWxsIFVTIENvdW50aWVzIHdpdGggMzkwSyBSZXNpZGVudHMgXG4ge2Nsb3Nlc3Rfc3RhdGV9IiwNCiAgICBzdWJ0aXRsZSA9ICJBbGwgdmFsdWVzIGFyZSA3LURheSBSb2xsaW5nIEF2ZXJhZ2VzIiwNCiAgICBjb2xvciA9ICJOZXcgQ2FzZXMgXG4gKC0xNSBEYXlzKSIsDQogICAgeSA9ICJEYWlseSBEZWF0aHMgcGVyIE1pbGxpb24gUmVzaWRlbnRzIChMb2cpIiwNCiAgICB4ID0gIk1vYmlsaXR5IEluZGV4ICgtMzAgRGF5cyk6IFVzaW5nIEdvb2dsZSBNb2JpbGl0eSBEYXRhIikgKw0KICBndWlkZXMoc2l6ZSA9ICJub25lIikgKw0KICB0cmFuc2l0aW9uX3N0YXRlcyhEYXRlLA0KICAgICAgICAgICAgICAgICAgICB0cmFuc2l0aW9uX2xlbmd0aCA9IDEwLA0KICAgICAgICAgICAgICAgICAgICBzdGF0ZV9sZW5ndGggPSAxLA0KICAgICAgICAgICAgICAgICAgICB3cmFwID0gRikgKw0KICBzaGFkb3dfd2FrZSh3YWtlX2xlbmd0aCA9IDAuMDA0KSArIGVudGVyX2ZhZGUoKSArIGV4aXRfc2hyaW5rKCkNCg0KI1JlbmRlcg0KY19zIDwtIGFuaW1hdGUocCwgbmZyYW1lcyA9ICgyICogbWF4KHczJG4pKSwgZGV0YWlsPTEwKQ0KI2FuaW1fc2F2ZSgid2F2ZV8zX21vYl9kZWF0aC5naWYiLCBhbmltYXRpb249Y19zKQ0KY19zDQpgYGANCg0KDQoNCiMgV2F2ZXMgNCBhbmQgNSBvZiBDT1ZJRC0xOQ0KYGBge3IsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFLCBjbGFzcy5zb3VyY2UgPSAnZm9sZC1oaWRlJ30NCiMgRGVmaW5lIFN0YXJ0IGFuZCBFbmQgRGF0ZXMNCnN0YXJ0LmRhdGUgPSBhcy5EYXRlKCIyMDIxLTA3LTE1IikNCmVuZC5kYXRlID0gYXMuRGF0ZSgiMjAyMi0wNC0yOCIpDQoNCnc0NSA8LSBzaGVsdGVyX2NvdW50eSAlPiUNCiAgIyBGaWx0ZXIgc3RhcnQgYW5kIGVuZCBkYXRlcw0KICBmaWx0ZXIoZGF0ZSA+IHN0YXJ0LmRhdGUgJiBkYXRlIDwgZW5kLmRhdGUpICU+JQ0KICBncm91cF9ieShwbGFjZV9pZCkgJT4lDQogIG11dGF0ZSgNCiAgICAjIGdldCBhIGNvdW50IG9mIG9icyBwZXIgY291bnR5IGZvciBhbmltYXRpb24NCiAgICBuID0gMTpuKCksDQogICAgIyBzY2FsZSBhbmQgY2VudGVyIG1vYmlsaXR5IGJhc2VkIG9uIHN1YnNhbXBsZQ0KICAgIHIuTW9iaWxpdHkuTDMwID0gc2NhbGVfbWUoci5Nb2JpbGl0eS5MMzApKSAlPiUNCiAgdW5ncm91cCgpICU+JQ0KICBncm91cF9ieShkYXRlKSAlPiUNCiAgbXV0YXRlKA0KICAgICMgR2V0IGRhaWx5IG1lYW5zIGZvciBhbGwgY2FzZXMgdG8gdXNlIGFzIHRpbWUgZml4ZWQtZWZmZWN0cw0KICAgIG1vYl9kYXlfbWVhbiA9IG1lYW4oci5Nb2JpbGl0eS5MMzAsIG5hLnJtID0gVCkpICU+JQ0KICB1bmdyb3VwKCkgJT4lDQogIG11dGF0ZSgNCiAgICAjIFRha2Ugb3V0IGRhaWx5IHNoaWZ0cyBmb3IgYWxsIGNhc2VzDQogICAgbW9iX3RpbWVfZmUgPSByLk1vYmlsaXR5LkwzMCAtIG1vYl9kYXlfbWVhbiwNCiAgICBEYXRlID0gZmN0X3Jlb3JkZXIoRGF0ZSwgbikpIA0KYGBgDQoNCg0KIyMgVmlzdWFsaXppbmcgV2F2ZXMgNCBhbmQgNQ0KDQpUaGUgbW9zdCBzYWxpZW50IGRpZmZlcmVuY2UgYWJvdXQgd2F2ZXMgZm91ciBhbmQgZml2ZSBpcyB0aGUgZmFjdCB0aGF0IGEgc3Vic2V0IG9mIGNvdW50aWVzICh0aG9zZSBpbiBGbG9yaWRhLCBwcmltYXJpbHkpIG5vIGxvbmdlciBhcHBlYXIgY29tcGFyYWJsZSB0byB0aGUgcmVzdCBvZiB0aGUgY291bnRyeS4gQXMgW0pvaG5zIEhvcGtpbnMgbm90ZXNdKGh0dHBzOi8vY29yb25hdmlydXMuamh1LmVkdS9yZWdpb24tZGF0YS1ub3Rlcy9mbG9yaWRhKSwgRmxvcmlkYSBiZWdhbiByZXBvcnRpbmcgY2FzZXMgb25jZSBwZXIgbW9udGgsIHdoaWNoIHJlc3VsdHMgaW4gbWFueSBuZWFyLXplcm8gdmFsdWVzIGZvbGxvd2VkIGJ5IGluY29tcGFyYWJsZSB2YWx1ZXMgdGhhdCBjYW5ub3QgYmUgdHJlYXRlZCBhcyBjb3VudHktZGF5IHBhbmVsIGRhdGEuIEFzaWRlIGZyb20gdGhpcyBkaXN0aW5jdGlvbiwgdGhlcmUgaXMgbGl0dGxlIGRpZmZlcmVudCBmcm9tIHRoZSBkYXRhIGluIHRoZSB0aGlyZCB3YXZlLiBUaGVyZSBpcyBhIG1peCBvZiBleHBlY3RlZCwgc3lzdGVtYXRpYyBwYXR0ZXJucyBvZiBtb3ZpbmcgbGVmdCBhY2NvbXBhbmllZCBieSByYW5kb20gbm9pc2UuIEFkZGl0aW9uYWxseSwgdGhlIGVuZCBvZiB0aGUgd2F2ZSBleGhpYml0cyBncmVhdGVyIHNwcmVhZC9wb2xhcml6YXRpb24gYW1vbmcgY2FzZXMgYXMgc29tZSBjb3VudGllcyByZXZlcnQgbW9yZSBxdWlja2x5IGZyb20gbG9jayBkb3duIGF0IHRoZSBlbmQgb2YgdGhlIHdhdmUuDQoNCg0KYGBge3IsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFLCBjbGFzcy5zb3VyY2UgPSAnZm9sZC1oaWRlJ30NCg0KcCA8LSBnZ3Bsb3QoZGF0YSA9IHc0NSwNCiAgICAgICAgICAgIGFlcyh4PW1vYl90aW1lX2ZlLCANCiAgICAgICAgICAgICAgICB5PXIuZGFpbHlkZWF0aHMucGMubG9nLCANCiAgICAgICAgICAgICAgICBjb2xvcj1yLmRhaWx5Y2FzZXMucGMubG9nLkwxNSwNCiAgICAgICAgICAgICAgICBzaXplID0gci5kYWlseWNhc2VzLnBjLmxvZy5MMTUpKSArDQogIGdlb21fcG9pbnQoKSArIA0KICAjeGxpbSgtNDAsIDYyKSArIHlsaW0oMCwgOCkgKw0KICBzY2FsZV9jb2xvcl92aXJpZGlzKG9wdGlvbj0icGxhc21hIiwgYWxwaGEgPSAuNCwgZGlyZWN0aW9uID0gMSwNCiAgICAgICAgICAgICAgICAgICAgICBsaW1pdHM9YygxLCAxICsgcm91bmQobWF4KHc0NSRyLmRhaWx5Y2FzZXMucGMubG9nLkwxNSksIGRpZ2l0cyA9IDEpKSwgDQogICAgICAgICAgICAgICAgICAgICAgdHJhbnMgPSAibG9nIiwgDQogICAgICAgICAgICAgICAgICAgICAgYnJlYWtzID0gYygxLCByb3VuZChtYXgodzQ1JHIuZGFpbHljYXNlcy5wYy5sb2cuTDE1KSwgZGlnaXRzID0gMCkpKSArDQogIHRoZW1lKHRleHQ9ZWxlbWVudF90ZXh0KGZhbWlseT0ic2VyaWYiKSkgKw0KICBsYWJzKA0KICAgIHRpdGxlID0gIkNPVklELTE5IFdhdmVzIDQgYW5kIDU6IERhaWx5IERlYXRocywgTW9udGgtTGFnZ2VkIE1vYmlsaXR5LCBhbmQgXG4gMTUtRGF5LUxhZ2dlZCBOZXcgQ2FzZXM6IEFsbCBVUyBDb3VudGllcyB3aXRoIDM5MEsgUmVzaWRlbnRzIFxuIHtjbG9zZXN0X3N0YXRlfSIsDQogICAgc3VidGl0bGUgPSAiQWxsIHZhbHVlcyBhcmUgNy1EYXkgUm9sbGluZyBBdmVyYWdlcyIsDQogICAgY29sb3IgPSAiTmV3IENhc2VzIFxuICgtMTUgRGF5cykiLA0KICAgIHkgPSAiRGFpbHkgRGVhdGhzIHBlciBNaWxsaW9uIFJlc2lkZW50cyAoTG9nKSIsDQogICAgeCA9ICJNb2JpbGl0eSBJbmRleCAoLTMwIERheXMpOiBVc2luZyBHb29nbGUgTW9iaWxpdHkgRGF0YSIpICsNCiAgZ3VpZGVzKHNpemUgPSAibm9uZSIpICsNCiAgdHJhbnNpdGlvbl9zdGF0ZXMoRGF0ZSwNCiAgICAgICAgICAgICAgICAgICAgdHJhbnNpdGlvbl9sZW5ndGggPSAxMCwNCiAgICAgICAgICAgICAgICAgICAgc3RhdGVfbGVuZ3RoID0gMSwNCiAgICAgICAgICAgICAgICAgICAgd3JhcCA9IEYpICsNCiAgc2hhZG93X3dha2Uod2FrZV9sZW5ndGggPSAwLjAwNCkgKyBlbnRlcl9mYWRlKCkgKyBleGl0X3NocmluaygpDQoNCiMgUmVuZGVyDQpjX3MgPC0gYW5pbWF0ZShwLCBuZnJhbWVzID0gKDIgKiBtYXgodzQ1JG4pKSwgZGV0YWlsPTEwKQ0KI2FuaW1fc2F2ZSgid2F2ZXNfNF81X21vYl9kZWF0aC5naWYiLCBhbmltYXRpb249Y19zKQ0KY19zDQpgYGANCg0KDQojIE1hcHBpbmcgTG91aXNpYW5hJ3MgQ09WSUQtMTkgRGVhdGggRGF0YQ0KDQpUaGlzIGNvZGUgY2xlYW5zIGFuZCBjb21iaW5lcyBDT1ZJRC0xOSBkYXRhIGZyb20gdGhlIFtDT1ZJRDE5KCldKGh0dHBzOi8vY292aWQxOWRhdGFodWIuaW8vKSBBUEkgd2l0aCBtYXAgb2JqZWN0cyAoc2YpIGZyb20gdGhlIFtybmF0dXJhbGVhcnRoKCldKGh0dHBzOi8vY3Jhbi5yLXByb2plY3Qub3JnL3dlYi9wYWNrYWdlcy9ybmF0dXJhbGVhcnRoL1JFQURNRS5odG1sKSBwYWNrYWdlIGRhdGEuIA0KDQoNCiMjIFZpc3VhbGl6aW5nIEN1bXVsYXRpdmUgQ09WSUQtMTkgRGVhdGhzIGluIExvdWlzaWFuYQ0KDQpJIGNsZWFuIHVwIHRoZSBDT1ZJRC0xOSBkYXRhOyBzdWJzZXQgdGhlIGRhdGEgYmFzZWQgb24gZGF0ZSBhbmQgbG9jYXRpb247IHBhcnNlIG1hcCBkYXRhIHdpdGggaWRlbnRpZmljYXRpb24gdmFyaWFibGVzIHRoYXQgbWF0Y2ggdGhlIENPVklELTE5IGRhdGEgZm9yIExvdWlzaWFuYSBQYXJpc2hlczsgbWVyZ2UgdGhlc2UgdHdvIGRhdGEgc2V0cy4gTmV4dCwgSSBzcGVjaWZ5IHNwYXRpYWwgbGltaXRzIGFuZCBjcmVhdGUgb25lIHN0YXRpYyBpbWFnZSBmb3IgZWFjaCBjYWxlbmRhciBkYXRlIGluIHRoZSBzYW1wbGUuIEVhY2ggaW1hZ2UgaW5jbHVkZXMgYSBsYXllciB0aGF0IGlzIGEgYmxhbmsgbWFwIG9mIExvdWlzaWFuYSBhbmQgYSBsYXllciB0aGF0IGNvbnRhaW5zIHRoZSBjdW11bGF0aXZlIGRlYXRoIGRhdGEgZm9yIHRoYXQgZGF5IGFzIHRoZSBmaWxsIGZvciBlYWNoIFBhcmlzaC4gRmluYWxseSwgSSB1c2UgdGhlIGdpZnNreSgpIHBhY2thZ2UgdG8gc2F2ZSB0aGUgLmdpZiBmaWxlIGFuZCBrbml0ciB0byBwcmludCBpdC4NCg0KYGBge3IsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFfQ0KIyBDbGVhciANCnJtKGxpc3QgPSBscygpKQ0KIyBEZWZpbmUgU3RhcnQgYW5kIEVuZCBEYXRlcw0Kc3RhcnQuZGF0ZSA9IGFzLkRhdGUoIjIwMjAtMDMtMjIiKQ0KZW5kLmRhdGUgPSBhcy5EYXRlKCIyMDIwLTA4LTE1IikNCiNrZWVwIDwtIGMoIkxvdWlzaWFuYSIsICJNaXNzaXNzaXBwaSIsICJUZXhhcyIsICJBcmthbnNhcyIpDQojIERlZmluZSBkYXRhIHN1YnNldCBhcyBteSBuYXRpdmUgc3RhdGUgb2YgTG91aXNpYW5hDQprZWVwIDwtIGMoIkxvdWlzaWFuYSIpDQoNCiMgQ3JlYXRlIGEgbWFwIGRhdGEgKHNmKSBvYmplY3QgZnJvbSBybmF0dXJhbGVhcnRoKCkgcGFja2FnZQ0KIyB3b3JsZCA8LSBuZV9jb3VudHJpZXMoc2NhbGUgPSAibWVkaXVtIiwgcmV0dXJuY2xhc3MgPSAic2YiKQ0KIyBzYXZlUkRTKHdvcmxkLCAid29ybGQucmRzIikNCndvcmxkIDwtIHJlYWRSRFMoImRhdGEvd29ybGQucmRzIikNCg0KIyBDb3VudHkvUGFyaXNoIENPVklELTE5IGRhdGEgc2F2ZWQgZnJvbSBDT1ZJRDE5KCkgQVBJDQp1c2MgPC0gcmVhZFJEUygiZGF0YS91c2NpdGllcy5yZHMiKQ0KIyBDbGVhbiBhbmQgc3Vic2V0IENPVklELTE5IGRhdGENCnVzY2l0aWVzIDwtICB1c2MgJT4lDQogIGZpbHRlcigNCiAgICBhZG1pbmlzdHJhdGl2ZV9hcmVhX2xldmVsXzIgJWluJSBrZWVwICYgDQogICAgICBkYXRlID49IHN0YXJ0LmRhdGUgJiBkYXRlIDw9IGVuZC5kYXRlKSAlPiUNCiAgZ3JvdXBfYnkoaWQpICU+JQ0KICBtdXRhdGUoDQogICAgUGFyaXNoID0gZ3N1YigiU3QuIiwgIlN0IiwgYWRtaW5pc3RyYXRpdmVfYXJlYV9sZXZlbF8zKSwNCiAgICBQYXJpc2ggPSBnc3ViKCJMYVNhbGxlIiwgIkxhIFNhbGxlIiwgUGFyaXNoKSwNCiAgICBTdGF0ZSA9IGFkbWluaXN0cmF0aXZlX2FyZWFfbGV2ZWxfMiwNCiAgICBEYXRlID0gZm9ybWF0KGFzLkRhdGUoZGF0ZSksIGZvcm1hdD0iJWIgJWQgJVkiKSwNCiAgICBuID0gMTpuKCkpICU+JQ0KICB1bmdyb3VwKCkgJT4lDQogICMgS2VlcCB1bnRpbCBBdWd1c3QgMTUsIDIwMjANCiAgI2ZpbHRlcihuIDwgMTU2KSAlPiUNCiAgc2VsZWN0KFN0YXRlLCBQYXJpc2gsIERhdGUsIG4sIGRlYXRocywgZGF0ZSkNCiAgDQojIENyZWF0ZSBvYmplY3QgdGhhdCBjYW4gbGluayBDT1ZJRC0xOSBkYXRhIHRvIHNmIG1hcCBvYmplY3QgDQojIFlvdSB3aWxsIG5lZWQgdG8gbG9hZCBhbGwgcGFja2FnZXMgdG8gcnVuIHRoaXMgY29kZQ0KIyBzZl9jb3VudGllcyA8LSBzdF9hc19zZihtYXAoImNvdW50eSIsIHBsb3QgPSBGQUxTRSwgZmlsbCA9IFRSVUUpKQ0KIyBzYXZlUkRTKHNmX2NvdW50aWVzLCAiZGF0YS9zZl9jb3VudGllcy5yZHMiKQ0KDQojIExvYWQgc2F2ZWQgc3BhdGlhbCBkYXRhIGZyb20gc2YgQVBJIC0gdXNpbmcgY29kZSBhYm92ZSB0aGlzDQpzZl9jb3VudGllcyA8LSByZWFkUkRTKCJkYXRhL3NmX2NvdW50aWVzLnJkcyIpICU+JQ0KICAjIFBhcnNlIHVzaW5nIElEIHZhcmlhYmxlIHRvIGNyZWF0ZSBtYXRjaGluZyBuYW1lcy4NCiAgbXV0YXRlKA0KICAgIFN0YXRlID0gdG9UaXRsZUNhc2Uoc3RyX3NwbGl0X2ZpeGVkKElELCAiLCIsIDIpWywxXSksDQogICAgUGFyaXNoID0gdG9UaXRsZUNhc2Uoc3RyX3NwbGl0X2ZpeGVkKElELCAiLCIsIDIpWywyXSkpICU+JQ0KICAjIEtlZXAgTG91aXNpYW5hJ3MgUGFyaXNoZXMNCiAgZmlsdGVyKFN0YXRlICVpbiUga2VlcCkgJT4lDQogIHNlbGVjdCgtSUQpDQoNCiMgQ3JlYXRlIGEgYmFsYW5jZWQgZGF0YSBmcmFtZSB0byBob2xkIG1pc3NpbmcgdmFsdWVzOiB1c2UgZGF0ZSBsZW5ndGgNCmJhbGFuY2VkIDwtIGRhdGEuZnJhbWUoDQogIFBhcmlzaCA9IHJlcChzZl9jb3VudGllcyRQYXJpc2gsIGVhY2ggPSBsZW5ndGgoc3RhcnQuZGF0ZTplbmQuZGF0ZSkpLA0KICBkYXRlID0gYXMuRGF0ZShyZXAoc3RhcnQuZGF0ZTplbmQuZGF0ZSwgdGltZXMgPSA2NCkpKQ0KDQpjb3VudGllcyA8LSBsZWZ0X2pvaW4oYmFsYW5jZWQsIHVzY2l0aWVzLCBieT1jKCJQYXJpc2giLCAiZGF0ZSIpKSANCmNvdW50aWVzIDwtIGxlZnRfam9pbihzZl9jb3VudGllcywgY291bnRpZXMsIGJ5ID0gIlBhcmlzaCIpICU+JQ0KICBncm91cF9ieShQYXJpc2gpICU+JQ0KICBtdXRhdGUoDQogICAgRGF0ZSA9IGZvcm1hdChhcy5EYXRlKGRhdGUpLCBmb3JtYXQ9IiViICVkICVZIiksDQogICAgbiA9IDE6bigpKSAlPiUNCiAgdW5ncm91cCgpDQoNCnJtKHVzYykNCg0KbWFrZXBsb3QgPC0gZnVuY3Rpb24oKXsNCiAgZGF0YWxpc3QgPC0gc3BsaXQoY291bnRpZXMsIGNvdW50aWVzJGRhdGUpDQogIGxhcHBseShkYXRhbGlzdCwgZnVuY3Rpb24oY291bnRpZXMpew0KICAgIHAgPC0gZ2dwbG90KGRhdGEgPSB3b3JsZCkgKw0KICAgICAgICAgICAgZ2VvbV9zZigpICsNCiAgICAgICAgICAgIGdlb21fc2YoZGF0YSA9IGNvdW50aWVzLCBhZXMoZmlsbCA9IGRlYXRocykpICsNCiAgICAgICAgICAgIHNjYWxlX2ZpbGxfdmlyaWRpc19jKCBhbHBoYSA9IC44LCBkaXJlY3Rpb249LTEsIGxpbWl0cz1jKDEsMTUwMSksIHRyYW5zID0gImxvZyIsIGJyZWFrcyA9IGMoMSwgMTAsIDEwMCwgMTAwMCkpICsNCiAgICAgICAgICAgIGNvb3JkX3NmKHhsaW0gPSBjKC05NC41LCAtODguNSksIHlsaW0gPSBjKDI4LjksIDMzLjI1KSwgZXhwYW5kID0gRkFMU0UpICsNCiAgICAgICAgICAgIGxhYnMoc3VidGl0bGU9Y291bnRpZXMkRGF0ZSwgDQogICAgICAgICAgICAgICAgIHRpdGxlPSJDdW11bGF0aXZlIENPVklELTE5IERlYXRocyBpbiBMb3Vpc2lhbmEgUGFyaXNoZXM6IE1hcmNoIDIyIHRvIEF1Z3VzdCAxNSIsIA0KICAgICAgICAgICAgICAgICBmaWxsID0gIkN1bXVsYXRpdmUgRGVhdGhzIikgKw0KICB0aGVtZSh0ZXh0PWVsZW1lbnRfdGV4dChmYW1pbHk9InNlcmlmIikpDQogICAgcHJpbnQocCkNCiAgfSkNCn0NCnNhdmVfZ2lmKG1ha2VwbG90KCksIGdpZl9maWxlID0gImxvdWlzaWFuYS5qdWx5MjAyMi5naWYiLCB3aWR0aCA9IDgwMCwgaGVpZ2h0ID0gNzAwLCByZXMgPSAxMDAsIGRlbGF5PTAuMSwgcHJvZ3Jlc3MgPSBGQUxTRSkNCg0Ka25pdHI6OmluY2x1ZGVfZ3JhcGhpY3MoImxvdWlzaWFuYS5qdWx5MjAyMi5naWYiKQ0KDQpgYGANCg0KDQoNCg0K</div>
 
 
 

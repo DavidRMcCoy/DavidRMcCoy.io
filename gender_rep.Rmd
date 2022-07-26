@@ -1,12 +1,12 @@
 ---
 title: "Equity in Gender Representation in Brazil"
 ---
-
+<div align="right">**Note: Toggle the "code" button to view/remove R code**</div>  
+    
 This page reviews my contributions to a [co-authored book chapter](https://www.taylorfrancis.com/chapters/edit/10.4324/9781003021001-13/de-democratization-brazil-new-puzzle-women-political-representation-patricia-rangel-eneida-vinhaes-dultra-david-mccoy) analyzing how political representation for women in Brazil changed after Brazil's first female president, Dilma Rousseff, was impeached. This impeachment involved public displays of misogynistic posturing from opponents; political backlash against Rousseff's Workers Party (PT); and was followed by several years of right-wing rule during which many institutions promoting gender equity were dismantled.  
 
 This page contains three broad components. One research question was whether voters, who rejected the PT for legislative representation at the polls in 2016, changed their attitudes toward women as political representatives. Second, we use elite survey responses from [Latin American Elites project of the University of Salamanca](https://oir.org.es/pela/en/) (PELA-USAL) to test whether the conservative legislature of 2018 had statistically significant changes in views on abortion rights compared with the 2014 legislure.Third, I created a series of visualizations that show how descriptive representation for women changed for various national and local offices over time. 
 
-## Packages
 
 ```{r, warning = FALSE, message = FALSE, class.source = 'fold-hide'}
 library(readr)

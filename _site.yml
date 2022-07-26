@@ -9,7 +9,7 @@ navbar:
       href: TX_ed.html
     - text: "Ex. 2 Equity in Gender Representation in Brazil"
       href: gender_rep.html
-    - text: "Ex. 3 Covid Visualizations"
+    - text: "Ex. 3 Covid Outcomes"
       href: covid_vis.html
 output:
   html_document:

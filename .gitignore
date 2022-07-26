@@ -42,3 +42,12 @@ data/pref_inclusive.rds
 data/ver_inclusive.rds
 docs/data/ver_inclusive.rds
 docs/data/pref_inclusive.rds
+data/uscities.rds
+data/sf_counties.rds
+docs/data/world.rds
+docs/data/uscities.rds
+docs/data/sf_counties.rds
+data/2022_US_Region_Mobility_Report.csv
+data/2020_US_Region_Mobility_Report.csv
+data/2021_US_Region_Mobility_Report.csv
+data/world.rds
