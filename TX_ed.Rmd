@@ -22,7 +22,7 @@ library(summarytools)
 
 ## Percent of Students Meeting Grade-Level by Race/Ethnic Categories
 
-For educational outcomes, I use the publicly available [Texas Academic Performance Report (TAPR) data](https://rptsvr1.tea.texas.gov/perfreport/tapr/2019/download/DownloadData.html) for the year 2019. This is a very large data set that that I have subsetted to focus on the percentage of students in three racial/ethnic categories (variable: `Student Group`) who meet the expectations of their respective grade levels (variable: `meets_level_pct`). I also include the numeric campus identifier `cid` and the respective denominators for each percentile value (variable: `meets_denom`), which informs the absolute number of students from each category at the school. I use this value to weight the observations in the Loess smoothing function and to inform the size parameter in the plots. For the original variable names, see the [TAPR Codebook](https://rptsvr1.tea.texas.gov/perfreport/tapr/2019/download/campstaar2b.html).  
+For educational outcomes, I use the publicly available [Texas Academic Performance Report (TAPR) data](https://rptsvr1.tea.texas.gov/perfreport/tapr/2019/download/DownloadData.html) for the year 2019. This is a very large data set that that I have subsetted to focus on the percentage of students in three racial/ethnic categories (variable: `Student Group`) who meet the expectations of their respective grade levels (variable: `Meets Grade Level (%)`). I also include the numeric campus identifier `cid` and the respective denominators for each percentile value (variable: `Size of Student Group at School`), which informs the absolute number of students from each category at the school. I use this value to weight the observations in the Loess smoothing function and to inform the size parameter in the plots. For the original variable names, see the [TAPR Codebook](https://rptsvr1.tea.texas.gov/perfreport/tapr/2019/download/campstaar2b.html).  
 
 As described in the [codebook for the data set](https://rptsvr1.tea.texas.gov/perfreport/tapr/2019/download/campstaar2b.html), student groups' percentile values with very small denominators are masked (coded as negative placeholder values of "-1") in order to preclude the possibility of identification of individuals in the data. I exclude these masked values from the data set, as well as any school that reports missing data for all three student groups. Denominators of the second smallest student group for each school are also masked with a unique placeholder ("-3") when the smallest group requires masking. I replace this set of masked values with a reasonable proxy of half the size of the next largest group in the data.  
 
@@ -30,9 +30,9 @@ This code does the following:
 
 1. Read in subset of TAPR Data
 2. Filter schools with all missing values
-3. Pivot the data to include (up to) three observations per school, corresponding to the three percentile scores `meets_level_pct` of students in each racial/ethnic category that meet the grade-level expectations.
-4. Create category names for student groups: `Student Group` and `group_denom`
-5. Remove masked data for percentiles and recode the masked denominator with the proxy.
+3. Pivot the data to include (up to) three observations per school, corresponding to the three percentile scores `Meets Grade Level (%)` of students in each racial/ethnic category that meet the grade-level expectations.
+4. Create category names for student groups: `Student Group` and `Size of Student Group at School`
+5. Remove masked data for percentiles and recode the masked denominator `Size of Student Group at School` with the proxy.
 6. Create an additional variable `ln_meets_denom` of logged group size for use as weight in the Loess smoothing algorithm.  
 
 ```{r, message=FALSE, warning=FALSE}
@@ -72,7 +72,7 @@ data[1:9,] %>%
 
 For campus-level poverty statistics, I use the public data available at the Texas Education Agency's (TEA) [school data visualizer](https://rptsvr1.tea.texas.gov/perfreport/account/va/va_correlate.html), which includes an extensive set of campus-level attributes. I am primarily interested in the percentage of students from economically disadvantaged backgrounds, measured as the percentage of students "...Students eligible for free or reduced-price lunch or other public assistance as reported on the PEIMS October snapshot" ([see definitions](https://rptsvr1.tea.texas.gov/perfreport/faqsite/glossary.html)). Unfortunately, the source does not reveal precisely which year this data comes from! School-level poverty is a relatively stable attribute, though, so this is not a huge concern.  
 
-The challenge is that this data does not include the campus ID as a stand-alone variable. I must first extract it from a longer string to create a comparable `cid` variable that can be used to join this data set to the first one. Because there is no universal pattern to parse this string, I have to split on three different patterns and extract the rightmost element in order to recover all the campus identifiers. This is because some schools have more than one set of the " (" pattern on the right-hand side of the "||" pattern. Each 
+The challenge is that this data does not include the campus ID as a stand-alone variable. I must first extract it from a longer string to create a comparable `cid` variable that can be used to join this data set to the first one. Because there is no universal pattern to parse this string, I have to split on three different patterns and extract the rightmost element in order to recover all the campus identifiers. This is because some schools have more than one set of the " (" pattern on the right-hand side of the "||" pattern. This is complicated; however, the end result is the extraction of the `cid` variable for each school, which I validated to ensure that all schools are accounted for.
 
 
 ```{r, warning = FALSE, message = FALSE}
@@ -99,7 +99,7 @@ school[1:5,] %>%
 
 ## Codes: School, District, Region, County
 
-This data set from TEA includes the codes that can be used for geographic identification in the plots.
+This data set from TEA includes the codes that can be used for geographic identification in the plots. I use the `region` code to disaggregate the full data set into manageable subsets and to join this data with the private schools data in the final set of analyses.
 
 ```{r, message = FALSE, warning = FALSE}
 codes <- read_csv("docs/school and district.csv")
@@ -119,7 +119,6 @@ codes <- codes %>%
 Taking the TAPR 2019 data as the base set, I match approximately 98.3% of campuses with the TEA school-level data by their campus id (`cid`). For parsimony, I exclude those %1.7% campuses that do not exist in both data sets. We can see that the masking and missing data results in approximately 10% of missing data from the TAPR 2019 data; however, due to the logic of how the masking is coded, those masked observations are likely to be smaller, relatively more homogeneous schools, otherwise, they would not have very small absolute numbers of students from any of the three racial/ethnic backgrounds.  
 
 ```{r, results = "asis", warning = FALSE, message = FALSE}
-#campus <- left_join(data, school, by = "cid") %>% left_join(codes, by = "cid") # not as complete
 campus <- left_join(school, codes, by = "cid") %>% right_join(data, by = "cid") %>%
   filter(!is.na(Campus))
 print(
@@ -222,7 +221,9 @@ fs[[3]] <- ggplotly(t, tooltip = c("label", "label2", "x", "y"))
 
 The functions have stored three sets of 20 plots within indexed lists - one plot for each Texas Education Service Center Region at each campus level. You can view [all 60 plots here](https://davidrmccoy.github.io/DavidRMcCoy.io/TX_ed_all.html). You can see a map of the [Texas ESC Regions here](https://rptsvr1.tea.texas.gov/perfreport/snapshot/2020/region.srch.html).   
 
-Below are the plots for the largest (Region 4: Houston area) and a mid-sized (Region 19: El Paso area) subset. These exploratory plots demonstrate the strong relationship between poverty, race/ethnicity, and educational outcomes. Between schools, and generally within schools, white students tend to have higher rates of meeting grade-level expectations. The full sample plots reveal that race has a persistent difference level (or growth intercept) regardless of the age group of the students. However the trend across poverty levels (or (negative) growth slope) is increasingly non-linear as students age into high school. This is evident in the increasingly steep Loess curves on the extremities of the x-axis for high school campuses, compared with other campuses, as well as junior high campuses compared with elementary campuses. This analysis is exploratory and does not make causal claims. It is important to remember that I have not made sufficient efforts at eliminating endogeneity to make causal claims. One clear takeaway, though, is that further work would need to recognize this non-linearity in any analysis using this data. Otherwise, relationships among these factors might be overlooked.
+Below are the plots for the largest (Region 4: Houston area) and a mid-sized (Region 19: El Paso area) subset. These exploratory plots demonstrate the strong relationship between poverty, race/ethnicity, and educational outcomes. Between schools, and generally within schools, white students tend to have higher rates of meeting grade-level expectations. The full sample plots reveal that race has a persistent difference level (or growth intercept) regardless of the age group of the students. However the trend across poverty levels (or (negative) growth slope) is increasingly non-linear as students age into high school. This is evident in the increasingly steep Loess curves on the extremities of the x-axis for high school campuses, compared with other campuses, as well as junior high campuses compared with elementary campuses. This analysis is exploratory and does not make causal claims. It is important to remember that I have not made sufficient efforts at eliminating endogeneity to make causal claims. One clear takeaway, though, is that further work would need to recognize this non-linearity in any analysis using this data. Otherwise, relationships among these factors might be overlooked.  
+
+One salient fact that emerges from this data is the persistent and pervasive inequality in performance among students with differing racial/ethnic backgrounds. It is important to keep in mind that an important source of endogeneity remains in this data, due to the fact that `Eco. Disadvantaged (%)` is a campus-level variable and not a `Student Group` variable. Within a given campus, if the white students are less likely to be among those students who are economically disadvantaged, the campus-level poverty loses the ability to explain these outcomes. With access to student-level data within campuses, this analysis could go much further. Regardless, it is clear that the public education system is unable to compensate for the historical disadvantages faced by racial/ethnic minorities, as is a well known problem across the United States.
 ```{r, results = "asis", warning=F, message=F}
 # Houston: Region 4
 htmltools::tagList(list(gg_hs[[4]], gg_jhs[[4]], gg_es[[4]]))
@@ -237,7 +238,7 @@ htmltools::tagList(list(fs[[1]], fs[[2]], fs[[3]]))
 
 ## Private Schools Data 2018 - 2019
 
-How does private school attendance moderate the relationship between race/ethnicity, poverty levels, and educational outcomes? I downloaded the 2019 private school enrollment data from the [Texas Private School Accreditation Commission site](http://www.tepsac.org/app/index.html#/search/archive). I grouped the data by [region](https://rptsvr1.tea.texas.gov/perfreport/snapshot/2020/region.srch.html)) and combined it with the public school-level data from the [Texas Education Agency's data](https://rptsvr1.tea.texas.gov/perfreport/account/va/va_correlate.html) used above. I want to explore whether different patterns emerge in these relationships when the data is subset to include small regions with low and high rates of private student attendance.
+How does private school attendance moderate the relationship between race/ethnicity, poverty levels, and educational outcomes? I downloaded the 2019 private school enrollment data from the [Texas Private School Accreditation Commission site](http://www.tepsac.org/app/index.html#/search/archive). I grouped the data by [region](https://rptsvr1.tea.texas.gov/perfreport/snapshot/2020/region.srch.html) and combined it with the public school-level data from the [Texas Education Agency's data](https://rptsvr1.tea.texas.gov/perfreport/account/va/va_correlate.html) used above. I want to explore whether different patterns emerge in these relationships when the data is subset to include small regions with low and high rates of private student attendance.
 
 ```{r, warning=F, message=F}
 # Load 2019 private school data and Filter out pre-K and closed schools
@@ -281,7 +282,7 @@ region <- region %>%
 ```
 
 ## Visualizing Public and Private Schools
-In order to make the comparison more reasonable, I focus on ESC regions with similar `Total Enrollment` that have low and high rates of private school attendance in the region. Thus, the groups of schools I compare later come from the red regions (small regions with rates of private school attendance) and the blue regions (small regions with low rates of private school attendance). I should note that this effort to choose comparable groups of regions does not sufficiently eliminate endogeneity to consider any outcomes causal. This is an exploratory analysis.
+In order to make the comparison more reasonable, I focus on ESC regions with similar `Total Enrollment` that have low and high rates of private school attendance in the region. Thus, the groups of schools I compare later come from the red regions (small regions with rates of private school attendance) and the green regions (small regions with low rates of private school attendance). I should note that this effort to choose comparable groups of regions does not sufficiently eliminate endogeneity to consider any outcomes causal. This is an exploratory analysis.
 ```{r, warning=F, message=F, class.source = 'fold-hide'}
 
 # Scatter and bar plots
@@ -301,8 +302,8 @@ b <- ggplot(region,
 ggarrange(s, b, nrow = 1, common.legend = TRUE, legend = "bottom")
 ```
 
-## Education Outcomes by High and Low Rates of Regional Private School Attendance
-The most notable difference here is that extremely privileged or disadvantaged schools have more extreme values in regions where there are high rates of private school attendance. We can further examine this by directly comparing racial/ethnic groups.
+## Education Outcomes by Low and High Rates of Regional Private School Attendance
+The most notable difference here is that extremely privileged or disadvantaged schools have more extreme values in regions where there are high rates of private school attendance. This is apparent in the relatively steep curves on the extremities of the second plot ("Higher Rates..."). While this data cannot reveal causal relationships, we can say that regions with higher rates of private school attendance have greater inequality among students across students from more and less privileged campuses. We can further examine this by directly comparing racial/ethnic groups.
 
 ```{r, results = "asis", warning=F, message=F, class.source = 'fold-hide'}
 # Low and high private school attendance
@@ -338,9 +339,12 @@ htmltools::tagList(list(ps[[1]], ps[[2]]))
 
 
 
-## Racial/Ethnic Group Comparison by High and Low Rates of Regional Private School Attendance
+## Racial/Ethnic Group Comparison by Low and High Rates of Regional Private School Attendance
 
-The final exploratory analysis takes the same data and slices it into the three racial/ethnic groups for the higher and lower rates of private school attendance in region. Schools in regions with lower private school attendance rates do not tend to have greater overall rates of meeting their grade levels. One interesting pattern in the data is that schools in regions with lower rates of private school attendance have lower within-region inequality among schools. That is to say that extremely privileged (disadvantaged) campuses in regions with many private schools perform far better (worse) than other campuses within their own regions. Privileged (disadvantaged) campuses in regions with lower rates of private schools still perform better (worse); however, these differences within those regions are less extreme.
+The final exploratory analysis takes the same data and slices it into the three racial/ethnic groups for the lower and higher rates of private school attendance in region. There are at least two descriptive takeaways here:
+
+1. Schools in regions with lower private school attendance rates tend to have slightly lower rates of meeting their grade levels, for a given campus-level poverty and racial/ethnic group. This is visible in the fact that the red lines (campuses in regions with higher rates of private attendance) are generally slightly higher than the teal line for each racial/ethnic group plot.   
+2. Schools in regions with higher rates of private school attendance have higher inequality in performance among campuses within each racial/ethnic group. That is to say that extremely disadvantaged campuses in regions with many private schools perform comparatively worse than other campuses in the same subset of data and the same is true for extremely privileged campuses performing much better in regions with higher rates of private schools. 
 
 ```{r, results = "asis", warning=F, message=F}
 campus <- campus %>%
