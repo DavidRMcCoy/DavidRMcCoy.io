@@ -7,8 +7,6 @@ Welcome! I created this simple site as a mini-portfolio for my job search (socia
 You can find the code used to create this site and most of the data (some files are too large) for replicating the analyses at [my GitHub page](https://github.com/DavidRMcCoy/DavidRMcCoy.io).
 
 
-I included these examples to demonstrate that my skill set generalizes beyond political science topics. To learn more, feel free to reach out to me by email or invite me for an interview. 
-
 ## Previews of my Three Code Examples
 
 These three analyses are a mix of pet projects and more developed analyses. They demonstrate that I am comfortable working creatively and competently with data emanating from a wide range of topics and sources, as well as designing creative solutions to answering research questions. The first example focuses most on wrangling and visualizing complex data related to race/ethnicity, poverty, and education outcomes in Texas public schools. The second is most focused on research design and testing hypotheses related to gender equity in Brazilian elections and representation of women's interests in the legislature. The third example is focused on wrangling and joining large, complex data sets, data transformations, and creating niche visualizations of COVID-19 data and Google Community Mobility data. 
